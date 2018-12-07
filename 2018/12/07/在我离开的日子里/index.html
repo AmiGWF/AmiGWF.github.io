@@ -363,7 +363,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2018/12/07/在我离开的日子里/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/07/在我离开的日子里/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/12/07/在我离开的日子里/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -411,7 +411,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/念/" rel="tag"># 念</a>
+            <a href="/tags/念/" rel="tag"><i class="fa fa-tag"></i> 念</a>
           
         </div>
       
@@ -447,7 +447,11 @@
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2018/12/07/在我离开的日子里/" data-title="在我离开的日子里" data-url="http://yoursite.com/2018/12/07/在我离开的日子里/">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
       </div>
     </div>
 
@@ -542,7 +546,7 @@
                   <span class="links-of-author-item">
                     <a href="https://www.jianshu.com/u/5fc52e9721dc" target="_blank" title="简书">
                       
-                        <i class="fa fa-fw fa-envelope"></i>简书</a>
+                        <i class="fa fa-fw fa-globe"></i>简书</a>
                   </span>
                 
             </div>
@@ -713,33 +717,39 @@
 
   
 
+
   
+
     
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"你想对我说什么呢？"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-
-  
+      <script id="dsq-count-scr" src="https://你想对我说什么呢？.disqus.com/count.js" async></script>
     
+
     
-    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/js/src/hook-duoshuo.js"></script>
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/12/07/在我离开的日子里/';
+          this.page.identifier = '2018/12/07/在我离开的日子里/';
+          this.page.title = '在我离开的日子里';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://你想对我说什么呢？.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
   
 
 
 
 
+	
+
+
+
+
+
+  
 
 
 
