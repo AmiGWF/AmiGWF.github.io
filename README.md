@@ -17,7 +17,7 @@ hexo new "文章名称"
 ```
 - 习惯性清理 ：
 ```
-hexo clear
+hexo clean
 ```
 - 生成静态页面 ：
 ```
