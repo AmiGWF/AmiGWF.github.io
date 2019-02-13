@@ -15,6 +15,10 @@ npm install hexo --save
 ```
 hexo new "文章名称"
 ```
+- 习惯性清理 ：
+```
+hexo clear
+```
 - 生成静态页面 ：
 ```
 hexo g
