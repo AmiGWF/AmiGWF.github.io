@@ -1,0 +1,904 @@
+---
+title: 基础知识点合集(1)
+copyright: true
+date: 2019-02-13 18:39:29
+tags:
+- Java
+categories:
+- Java
+---
+## 目录 ##
+
+* [1. Properties](#1)
+* [2. 设计模式-代理模式](#2)
+* [3. 反射(Reflection)](#3)
+    * [3.1 关键类：Class类](#3.1)
+    * [3.2 反射的使用](#3.2)
+* [4. 锁机制](#4)
+    * [4.1 synchronized](#4.1)
+    * [4.2 ReentrantLock](#4.2)    
+       
+
+
+<!-- more -->
+
+<h2 id="1">一.Properties</h2>
+
+**1.基础-使用方法**
+**例1：假如assets文件夹下，存在一个名为：YourName.properties的文件，我们通过下面的方式读取文件中的参数.**
+
+- **文件内容**
+```
+YourKey1=1
+YourKey2=BDC
+YourKey3=true
+```
+
+- **读取方式**
+```java
+try {
+	Properties properties = new Properties();
+	InputStream inputStream = this.getAssets().open("YourName.properties");
+	properties.load(inputStream);
+	Log.d(TAG, properties.get("YourKey"));
+	 catch (IOException e) {
+	e.printStackTrace();
+}
+```
+- **key值获取方式**
+因为Properties继承自Hashtable,所以最终的获取方式还是和Hashtable中通过键值对的方式获取
+```java
+public synchronized V get(Object key) {
+        int hash = Collections.secondaryHash(key);
+        HashtableEntry<K, V>[] tab = table;
+        for (HashtableEntry<K, V> e = tab[hash & (tab.length - 1)];
+                e != null; e = e.next) {
+            K eKey = e.key;
+            if (eKey == key || (e.hash == hash && key.equals(eKey))) {
+                return e.value;
+            }
+        }
+        return null;
+    }
+```
+
+---
+<h2 id="2">二.设计模式-代理模式</h2>
+
+**1.静态代理**
+**自我理解：静态代理就是由基础类提供统一的接口，实现类实现接口并完成具体的逻辑，代理类实现接口但并不再去修改具体实现逻辑，只是利用拥有的实现类的对象，调用相应的接口.**
+
+- **基础类：提供统一接口**
+```java
+public interface MBaseInterface {
+	public void readProxyName();
+	
+	public void writeProxyName(String name);
+	
+	public void findProxyName();
+	
+	public void findProxyName(Object o);
+
+	}
+```
+- **实现类：实现具体逻辑** 
+```java
+public class MBaseImpl implements MBaseInterface{
+
+	@Override
+	public void readProxyName() {
+		Log.d("MBaseImpl", ""+this.getClass().getSimpleName()+".readProxyName");
+	}
+
+	@Override
+	public void writeProxyName(String name) {
+		Log.d("MBaseImpl", ""+this.getClass().getSimpleName()+".writeProxyName : "+name);
+	}
+
+	@Override
+	public void findProxyName() {
+		Log.d("MBaseImpl", ""+this.getClass().getSimpleName()+".findProxyName");
+	}
+
+	@Override
+	public void findProxyName(Object o) {
+		Log.d("MBaseImpl", ""+this.getClass().getSimpleName()+".findProxyName : "+o);
+	}
+
+	}
+```
+
+- **静态代理类：利用实现类的实例调用接口**
+```java
+public class MBaseImplProxy implements MBaseInterface{
+	private MBaseInterface mBase;
+	
+	public MBaseImplProxy(MBaseInterface mInterface){
+		this.mBase = mInterface;
+	}
+
+	@Override
+	public void readProxyName() {
+		mBase.readProxyName();
+	}
+
+	@Override
+	public void writeProxyName(String name) {
+		mBase.writeProxyName(name);
+	}
+
+	@Override
+	public void findProxyName() {
+		mBase.findProxyName();
+	}
+
+	@Override
+	public void findProxyName(Object o) {
+		mBase.findProxyName(o);
+	}
+
+	}
+```
+
+---
+**2.动态代理**
+**自我理解 : 动态代理只能代理接口，不支持抽象类的代理，并且代理类要实现InvocationHandler接口，并通过反射机制，在运行时动态的决定代理对象.**
+
+- **动态代理类**
+```java
+public class ProxyHandler implements InvocationHandler {
+	private Object object;
+
+	public Object getProxyInstance(Object o) {
+		this.object = o;
+		return Proxy.newProxyInstance(o.getClass().getClassLoader(), o
+				.getClass().getInterfaces(), this);
+	}
+
+	@Override
+	public Object invoke(Object proxy, Method method, Object[] args)
+			throws Throwable {
+		Object obj = null;
+		try {
+			Log.d("ProxyHandler", "method : " + method.toString());
+			obj = method.invoke(object, args);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return obj;
+	}
+	}
+```
+
+- **接口分析: java.lang.reflect.InvocationHandler**
+
+1. InvocationHandler接口中只有一个方法：invoke;
+2. proxy：表示代理;
+3. method：表示原对象中被调用的方法(即上面MBaseImpl中的方法);
+4. args：表示方法参数.
+```java
+public interface InvocationHandler {
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable;
+} 
+```
+
+- **代理分析**
+1. newProxyInstance为获取一个代理对象，上面的ProxyHandler$getProxyInstance方法最终返回的是一个代理对象;
+2. loader：代理对象的类加载器，需要将其指定为和目标对象同一个加载器;
+3. interfaces：代理对象的接口，即目标对象的所有接口;
+4. h:上述方法被拦截时，需要执行哪一个InvocationHandler的invoke方法，根据传入的目标返回一个代理对象.
+```java
+public static Object newProxyInstance(ClassLoader loader,
+            Class<?>[] interfaces, InvocationHandler h)
+            throws IllegalArgumentException {
+        if (h == null) {
+            throw new NullPointerException("h == null");
+        }
+        try {
+            return getProxyClass(loader, interfaces).getConstructor(
+                    new Class<?>[] { InvocationHandler.class }).newInstance(
+                    new Object[] { h });
+        } catch (NoSuchMethodException ex) {
+            throw (InternalError) (new InternalError(ex.toString())
+                    .initCause(ex));
+        } catch (IllegalAccessException ex) {
+            throw (InternalError) (new InternalError(ex.toString())
+                    .initCause(ex));
+        } catch (InstantiationException ex) {
+            throw (InternalError) (new InternalError(ex.toString())
+                    .initCause(ex));
+        } catch (InvocationTargetException ex) {
+            Throwable target = ex.getTargetException();
+            throw (InternalError) (new InternalError(target.toString())
+                    .initCause(target));
+        }
+    }
+```
+
+- **客户端实现**
+```java
+//静态代理
+MBaseInterface mInterface =  new MBaseImplProxy(new MBaseImpl());
+mInterface.readProxyName();
+mInterface.writeProxyName("proxy");
+mInterface.findProxyName();
+mInterface.findProxyName(1);
+		
+//动态代理
+ProxyHandler pHandler = new ProxyHandler();
+MBaseInterface mInterface2 = (MBaseInterface) pHandler.getProxyInstance(new MBaseImpl());
+mInterface2.readProxyName();
+mInterface2.writeProxyName("proxy");
+mInterface2.findProxyName();
+mInterface2.findProxyName(2);
+```
+
+- **静态代理图示**
+![静态代理图示](http://i.imgur.com/a2P3vnQ.png)
+
+- **动态代理图示**
+![动态代理图示](http://i.imgur.com/XC851p0.png)
+
+
+
+---
+
+<h2 id="3"> 三.反射(Reflection) </h2>
+
+**自我理解 ：反射主要是指程序可以访问、检测和修改自身的状态或者行为的一种能力，通过对应的全路径类名、函数名、变量名来获取并执行、改变一些不能直接调用的函数，达到程序期望的效果.**
+
+<h3 id="3.1"> 3.1 关键类：Class类 </h3>
+
+
+**Class类的获取方式有很多，一般在反射中我们使用的==Class.forName==的方式来获取Class对象,Class类中包含很多我们在反射中需要用的方法，这些方法获取到的函数有修饰域的限制，注意使用时的选择.**
+
+
+**1. 构造方法的获取**
+```java
+根据构造函数的参数，返回一个具体的具有public属性的构造函数
+Constructor getConstructor(Class[] params)    
+
+返回所有具有public属性的构造函数数组
+Constructor getConstructors()    
+　　　 　
+根据构造函数的参数，返回一个具体的构造函数（不分public和非public属性）
+Constructor getDeclaredConstructor(Class[] params)   
+
+返回该类中所有的构造函数数组（不分public和非public属性）
+Constructor getDeclaredConstructors()    
+```
+
+**2. 成员方法的获取**
+```java
+根据方法名和参数，返回一个具体的具有public属性的方法
+Method getMethod(String name, Class[] params)   
+
+返回所有具有public属性的方法数组
+Method[] getMethods()   
+
+根据方法名和参数，返回一个具体的方法（不分public和非public属性）
+Method getDeclaredMethod(String name, Class[] params)   
+　　　　
+返回该类中的所有的方法数组（不分public和非public属性）
+Method[] getDeclaredMethods()   
+```
+
+**3. 成员变量(属性)的获取**
+```java
+根据变量名，返回一个具体的具有public属性的成员变量
+Field getField(String name)   
+
+返回具有public属性的成员变量的数组
+Field[] getFields()   
+
+根据变量名，返回一个成员变量（不分public和非public属性）
+Field getDeclaredField(String name)   
+
+返回所有成员变量组成的数组（不分public和非public属性）
+Field[] getDelcaredField()   
+```
+
+**4. Object 对象和 invoke 方法**
+```java
+Oject对象的获取方式可分为以下两种:
+    1. 通过Class对象获取
+         Object o1 = class.newInstance();
+    
+    2. 通过构造函数Constructor获取,其中是可变参数，根据构造函数的参数传递
+         Object o2 = cons.newInstance(Object... args);
+    
+public native Object invoke(Object receiver, Object... args)方法
+    receiver:作为接收对象，被底层方法调用
+    
+    args：可变参数，根据方法的参数传递
+    
+    invoke(obj,new Object[]{你要执行的方法所对应的参数})
+    invoke(obj,new Object[]{"Sync",99})
+```
+
+---
+<h3 id="3.2"> 3.2 反射的使用 </h3>
+
+**1. 基础类1**
+**MReflectionBase中提供private构造方法、private参数和public函数.**
+```java
+public class MReflectionBase {
+    private static final String TAG = "MReflectionBase";
+    private boolean mCanReflec = true;
+    public String mReflecStr = "Java Reflection";
+
+    private MReflectionBase() {
+    }
+
+    public String getmReflecStr() {
+        Log.d(TAG, "getmReflecStr is run  " + mReflecStr);
+        return mReflecStr;
+    }
+
+    public void setmReflecStr(String mReflecStr) {
+        Log.d(TAG, "setmReflecStr is run  " + mReflecStr);
+        this.mReflecStr = mReflecStr;
+    }
+
+    public void canReflec(){
+        if(mCanReflec){
+            Log.d(TAG, "mCanReflec  success : " + mCanReflec);
+        }else{
+            Log.d(TAG, "mCanReflec failuer :  " + mCanReflec);
+        }
+    }
+}
+```
+**2. 实现类1**
+**注意MReflectionBase中包含私有的函数及变量.**
+```java
+public static void run1() {
+        try {
+            Class c1 = Class.forName("com.wd.javalib.reflec.MReflectionBase");
+
+            Constructor constructor = c1.getDeclaredConstructor(new Class[0]);
+            //私有的构造函数，所以setAccessible(true)
+            constructor.setAccessible(true);
+            Object o1 = constructor.newInstance(new Object[0]);
+
+            Method m1 = c1.getDeclaredMethod("getmReflecStr");
+            m1.invoke(o1,new Object[0]);
+
+            Method m2  = c1.getDeclaredMethod("setmReflecStr",String.class);
+            m2.invoke(o1,"change to mReflec success");
+
+            //before
+            Method m3 = c1.getMethod("canReflec");
+            m3.invoke(o1,new Object[0]);
+
+            //after
+            Field f1 = c1.getDeclaredField("mCanReflec");
+            //java.lang.IllegalAccessException: Cannot access field: boolean com.wd.javalib.reflec.MReflectionBase.mCanReflec
+            f1.setAccessible(true);
+            f1.set(o1,false);
+            m3.invoke(o1,new Object[0]);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+**输出结果**
+从结果中可以看出，我们对方法的调用、变量的修改都起到了作用:
+```java
+D/MReflectionBase: getmReflecStr is run  Java Reflection
+D/MReflectionBase: setmReflecStr is run  change to mReflec success
+D/MReflectionBase: mCanReflec  success : true
+D/MReflectionBase: mCanReflec failuer :  false
+```
+
+---
+**3. 基础类2** 
+**继承自MReflectionBase，剩下就是简单的实现.**
+```java
+public class MReflectionImpl extends MReflectionBase {
+    private static final String TAG = "MReflectionImpl";
+    private int mReflecNum;
+
+    public MReflectionImpl() {
+        Log.d(TAG, "MReflectionImpl  contructor with empty ");
+        mReflecNum = 0;
+    }
+
+    public MReflectionImpl(int var0) {
+        Log.d(TAG, "MReflectionImpl  contructor with int  var0 : " + var0);
+        mReflecNum = var0;
+    }
+
+    public MReflectionImpl(int var1, String var2) {
+        Log.d(TAG, "MReflectionImpl  contructor with int and string  var1 : " + var1 + ",  var2 : " + var2);
+        mReflecNum = var1;
+    }
+
+    public void getReflecMess() {
+        Log.d(TAG, "MReflectionImpl getReflecMess is run ");
+    }
+
+    public void getReflecMess(String var3) {
+        Log.d(TAG, "MReflectionImpl getReflecMess is run  with var3 : " + var3);
+    }
+
+    public void getReflecMess(String var3, int var4) {
+        Log.d(TAG, "MReflectionImpl getReflecMess is run  with var3 : " + var3 + ",   var4 : " + var4);
+    }
+
+    public int getmReflecNum() {
+        Log.d(TAG, "MReflectionImpl getmReflecNum is run ");
+        return mReflecNum;
+    }
+
+    private void setmReflecNum(int var4, int var5) {
+        Log.d(TAG, "MReflectionImpl private  setmReflecNum  is run   var4 : " + var4 + ", var5 " + var5);
+        this.mReflecNum = var4;
+    }
+
+    public void setmReflecNum(int var4) {
+        Log.d(TAG, "MReflectionImpl public  setmReflecNum  is run   var4 : " + var4);
+        this.mReflecNum = var4;
+    }
+}
+```
+
+**4. 实现类 2**
+**run2列举了通过不同的方式获取构造函数、成员函数的具体实例，可以比较清晰的了解反射使用的方式.**
+```java
+public static void run2() {
+        try {
+            Class var0;
+            Object var1 = (var0 = Class.forName("com.wd.javalib.reflec.MReflectionImpl")).newInstance();
+            
+            //不同参数的构造方法
+            Object var2 = var0.getDeclaredConstructor().newInstance();
+            Object var3 = var0.getDeclaredConstructor(new Class[]{int.class}).newInstance(new Object[]{100});
+            Object var4 = var0.getDeclaredConstructor(new Class[]{int.class,String.class}).newInstance(new Object[]{200,"this is newInstance"});
+
+            //不同参数的函数
+            Method var5 = var0.getDeclaredMethod("getReflecMess",new Class[0]);
+            var5.invoke(var1,new Object[0]);
+            Method var6 = var0.getDeclaredMethod("getReflecMess",new Class[]{String.class});
+            //var6.invoke(var1,"you can input words");
+            var6.invoke(var1,new Object[]{"you can input here"});
+            Method var7 = var0.getDeclaredMethod("getReflecMess",new Class[]{String.class,int.class});
+            var7.invoke(var1,new Object[]{"you can input num for int type",2});
+
+            //私有
+            Method var8 = var0.getDeclaredMethod("setmReflecNum",new Class[]{int.class,int.class});
+            var8.setAccessible(true);
+            var8.invoke(var1,new Object[]{300,400});
+            //共有
+            Method var9 = var0.getDeclaredMethod("setmReflecNum",new Class[]{int.class});
+            var9.invoke(var1,new Object[]{500});
+
+            //获取该类中所有的方法(public & private)
+            Method[] var10 = var0.getDeclaredMethods();
+            for(Method m : var10){
+                Log.d(TAG,"-------Method Name : " + m.getName() + ",  mod : "+ Modifier.toString(m.getModifiers()));
+            }
+
+            //获取所有的public方法，不局限于该类
+            Method[] var11 = var0.getMethods();
+            for(Method m : var11){
+                Log.d(TAG,"Method Name : " + m.getName() + ",  mod : "+ Modifier.toString(m.getModifiers()));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+---
+<h2 id="4"> 四.锁机制 </h2>
+
+<h4 id="4.1"> 4.1 synchronized(同步) </h4>
+
+**synchronized是Java中的关键字，是一种同步锁，当他用来修饰一个方法或者一个代码块时，能够保证同一时刻最多只有一个线程执行该段代码.synchronized修饰的对象大致可以分为以下几种：**
+
+修饰范围      | 别称       | 作用范围           | 作用对象
+---           | ---        | ---                | ---
+修饰代码块    | 同步语句块 | 大括号{}里面的代码 | 调用该段代码的对象
+修饰方法      | 同步方法   | 整个方法           | 调用该方法的对象
+修饰静态方法  | ***        | 整个静态方法       | 该静态方法所属类的所有对象
+修饰类        | ***        | 整个类             | 该类的所有对象
+
+- **测试方法1：修饰代码块**
+```java
+public class MReentrantLockBase implements Runnable {
+    private static final String TAG = "MReentrantLockBase";
+    int lockCount = 0;
+
+    @Override
+    public void run() {
+        synchronized (this) {
+            for (int i = 0; i < 3; i++) {
+                Log.d(TAG, "thread : " + Thread.currentThread().getName() + ", lockCount : " + (lockCount++));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+//开始调用
+MReentrantLockBase lockBase =  new MReentrantLockBase();
+Thread var0  = new Thread(lockBase,"lockThread1");
+Thread var1  = new Thread(lockBase,"lockThread2");
+var0.start();
+var1.start();
+```
+- **执行结果1**
+```java
+07-09 13:08:25.339 D/MReentrantLockBase: thread : lockThread1, lockCount : 0
+07-09 13:08:26.340 D/MReentrantLockBase: thread : lockThread1, lockCount : 1
+07-09 13:08:27.341 D/MReentrantLockBase: thread : lockThread1, lockCount : 2
+07-09 13:08:28.343 D/MReentrantLockBase: thread : lockThread2, lockCount : 3
+07-09 13:08:29.344 D/MReentrantLockBase: thread : lockThread2, lockCount : 4
+07-09 13:08:30.346 D/MReentrantLockBase: thread : lockThread2, lockCount : 5
+```
+> 从执行结果来看，线程1调用代码块全部执行结束之后，线程2才开始执行，保持先后执行的顺序.
+
+---
+- **测试方法2：修饰整个方法**
+```java
+public class MReentrantLockBase implements Runnable {
+    private static final String TAG = "MReentrantLockBase";
+    int lockCount = 0;
+    public synchronized void run() {
+            for (int i = 0; i < 3; i++) {
+                Log.d(TAG, "thread : " + Thread.currentThread().getName() + ", lockCount : " + (lockCount++));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+//开始调用
+MReentrantLockBase lockBase =  new MReentrantLockBase();
+Thread var0  = new Thread(lockBase,"lockThread1");
+Thread var1  = new Thread(lockBase,"lockThread2");
+var0.start();
+var1.start();
+```
+- **执行结果2**
+```java
+07-10 18:44:56.043  D/MReentrantLockBase: thread : lockThread1, lockCount : 0
+07-10 18:44:57.043  D/MReentrantLockBase: thread : lockThread1, lockCount : 1
+07-10 18:44:58.043  D/MReentrantLockBase: thread : lockThread1, lockCount : 2
+07-10 18:44:59.044  D/MReentrantLockBase: thread : lockThread2, lockCount : 3
+07-10 18:45:00.045  D/MReentrantLockBase: thread : lockThread2, lockCount : 4
+07-10 18:45:01.045  D/MReentrantLockBase: thread : lockThread2, lockCount : 5
+```
+> 同样的执行代码，只是synchronized的位置不同，同步代码块和同步方法执行结果一致,锁住的是传入的对象.
+
+---
+
+- **测试方法3：修饰静态方法**
+```java
+public class MSyncHronized{
+public static synchronized void syncA(){
+		for (int i = 0; i < 3; i++) {
+			Log.d("msync", "syncA is run : "+i);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+//开始调用
+final MSyncHronized mHronized = new MSyncHronized();
+final MSyncHronized mHronized1 = new MSyncHronized();
+		
+Thread t1 = new Thread(new Runnable() {
+	@Override
+	public void run() {
+		mHronized.syncA();
+	}
+});
+t1.start();
+	
+Thread t2 = new Thread(new Runnable() {
+	@Override
+	public void run() {
+		mHronized1.syncA();
+	}
+});
+t2.start();
+```
+- **执行结果3**
+```java
+07-11 10:30:26.438 4027-4068/ D/msync: syncA is run : 0
+07-11 10:30:27.438 4027-4068/ D/msync: syncA is run : 1
+07-11 10:30:28.438 4027-4068/ D/msync: syncA is run : 2
+07-11 10:30:29.440 4027-4069/ D/msync: syncA is run : 0
+07-11 10:30:30.440 4027-4069/ D/msync: syncA is run : 1
+07-11 10:30:31.440 4027-4069/ D/msync: syncA is run : 2
+```
+
+> 使用static synchronized修饰方法，由于static的方法是属于类的，虽然mHronized、mHronized1是MSyncHronized的两个不同的对象，但是执行时t1、t2保持了线程同步，所以mHronized、mHronized1相当于持有的是同一把锁.
+
+---
+- **测试方法4：修饰类对象**
+```java
+public class MSyncClazz implements Runnable {
+
+	@Override
+	public void run() {
+		synchronized (MSyncClazz.class) {
+			for (int i = 0; i < 3; i++) {
+				Log.d("msync", Thread.currentThread().getName()+"  MSyncClazz is run : " + i);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+}
+
+//开始调用
+MSyncClazz clazz = new MSyncClazz();
+Thread var0 = new Thread(clazz, "clazz1");
+Thread var1 = new Thread(clazz, "clazz2");
+		
+var0.start();
+var1.start();
+```
+- **执行结果4**
+```java
+07-11 12:18:28.420 24057-24091/ D/msync: clazz1  MSyncClazz is run : 0
+07-11 12:18:29.421 24057-24091/ D/msync: clazz1  MSyncClazz is run : 1
+07-11 12:18:30.421 24057-24091/ D/msync: clazz1  MSyncClazz is run : 2
+07-11 12:18:31.422 24057-24092/ D/msync: clazz2  MSyncClazz is run : 0
+07-11 12:18:32.422 24057-24092/ D/msync: clazz2  MSyncClazz is run : 1
+07-11 12:18:33.422 24057-24092/ D/msync: clazz2  MSyncClazz is run : 2
+```
+> 使用synchronized修饰类用法是：synchronized (MSyncClazz.class){},并不是把synchronized放在类名上面，从打印日志可以看出，c1,c2同样是MSyncClazz的对象，然后var0、var1也保持了线程同步，这样也就相当于c1、c2也持有同一把锁，也就是synchronized作用于类，该类的所有对象都会同步
+
+---
+**注意事项:**
+1. synchronized关键字不能继承如果服了的某个方法是synchronized修饰的，子类重写该方法并不是同步的，除非加上该关键字，或者显 >     示的调用父类的方法，super.merhod();
+2. 定义接口是不能使用synchronized的关键字;
+3. 构造方法不能使用synchronized关键字，但可以使用synchronized代码块来进行同步.
+
+<h4 id="4.2"> 4.2 ReentrantLock(可重入锁) </h4>
+
+**1. 初步理解**
+1. ReentrantLock从源码来看，其实并没有做很多实际的东西，虽然实现了Lock接口，但是其内部有一个抽象的
+2. Sync类，调用ReentrantLock的lock()方法，最终内部实现也是sync.lock()，值得关注的是Sync也是继承自
+3. 抽象类AbstractQueuedSynchronizer，再往上延伸至抽象类AbstractOwnableSynchronizer。
+
+**2. 关注点**
+1. 接口调用 ： lock() 与 unLock() 一定要成对调用，否则容易造成死锁;
+2. Condition条件的获取 ： Condition c=lock.newCondition()，
+最终返回的AbstractQueuedSynchronizer$ConditionObject对象，Condition只是一个接口;
+3. Condition接口signal()信号 和 await() 等待的配合使用;
+
+**3.1 源码浅析 : RentrantLock**
+```java
+public class ReentrantLock implements Lock, java.io.Serializable {
+...
+    //内部类
+    abstract static class Sync extends AbstractQueuedSynchronizer {
+        abstract void lock();
+    }
+    
+    //内部类-非公平的
+    static final class NonfairSync extends Sync {
+        final void lock() {
+            if (compareAndSetState(0, 1))
+                setExclusiveOwnerThread(Thread.currentThread());
+            else
+                acquire(1);
+        }
+    }
+    
+    //内部类-公平的
+    static final class FairSync extends Sync {
+         final void lock() {
+            acquire(1);
+        }
+    }
+    
+    //构造方法 
+    public ReentrantLock() {
+        sync = new NonfairSync();
+    }
+    
+     public void lock() {
+        sync.lock();
+    }
+    
+     public void unlock() {
+        sync.release(1);
+    }
+    
+     public Condition newCondition() {
+        return sync.newCondition();
+    }
+}
+```
+
+**3.2 源码浅析 : Condition**
+```java
+public abstract class AbstractQueuedSynchronizer
+    extends AbstractOwnableSynchronizer
+    implements java.io.Serializable {
+    
+    public class ConditionObject implements Condition, java.io.Serializable {
+    //发送信号
+    public final void signal() {
+            if (!isHeldExclusively())
+                throw new IllegalMonitorStateException();
+            Node first = firstWaiter;
+            if (first != null)
+                doSignal(first);
+        }
+    
+    //等待
+    public final void await() throws InterruptedException {
+            if (Thread.interrupted())
+                throw new InterruptedException();
+            Node node = addConditionWaiter();
+            int savedState = fullyRelease(node);
+            int interruptMode = 0;
+            while (!isOnSyncQueue(node)) {
+                LockSupport.park(this);
+                if ((interruptMode = checkInterruptWhileWaiting(node)) != 0)
+                    break;
+            }
+            if (acquireQueued(node, savedState) && interruptMode != THROW_IE)
+                interruptMode = REINTERRUPT;
+            if (node.nextWaiter != null) // clean up if cancelled
+                unlinkCancelledWaiters();
+            if (interruptMode != 0)
+                reportInterruptAfterWait(interruptMode);
+        }
+    
+    }
+}
+
+```
+**4. 利弊的选择**
+
+- **synchronized获得内部锁的局限性**
+1. 不能中断一个正在试图获得锁的线程;
+2. 试图获得锁的时不能像tryLock一样设置超时时间;
+3. 每个锁只有单一的条件，不能像condition一样设置多个.
+
+- **synchronized与reentrantLock的选择(简单建议)**
+1. 如果synchronized关键字适合程序，可以优先选择，这样会减少错误率和代码量;
+2. 如果特定的情形需要使用Lock&Condition结合的情况则使用.
+
+**5. ReentrantLock简单实例**
+
+- **描述**
+> 两个线程，A先输出1-3，然后通知B输出4-6，然后通知A再输出7-9，最后结束.
+
+- **示例**
+```java
+public class MReentrantLockBase {
+	protected static final String TAG = "MReentrantLockBase";
+
+	/**
+	 * 实现从1-9日志输出， 线程1从1-3输出， 然后通知线程2从4-6输出， 然后再通知线程1从7-9输出.
+	 */
+	static int out = 0;
+
+	public static void reentLock() {
+		final Lock lock = new ReentrantLock();
+		// 条件1：输出1-3之后发出通知
+		final Condition c1 = lock.newCondition();
+		// 条件2：输出4-6之后发出通知
+		final Condition c2 = lock.newCondition();
+
+		Thread t1 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Log.d(TAG, "第一次    t1 进入准备输出-------");
+					lock.lock();
+					while (out < 3) {
+						out++;
+						Log.d(TAG, "t1   输出数字   " + out);
+					}
+					// 通知t2可以执行
+					c1.signal();
+					Log.d(TAG, "t1   c1.signal()");
+					// 等待t2执行结束的消息
+					c2.await();
+					Log.d(TAG, "t1   c2.await()");
+					Log.d(TAG, "第二次   t1 准备输出-------");
+					while (out < 9) {
+						out++;
+						Log.d(TAG, "t1   输出数字   " + out);
+					}
+
+					Log.d(TAG, "t1输出结束-------");
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} finally {
+					lock.unlock();
+				}
+			}
+		});
+
+		Thread t2 = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					Log.d(TAG, "第一次    t2 进入准备输出-------");
+					lock.lock();
+					if (out < 3) {
+						//等待t1结束的消息
+						Log.d(TAG, "t2   c1.await()");
+						c1.await();
+					}
+
+					Log.d(TAG, "第一次    t2 等待结束-------");
+					while (out < 6) {
+						out++;
+						Log.d(TAG, "t2   输出数字   " + out);
+					}
+					c2.signal();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} finally {
+					lock.unlock();
+				}
+
+			}
+		});
+
+		t1.start();
+		t2.start();
+	}
+}
+```
+- **结果**
+```java
+07-12 13:22:18.694 22567-22582/? D/MReentrantLockBase: 第一次    t1 进入准备输出-------
+07-12 13:22:18.694 22567-22582/? D/MReentrantLockBase: t1   输出数字   1
+07-12 13:22:18.694 22567-22582/? D/MReentrantLockBase: t1   输出数字   2
+07-12 13:22:18.694 22567-22582/? D/MReentrantLockBase: t1   输出数字   3
+07-12 13:22:18.694 22567-22582/? D/MReentrantLockBase: t1   c1.signal()
+07-12 13:22:18.695 22567-22583/? D/MReentrantLockBase: 第一次    t2 进入准备输出-------
+07-12 13:22:18.695 22567-22583/? D/MReentrantLockBase: 第一次    t2 等待结束-------
+07-12 13:22:18.695 22567-22583/? D/MReentrantLockBase: t2   输出数字   4
+07-12 13:22:18.695 22567-22583/? D/MReentrantLockBase: t2   输出数字   5
+07-12 13:22:18.695 22567-22583/? D/MReentrantLockBase: t2   输出数字   6
+07-12 13:22:18.695 22567-22582/? D/MReentrantLockBase: t1   c2.await()
+07-12 13:22:18.695 22567-22582/? D/MReentrantLockBase: 第二次   t1 准备输出-------
+07-12 13:22:18.695 22567-22582/? D/MReentrantLockBase: t1   输出数字   7
+07-12 13:22:18.696 22567-22582/? D/MReentrantLockBase: t1   输出数字   8
+07-12 13:22:18.696 22567-22582/? D/MReentrantLockBase: t1   输出数字   9
+07-12 13:22:18.696 22567-22582/? D/MReentrantLockBase: t1输出结束-------
+```
+- **结果分析:**
+1. 两个线程t1、t2，当t1输出结束后，通过前面获取的condition.signal()来发送信号，告诉t2"我执行完了，该轮到你了"，这时候t2不再等待，开始进行输出，完成后像前面一样发送signal来通知t1"又到你输出了---";
+
+2. 在线程t2中有个条件判断使得t2一直是在等待状态，等待信号的到来，收到信号后便可执行任务，两个线程的信号发送和接收情况简单如下：
+   (1) t1线程中 : t1执行任务结束后，c1.signal()发送信号告诉t2中的的c1.await()，你可以不用等待了，开始执行任务吧，然后t1中的c2.await()等待线程t2发送信号过来，t1第一阶段结束;
+    
+   (2) t2线程中 : t2中的c1.await()收到了信号，开始执行任务，执行完成后c2.signal()发送消息给t1
+   线程，你也不用等待了，可以执行任务了,t2结束;
+   
+   (3) t1中的c2.await()收到了来自t2的消息，再次执行任务,完成后t1第二阶段结束.
