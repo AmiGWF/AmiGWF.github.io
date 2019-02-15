@@ -40,10 +40,10 @@ System.getProperty("sun.boot.class.path")
 ```
 
 **(2). ExtClassLoader**
-**扩展类加载器**，负责加载Java的扩展类库，默认加载**jdk_xxx/jre/lib/ext**目录下的jar和class(还可以加载-D java.ext.dirs选项指定的目录)
+**扩展类加载器**，负责加载Java的扩展类库，默认加载**jdk_xxx/jre/lib/ext**目录下的jar和class(还可以加载-D java.ext.dirs选项指定的目录).
 
 **(3). AppClassLoader**
-**系统类加载器**，负责加载应用程序classpath目录下所有的jar和class
+**系统类加载器**，负责加载应用程序classpath目录下所有的jar和class.
 
 **(4). 不同加载器之间的区别**
 1.  除了Java默认提供的三个ClassLoader之外，用户还可以根据自身需要自定义ClassLoader，但是必须继承自`java.lang.ClassLoader，上面提到的ExtClassLoader和AppClassLoader也都是继承自java.lang.ClassLoader`;
@@ -53,7 +53,7 @@ System.getProperty("sun.boot.class.path")
 3.  以上三个ClassLoader的加载顺序为：`Bootstrap ClassLoader --> ExtClassLoader --> AppClassLoader`.
 
 **(5). 源码解析**
-- **1. sun.misc.Launcher : Java虚拟机的入口;**
+- **1. sun.misc.Launcher : Java虚拟机的入口**
 ```java
 private static Launcher launcher = new Launcher();
 private static String bootClassPath = System.getProperty("sun.boot.class.path");
