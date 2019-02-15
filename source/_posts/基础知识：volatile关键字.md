@@ -3,7 +3,9 @@ title: 基础知识：volatile关键字
 copyright: true
 date: 2019-02-14 21:01:12
 tags:
+- Java
 categories:
+- Java
 ---
 
 **1. 要了解volatile关键字，我们就先要知道Java内存模型中的基本概念。**
