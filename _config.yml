@@ -14,7 +14,7 @@ timezone: Asia/shanghai
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 #url: https://amigwf.github.io/
-url: https://www.syncxiao.com/2018/12/12/Maybes/
+url: https://www.syncxiao.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
