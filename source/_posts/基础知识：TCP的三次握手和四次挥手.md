@@ -3,7 +3,7 @@ title: 基础知识：TCP的三次握手和四次挥手
 copyright: true
 date: 2019-02-21 19:23:54
 tags:
-- Java
+- TCP
 categories:
 - Java
 ---

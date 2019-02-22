@@ -3,7 +3,7 @@ title: '基础知识: HTTPS'
 copyright: true
 date: 2019-02-21 18:31:22
 tags:
-- Java
+- https
 categories:
 - Java
 ---
@@ -12,8 +12,6 @@ categories:
 HTTPS（Hypertext Transfer Protocol Secure)即超文本传输安全协议，是以安全为目标的HTTP通道，简单讲是HTTP的安全版，即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。
 
 <!-- more -->
-
-
 
 **2. HTTPS和HTTP的区别** 
 
@@ -67,7 +65,3 @@ HTTPS（Hypertext Transfer Protocol Secure)即超文本传输安全协议，是�
 4. SSL证书通常需要绑定IP，不能在同一IP上绑定多个域名，IPv4资源不可能支撑这个消耗。　　
 
 5. HTTPS协议的加密范围也比较有限，在黑客攻击、拒绝服务攻击、服务器劫持等方面几乎起不到什么作用。最关键的，SSL证书的信用链体系并不安全，特别是在某些国家可以控制CA根证书的情况下，中间人攻击一样可行。
-
-
-
-

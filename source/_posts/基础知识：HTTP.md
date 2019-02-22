@@ -3,12 +3,13 @@ title: 基础知识：HTTP
 copyright: true
 date: 2019-02-18 19:41:04
 tags:
-- Java
+- http
 categories:
 - Java
 ---
 
 ## 1. HTTP简介
+
 - HTTP即超文本传输协议(Hyper Text Transfer Protocol)，是用于从万维网(www)服务器传输超文本到本地浏览器的一种传输协议。
 - 基于TCP/IP通信协议来传递数据。
 - 属于应用层的面向对象的协议。
@@ -16,6 +17,7 @@ categories:
 <!-- more -->
 
 ## 2. HTTP的特点
+
 - **简单快速：**客户端向服务端请求时只需要传送请求方法和路径，常用的请求方法有GET、POST、HEAD，每种方法规定了客户端和服务器联系的类型不同，用户HTTP协议简单，使得HTTP服务器程序规模较小，因此通信速度很快。
 
 - **灵活：**HTTP允许传输任意类型的数据对象，传输中数据类型通过Content-type标记。
@@ -25,9 +27,11 @@ categories:
 - **无状态：**HTTP协议是无状态协议，无状态是指协议对于事务处理没有记忆能力，缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大，但是同样也保证了服务器的内存，并且不会因为之前给它发送过应答报文而不接受第二次请求。
 
 ## 3. HTTP的请求方法
+
 HTTP/1.1协议中共定义了八种方法（有时也叫“动作”）来表明Request-URI指定的资源的不同操作方式：
+
 - **OPTIONS** - 返回服务器针对特定资源所支持的HTTP请求方法，也可以利用向Web服务器发送'*'的请求来测试服务器的功能性。
- 
+
 - **HEAD**- 向服务器索要与GET请求相一致的响应，只不过响应体将不会被返回。这一方法可以在不必传输整个响应内容的情况下，就可以获取包含在响应消息头中的元信息。该方法常用于测试超链接的有效性，是否可以访问，以及最近是否更新。
 
 - **GET** - 向特定的资源发出请求。注意：GET方法不应当被用于产生“副作用”的操作中，例如在web app.中。其中一个原因是GET可能会被网络蜘蛛等随意访问。
@@ -45,19 +49,20 @@ HTTP/1.1协议中共定义了八种方法（有时也叫“动作”）来表明
 - **PATCH** - 用来将局部修改应用于某一资源，添加于规范RFC5789。
 
 **注意点：** 
+
 1. 请求的方法名称是区分大小写的；
 2. 当某个请求所针对的资源不支持对应的请求方法的时候，服务器应当返回状态码405（Method Not Allowed）；当服务器不认识或者不支持对应的请求方法的时候，应当返回状态码501（Not Implemented）；
 3. HTTP服务器至少应该实现GET和HEAD方法，其他方法都是可选的。此外，除了上述方法，特定的HTTP服务器还能够扩展自定义的方法。
 
-
 ## 4. HTTP的请求步骤
+
 HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求/响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。
 
 #### 1. HTTP 请求/响应的步骤
 
 **(1)、客户端连接到Web服务器** 
 一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，HTTP://www.oakcms.cn。
- 
+
 **(2)、发送HTTP请求** 
 通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。
 
@@ -79,13 +84,15 @@ Web服务器解析请求，定位请求资源。服务器将资源复本写到TC
 6、浏览器将该 html 文本并显示内容;
 
 #### 2. 请求头与响应体
+
 **(1)、GET请求**
+
 ```java
 //---请求行
-GET /mHTTP/login/?name=hp HTTP/1.1	//请求方法  请求URL(客户端所说的接口) HTTP协议版本号
+GET /mHTTP/login/?name=hp HTTP/1.1    //请求方法  请求URL(客户端所说的接口) HTTP协议版本号
 //---请求头
-Host: passport-api.sdk.mgame.com	//请求的域名
-Content-Type: application/json		//请求对象的类型
+Host: passport-api.sdk.mgame.com    //请求的域名
+Content-Type: application/json        //请求对象的类型
 Accept: application/json
 Authentication: Code xxxxxxxxxxxxxxx
 
@@ -93,19 +100,21 @@ Authentication: Code xxxxxxxxxxxxxxx
 ```
 
 **(2)、POST请求**
+
 ```java
 //---请求行
-POST /mHTTP/auth/register HTTP/1.1		//请求方法  请求URL(客户端所说的接口) HTTP协议版本号
+POST /mHTTP/auth/register HTTP/1.1        //请求方法  请求URL(客户端所说的接口) HTTP协议版本号
 //---请求头
-Host: passport-api.sdk.game.com		//请求的域名
-Content-Type: application/json		//请求对象的类型
+Host: passport-api.sdk.game.com        //请求的域名
+Content-Type: application/json        //请求对象的类型
 Accept: application/json
-                               
+
 //post请求这里一定有个空行
-channel_id=1&type=auth&channel_login=1		//---请求数据
+channel_id=1&type=auth&channel_login=1        //---请求数据
 ```
 
 **(3)、响应体**
+
 ```java
 //状态行
 HTTP/1.1 200 OK
@@ -125,25 +134,26 @@ Content-Length: 10
   }
 }
 ```
+
 **响应体图示**
 ![](https://i.imgur.com/pzhNpxi.png)
 
 #### 3. POST与GET的区别
 
 **(1). 请求参数**
+
 - **GET提交时**请求数据会附在URL之后(就是把数据放在HTTP协议头中)，并以?分割URL与数据，多个参数使用&连接。 例如：login?name=hp&passwoed=09987。如果数据是英文字母、数字则原样发送，如果是中文或其他字符，则把字符串用BASE64加密，得到如：%E4%BD%A0%E5%A5%BD的，其中％XX中的XX为该符号以16进制表示的ASCII。
 - **POST提交时**提交数据会放在HTTP的包体中(比如上面的POST请求示例)。
- 
+
 **(2). 传输数据的大小**
 **首先明确的是：HTTP协议并没有对传输数据的大小进行限制，HTTP协议规范也没有对URL的长度进行限制。**
 实际开发中的主要限制在于：
+
 - **GET**：特定浏览器和服务器对URL长度有限制，例如 IE对URL长度的限制是2083字节(2K+35)。对于其他浏览器，如Netscape、FireFox等，理论上没有长度限制，其限制取决于操作系 统的支持。因此对于GET提交时，传输数据就会受到URL长度的 限制。
 - **POST**：由于不是通过URL传值，理论上数据不受 限。但实际各个WEB服务器会规定对post提交数据大小进行限制，Apache、IIS6都有各自的配置。
 
 **(3). 安全性**
 **POST的安全性要比GET的安全性高。**
+
 - 因为通过GET提交数据，用户名和密码将明文出现在URL上，然后登录页面有可能被浏览器缓存，其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了；
 - 除此之外，使用GET提交数据还可能会造成Cross-site request forgery攻击。
-
-
-
