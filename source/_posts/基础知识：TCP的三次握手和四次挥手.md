@@ -12,6 +12,8 @@ categories:
 
 TCP(Transmission Control Protocol)即传输控制协议，是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。
 
+<!-- more -->
+
 **1. TCP报文首部**
 
 - SYN (Synchronous 同步) 
