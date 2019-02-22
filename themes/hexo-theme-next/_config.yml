@@ -241,7 +241,7 @@ post_wordcount:
 wechat_subscriber:
   enabled: true
   qcode: /uploads/qrcode_wd_syncany.jpg
-  description: 心若如止水，何必惹凡尘
+  description: 心若如止水，何必惹凡尘 (扫一扫关注公众号有惊喜哦！)
 
 # Reward
 reward_comment: 很少会有人来看我的！
