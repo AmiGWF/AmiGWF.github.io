@@ -167,7 +167,7 @@ public class LineSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 }
 ```
 
-- 效果1；未放开run方法中的注释，实现的是画板效果，可以手动绘制内容。
+- 效果1：未放开run方法中的注释，实现的是画板效果，可以手动绘制内容。
 
   ![5c6fd0e6ee2d2](https://i.loli.net/2019/02/22/5c6fd0e6ee2d2.gif)
 
