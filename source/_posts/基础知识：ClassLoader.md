@@ -3,7 +3,7 @@ title: '基础知识: ClassLoader'
 copyright: true
 date: 2019-02-15 18:11:50
 tags:
-- classload
+- classloader
 categories:
 - Java
 ---
