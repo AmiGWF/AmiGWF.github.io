@@ -9,7 +9,7 @@ categories:
 ---
 
 **系列文章**
-[1. 自定义View方法查询手册-Paint](https://www.syncxiao.com/)
+[1. 自定义View方法查询手册-Paint](https://www.syncxiao.com/2019/03/07/%E8%87%AA%E5%AE%9A%E4%B9%89View%E6%96%B9%E6%B3%95%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C-Paint)
 
 <!-- more -->
 
@@ -118,3 +118,14 @@ public class HenView6 extends View {
 |**获取绘制的Path<br>getFillPath(Path src, Path dst)**<br>src：表示绘制图形的原Path<br>dst：表示绘制的实际的Path |右图表示原Path和实际Path的区别，默认情况下原Path和实际Path是一样的，但是如果线条宽度不为0，或者设置了PathEffect，就会存在不同。|![52.jpg](https://i.loli.net/2019/03/07/5c81076c6a814.jpg)|
 |**获取绘制文本的Path<br>getTextPath(char[] text, int index, int count,float x, float y, Path path)**|||
 |**获取绘制文本的Path<br>getTextPath(String text, int start, int end, float x, float y, Path path)**<br>text：表示需要绘制的文字<br>start：表示从哪个位置开始获取Path<br>end：表示从哪个位置结束获取Path<br> x、y：分别表示绘制时文本原点的x坐标、y坐标<br>path：表示哪个path将获得get到的路径|`//获取文本的Path`<br>paint.getTextPath(text, 0, text.length(), 50, 400, textPath);<br>`//获取文本的Path，长度减少5`<br>paint.getTextPath(text, 0, text.length()-5, 50, 600, textPath2);<br>`//绘制Path，注意不是绘制文本`<br>canvas.drawPath(textPath, pathPaint);|![51.jpg](https://i.loli.net/2019/03/07/5c8106d341911.jpg)|
+
+
+---
+**PDF文件获取地址 : **
+[1. 自定义View方法查询手册-Paint 百度云](https://pan.baidu.com/s/1lz5FuN0ne94fk30qzgJF_Q)  提取码：4uh7
+
+[2. 自定义View方法查询手册-Paint 微信扫一扫](https://i.loli.net/2019/03/07/5c81143ee73b2.jpg)
+![自定义View方法查询手册-Paint 微信扫一扫](https://i.loli.net/2019/03/07/5c81143ee73b2.jpg)
+
+
+
