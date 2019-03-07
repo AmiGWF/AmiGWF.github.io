@@ -11,6 +11,8 @@ categories:
 **系列文章**
 [1. 自定义View方法查询手册-Paint](https://www.syncxiao.com/)
 
+<!-- more -->
+
 ## 1. 基本设置
 
 - **为了方便展示，后续操作均基于以下代码进行修改。**
