@@ -9,9 +9,16 @@ categories:
 ---
 
 **系列文章**
+
 [1. 自定义View方法查询手册-Paint](https://www.syncxiao.com/2019/03/07/%E8%87%AA%E5%AE%9A%E4%B9%89View%E6%96%B9%E6%B3%95%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C-Paint)
 
+
+[2. 自定义View方法查询手册-Canvas](https://www.syncxiao.com/2019/04/14/%E8%87%AA%E5%AE%9A%E4%B9%89View%E6%96%B9%E6%B3%95%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C-Canvas)
+
+
 <!-- more -->
+
+---
 
 ## 1. 基本设置
 
