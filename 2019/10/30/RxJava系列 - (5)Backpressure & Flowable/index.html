@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="注解,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -86,18 +86,19 @@
 
 
 
-<meta name="description" content="Retrofit 2.0系列 - 玩转注解(1) Retrofit 2.0系列 - 全面解析拦截器(2) Retrofit2.0系列 - 简单封装请求(3)   1. 方法注解：Retrofit 2.0 支持以下方法注解：@GET、@POST、@PUT、@DELETE、@PATH、@HEAD、@OPTIONS、@HTTP，这和Http中涉及到的请求方法基本保持一致，但是多了一个：@HTTP的方法">
-<meta name="keywords" content="注解">
+<meta name="description" content="RxJava系列 - 初步认识(1) RxJava系列 - 线程控制(2) RxJava系列 - 变换符操作(3) RxJava系列 - zip操作符(4) RxJava系列 - Backpressure &amp;amp; Flowable(5)   1. BackpressureBackpressure叫做什么背压式，我还以为是按摩呢。先不说背压什么的，我们看下由zip操作符延伸来的问题  zip延">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Retrofit2.0系列 - 玩转注解(1)">
-<meta property="og:url" content="https://www.syncxiao.com/2019/10/30/Retrofit2.0系列 - 玩转注解(1)/index.html">
+<meta property="og:title" content="RxJava系列 - (5)Backpressure &amp; Flowable">
+<meta property="og:url" content="https://www.syncxiao.com/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/index.html">
 <meta property="og:site_name" content="SyncXiao">
-<meta property="og:description" content="Retrofit 2.0系列 - 玩转注解(1) Retrofit 2.0系列 - 全面解析拦截器(2) Retrofit2.0系列 - 简单封装请求(3)   1. 方法注解：Retrofit 2.0 支持以下方法注解：@GET、@POST、@PUT、@DELETE、@PATH、@HEAD、@OPTIONS、@HTTP，这和Http中涉及到的请求方法基本保持一致，但是多了一个：@HTTP的方法">
+<meta property="og:description" content="RxJava系列 - 初步认识(1) RxJava系列 - 线程控制(2) RxJava系列 - 变换符操作(3) RxJava系列 - zip操作符(4) RxJava系列 - Backpressure &amp;amp; Flowable(5)   1. BackpressureBackpressure叫做什么背压式，我还以为是按摩呢。先不说背压什么的，我们看下由zip操作符延伸来的问题  zip延">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-30T08:27:14.500Z">
+<meta property="og:image" content="https://i.loli.net/2019/10/30/SuBF4zjgNWxq9HA.png">
+<meta property="og:updated_time" content="2019-10-30T09:50:47.554Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Retrofit2.0系列 - 玩转注解(1)">
-<meta name="twitter:description" content="Retrofit 2.0系列 - 玩转注解(1) Retrofit 2.0系列 - 全面解析拦截器(2) Retrofit2.0系列 - 简单封装请求(3)   1. 方法注解：Retrofit 2.0 支持以下方法注解：@GET、@POST、@PUT、@DELETE、@PATH、@HEAD、@OPTIONS、@HTTP，这和Http中涉及到的请求方法基本保持一致，但是多了一个：@HTTP的方法">
+<meta name="twitter:title" content="RxJava系列 - (5)Backpressure &amp; Flowable">
+<meta name="twitter:description" content="RxJava系列 - 初步认识(1) RxJava系列 - 线程控制(2) RxJava系列 - 变换符操作(3) RxJava系列 - zip操作符(4) RxJava系列 - Backpressure &amp;amp; Flowable(5)   1. BackpressureBackpressure叫做什么背压式，我还以为是按摩呢。先不说背压什么的，我们看下由zip操作符延伸来的问题  zip延">
+<meta name="twitter:image" content="https://i.loli.net/2019/10/30/SuBF4zjgNWxq9HA.png">
 
 
 
@@ -127,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://www.syncxiao.com/2019/10/30/Retrofit2.0系列 - 玩转注解(1)/">
+  <link rel="canonical" href="https://www.syncxiao.com/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/">
 
 
 
 
 
-  <title>Retrofit2.0系列 - 玩转注解(1) | SyncXiao</title>
+  <title>RxJava系列 - (5)Backpressure & Flowable | SyncXiao</title>
   
 
 
@@ -302,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.syncxiao.com/2019/10/30/Retrofit2.0系列 - 玩转注解(1)/">
+    <link itemprop="mainEntityOfPage" href="https://www.syncxiao.com/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xiao">
@@ -319,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Retrofit2.0系列 - 玩转注解(1)</h1>
+          <h1 class="post-title" itemprop="name headline">RxJava系列 - (5)Backpressure & Flowable</h1>
         
 
         <div class="post-meta">
@@ -331,7 +332,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-30T15:41:23+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-30T16:32:00+08:00">
                 2019-10-30
               </time>
             
@@ -354,8 +355,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Retrofit2-0系列/" itemprop="url" rel="index">
-                    <span itemprop="name">Retrofit2.0系列</span>
+                  <a href="/categories/RxJava系列/" itemprop="url" rel="index">
+                    <span itemprop="name">RxJava系列</span>
                   </a>
                 </span>
 
@@ -372,8 +373,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/10/30/Retrofit2.0系列 - 玩转注解(1)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/30/Retrofit2.0系列 - 玩转注解(1)/" itemprop="commentCount"></span>
+                <a href="/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -400,7 +401,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k 字
+                  1.9k 字
                 </span>
               
 
@@ -416,7 +417,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -438,49 +439,66 @@
 
       
         <ul>
-<li><strong>Retrofit 2.0系列 - 玩转注解(1)</strong></li>
-<li><strong>Retrofit 2.0系列 - 全面解析拦截器(2)</strong></li>
-<li><strong>Retrofit2.0系列 - 简单封装请求(3)</strong></li>
+<li><strong>RxJava系列 - 初步认识(1)</strong></li>
+<li><strong>RxJava系列 - 线程控制(2)</strong></li>
+<li><strong>RxJava系列 - 变换符操作(3)</strong></li>
+<li><strong>RxJava系列 - zip操作符(4)</strong></li>
+<li><strong>RxJava系列 - Backpressure &amp; Flowable(5)</strong></li>
 </ul>
 <hr>
-<h4 id="1-方法注解："><a href="#1-方法注解：" class="headerlink" title="1. 方法注解："></a>1. 方法注解：</h4><p><strong>Retrofit 2.0 支持以下方法注解：<code>@GET、@POST、@PUT、@DELETE、@PATH、@HEAD、@OPTIONS、@HTTP</code>，这和Http中涉及到的请求方法基本保持一致，但是多了一个：<code>@HTTP</code>的方法注解。</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义HTTP请求方法</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@HTTP</span> ： 方法注解，可以替代HTTP中其他的方法</span></span><br><span class="line"><span class="comment">    * method ：指定请求的方法，如GET、POST</span></span><br><span class="line"><span class="comment">    * path ： 接口路径</span></span><br><span class="line"><span class="comment">    * hasBody ： 是否有请求体</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@HTTP</span>(method = <span class="string">"GET"</span>,path = <span class="string">"wdgame/auth/&#123;id&#125;"</span>,hasBody = <span class="keyword">false</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn17</span><span class="params">(@Path(<span class="string">"id"</span>)</span>String id)</span>;</span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<h4 id="2-标记注解："><a href="#2-标记注解：" class="headerlink" title="2. 标记注解："></a>2. 标记注解：</h4><ul>
-<li><p><strong><code>@FormUrlEncoded</code>：用于<code>POST</code>请求时以表单方式提交</strong></p>
-</li>
-<li><p><strong><code>@Multipart</code>:用于文件上传</strong></p>
-</li>
-<li><p><strong><code>@Streaming</code>:用于大文件的下载</strong></p>
-</li>
-</ul>
-<h4 id="3-参数注解："><a href="#3-参数注解：" class="headerlink" title="3. 参数注解："></a>3. 参数注解：</h4><p> <strong>以下请求链接中BASE_URL为：<a href="https://api.sdk.com/v2/" target="_blank" rel="noopener">https://api.sdk.com/v2/</a></strong></p>
+<h3 id="1-Backpressure"><a href="#1-Backpressure" class="headerlink" title="1. Backpressure"></a>1. Backpressure</h3><p><strong>Backpressure</strong>叫做什么背压式，我还以为是按摩呢。<br>先不说背压什么的，我们看下由<strong>zip操作符</strong>延伸来的问题</p>
 <ul>
-<li><strong><code>@Path</code>：URL占位符，用于请求链接的?号之前，可支持多个@Path连续使用，但是参数个数固定</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 访问链接：https://api.sdk.com/v2/wdgame/&#123;auth&#125;?name=wd</span></span><br><span class="line"><span class="comment">    * </span></span><br><span class="line"><span class="comment">    * https://api.sdk.com/v2/wdgame/UEGLAUWGJAJG?name=wd</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@GET</span>(<span class="string">"wdgame/&#123;auth&#125;"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn1</span><span class="params">(@Path(<span class="string">"auth"</span>)</span> String auth)</span>;</span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 访问链接：https://api.sdk.com/v2/wdgame/&#123;auth&#125;/&#123;id&#125;</span></span><br><span class="line"><span class="comment">    * </span></span><br><span class="line"><span class="comment">    * https://api.sdk.com/v2/wdgame/IDFAJGADKHGA/642232884</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@GET</span>(<span class="string">"wdgame/&#123;auth&#125;/&#123;id&#125;"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn2</span><span class="params">(@Path(<span class="string">"auth"</span>)</span> String auth, @<span class="title">Path</span><span class="params">(<span class="string">"id"</span>)</span> String id)</span>;</span><br></pre></td></tr></table></figure>
+<li><p><strong>zip延伸问题</strong><br>我们学习zip的时候，可以看到他可以将多个上游发送的事件组合起来，然后在形成新的事件发送给下游。那这样就会产生各种各样的问题，比如：<strong>上游水管A发送事件的速度很快，而水管B发送事件的速度很慢，</strong>假如水管A发送了100个事件，而水管B才发送了1个事件，组合之后，水管A还剩下了99个已发送的事件，<strong>那这些事件去哪里呢？不可能平白消失吧？</strong></p>
+</li>
+<li><p><strong>水缸存储事件</strong><br>当然不会消失，zip给每一个上游的水管都准备了一个大水缸，用来储存这些还来不及进行组合的事件。我们用水管图表示就是这样的：<br><img src="https://i.loli.net/2019/10/30/SuBF4zjgNWxq9HA.png" alt="Alt text"></p>
 </li>
 </ul>
+<p>上面那个蓝色的正方形就是水缸，上游水管发送的事件都放到里面，然后水缸之间的事件一一组合，当某个水缸空了的时候就处于等待的状态。</p>
+<p>这个水缸有个特点：<strong>事件是按照顺序保存的，遵循先进先出的原则，和队列是一样的，Zip的内部源码就是如此实现的。</strong></p>
 <ul>
-<li><p><strong><code>@Query &amp; @QueryMap</code>：用于请求链接的?号之后，可支持多个@Query连续使用，但是参数个数固定，@QueryMap参数不固定</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 访问链接：https://api.sdk.com/v2/wdgame/auth/?authId=??&amp;id=??</span></span><br><span class="line"><span class="comment">    * </span></span><br><span class="line"><span class="comment">    * https://api.sdk.com/v2/wdgame/auth/?authId=YWKFIADHGFAL&amp;id=623042744</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@GET</span>(<span class="string">"wdgame/auth"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn3</span><span class="params">(@Query(<span class="string">"authId"</span>)</span> String authId, @<span class="title">Query</span><span class="params">(<span class="string">"id"</span>)</span> String id)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 访问链接：https://api.sdk.com/v2/wdgame/auth/?authId=??&amp;id=??</span></span><br><span class="line"><span class="comment">    * </span></span><br><span class="line"><span class="comment">    * https://api.sdk.com/v2/wdgame/auth/?authId=YWKFIADHGFAL&amp;id=623042744</span></span><br><span class="line"><span class="comment">    * </span></span><br><span class="line"><span class="comment">    * 参数以Map的形式传入</span></span><br><span class="line"><span class="comment">    * map.put("authId","QWEDOWUEHGSL")</span></span><br><span class="line"><span class="comment">    * map.put("id","232372794")</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@GET</span>(<span class="string">"wdgame/auth"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn4</span><span class="params">(@QueryMap Map&lt;String, String&gt; map)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>@Field &amp; @FieldMap</code>：配合<code>@FormUrlEncoded</code>使用，用于POST请求时简单的键值对参数的传递，支持Map形式传递参数</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 访问链接：https://api.sdk.com/v2/wdgame/auth</span></span><br><span class="line"><span class="comment">    * 表单形式提交</span></span><br><span class="line"><span class="comment">    * 参数：account、password</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@FormUrlEncoded</span></span><br><span class="line">   <span class="meta">@POST</span>(<span class="string">"wdgame/auth"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn5</span><span class="params">(@Field(<span class="string">"account"</span>)</span> String account, @<span class="title">Field</span><span class="params">(<span class="string">"password"</span>)</span> String password)</span>;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 访问链接：https://api.sdk.com/v2/wdgame/auth</span></span><br><span class="line"><span class="comment">    * 表单形式提交</span></span><br><span class="line"><span class="comment">    * 参数：account、password</span></span><br><span class="line"><span class="comment">    * </span></span><br><span class="line"><span class="comment">    * 参数以Map的形式传入</span></span><br><span class="line"><span class="comment">    * map.put("account","wd")</span></span><br><span class="line"><span class="comment">    * map.put("password","123456")</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@FormUrlEncoded</span></span><br><span class="line">   <span class="meta">@POST</span>(<span class="string">"wdgame/auth"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn6</span><span class="params">(@FieldMap Map&lt;String, String&gt; map)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 访问链接：https://api.sdk.com/v2/wdgame/auth</span></span><br><span class="line"><span class="comment">    * 传递数组参数</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * 网上说可以这样传递，但是多个数组会有问题，暂未考证</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@POST</span>(<span class="string">"wdgame/auth"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn8</span><span class="params">(@Field(<span class="string">"account[]"</span>)</span> String... account)</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>@Body</code>：将实例对象转化为json格式数据传递，可以不需要配合<code>@FormUrlEncoded</code></strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 访问链接：https://api.sdk.com/v2/wdgame/auth</span></span><br><span class="line"><span class="comment">    * 以对象的形式传递json数据</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * AccountBean.Account bean = new AccountBean.Account();</span></span><br><span class="line"><span class="comment">    * bean.setAccount("wd");</span></span><br><span class="line"><span class="comment">    * bean.setUid(1246);</span></span><br><span class="line"><span class="comment">    * requestIn7(bean)</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@POST</span>(<span class="string">"wdgame/auth"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn7</span><span class="params">(@Body AccountBean.Account bean)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>@Part &amp; @PartMap &amp; @Multipart</code>：用于POST文件上传，需要配合<code>@Multipart</code>使用，多用于字节流的传输</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 单文件上传</span></span><br><span class="line"><span class="comment">    * 访问链接：https://api.sdk.com/v2/wdgame/upload</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * 未验证</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@Multipart</span></span><br><span class="line">   <span class="meta">@POST</span>(<span class="string">"wdgame/upload"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn9</span><span class="params">(@Part(<span class="string">"desc"</span>)</span> ResponseBody desc ,@Part MultipartBody.Part file)</span>;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 多文件上传</span></span><br><span class="line"><span class="comment">    * 访问链接：https://api.sdk.com/v2/wdgame/upload</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * 未验证</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@Multipart</span></span><br><span class="line">   <span class="meta">@POST</span>(<span class="string">"wdgame/upload"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn10</span><span class="params">(@Part(<span class="string">"desc"</span>)</span> ResponseBody desc ,@PartMap Map&lt;String,ResponseBody&gt; files)</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>@Header &amp; @Headers</code>:请求头的单独设置或以参数的形式传入，适合于特殊情况，不使用统一的请求头，一个是修饰参数、一个是修饰方法</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 动态设置单个请求头</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@GET</span>(<span class="string">"wdgame/auth"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn11</span><span class="params">(@Header(<span class="string">"X-Client-Info"</span>)</span>String info,@<span class="title">Query</span><span class="params">(<span class="string">"authId"</span>)</span> String authId, @<span class="title">Query</span><span class="params">(<span class="string">"id"</span>)</span> String id)</span>;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 动态设置多个请求头</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@GET</span>(<span class="string">"wdgame/auth"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn12</span><span class="params">(@HeaderMap Map&lt;String,String&gt; map,@Query(<span class="string">"authId"</span>)</span> String authId, @<span class="title">Query</span><span class="params">(<span class="string">"id"</span>)</span> String id)</span>;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 静态设置多个请求头</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@Headers</span>(&#123;<span class="string">"X-Client-Info:******"</span>,<span class="string">"Accept:******"</span>&#125;)</span><br><span class="line">   <span class="meta">@GET</span>(<span class="string">"wdgame/auth"</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn13</span><span class="params">(@Query(<span class="string">"authId"</span>)</span> String authId, @<span class="title">Query</span><span class="params">(<span class="string">"id"</span>)</span> String id)</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>@Url</code>：Url以参数的形式传入，用于特殊的需要单独构造的Url，并且参数、请求头也都可以单独传递</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 请求链接、参数、请求头全部分散传入</span></span><br><span class="line"><span class="comment">    * https://api.sdk.com/v2/wdgame/auth?auth=DGSDJLWOURNGA</span></span><br><span class="line"><span class="comment">    * 如果参数在？之前，此种形式存在问题</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@GET</span></span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn14</span><span class="params">(@Url String url, @QueryMap Map&lt;String, Object&gt; paramMap, @HeaderMap Map&lt;String, Object&gt; headsMap)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 请求链接、参数、请求头全部分散传入</span></span><br><span class="line"><span class="comment">    * https://api.sdk.com/v2/wdgame/auth</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@POST</span></span><br><span class="line">   <span class="meta">@FormUrlEncoded</span></span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn15</span><span class="params">(@Url String url, @FieldMap Map&lt;String, Object&gt; paramMap, @HeaderMap Map&lt;String, Object&gt; headsMap)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>@Streaming</code>：用于大文件的下载</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 用于下载大文件</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@Streaming</span></span><br><span class="line">   <span class="meta">@GET</span></span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn16</span><span class="params">(@Url String url)</span></span>;</span><br></pre></td></tr></table></figure>
+<li><strong>水缸漏水</strong><br>再大的水缸也会有装满的时候。<br>上游如果无限制的发送事件，水缸里总会被事件填满知道溢出，我们可以从这个教程中看到漏水事件是什么个情况：<br><a href="http://www.jianshu.com/p/0f2d6c2387c9" target="_blank" rel="noopener">给初学者的RxJava2.0教程(五)</a></li>
+</ul>
+<hr>
+<h3 id="2-使用Observable解决上下游流速不均问题"><a href="#2-使用Observable解决上下游流速不均问题" class="headerlink" title="2. 使用Observable解决上下游流速不均问题"></a>2. 使用Observable解决上下游流速不均问题</h3><p>先看一个例子：无限循环发送事件，导致内存溢出。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Observable.create(<span class="keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; ; i++) &#123;  <span class="comment">//无限循环发送事件</span></span><br><span class="line">                    emitter.onNext(i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).subscribeOn(Schedulers.io())</span><br><span class="line">               .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">               .subscribe(<span class="keyword">new</span> Consumer&lt;Integer&gt;() &#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Integer integer)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">     Log.d(TAG, <span class="string">""</span> + integer);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>方案1：使用filter进行过滤，减少下游接收事件数量</strong><br>上面的例子中，上游无限发送事件，下游不管是不是自己需要的，统统的装进了自己的水缸，导致内存溢出了，解决这种情况的一种方式就是：只选择符合自己条件的事件装进水缸，其他的事件忽略不计。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Observable.create(<span class="keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; ; i++) &#123;</span><br><span class="line">                    emitter.onNext(i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).subscribeOn(Schedulers.io())</span><br><span class="line">                .filter(<span class="keyword">new</span> Predicate&lt;Integer&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">test</span><span class="params">(Integer integer)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> integer % <span class="number">10</span> == <span class="number">0</span>;<span class="comment">//只要能被10整除的事件</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">                .subscribe(<span class="keyword">new</span> Consumer&lt;Integer&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Integer integer)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                        Log.d(TAG, <span class="string">""</span> + integer);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<p>这里使用了filter函数过滤了不能被10整除的事件，乍一看好像满足了我们的需求。这种通过过滤减少放进水缸数量的方式虽然满足少部分情景，但存在一个问题:<strong>丢失了大部分的事件</strong>，那你也许会像，下游不行，那从上游入手也可以呀！</p>
+<ul>
+<li><strong>方案2：减缓上游发送事件的速度</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Observable.create(<span class="keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; ; i++) &#123;</span><br><span class="line">                    emitter.onNext(i);</span><br><span class="line">                    Thread.sleep(<span class="number">2000</span>);  <span class="comment">//每次发送完事件延时2秒</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">      &#125;).subscribeOn(Schedulers.io())</span><br><span class="line">           .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">           .subscribe(<span class="keyword">new</span> Consumer&lt;Integer&gt;() &#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Integer integer)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">          Log.d(TAG, <span class="string">""</span> + integer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里每发送一个事件，延时2s再发送下一个事件，虽然数量没变，但是给了下游足够的时间来从水缸中取出事件进行处理，不至于导致水缸爆满的情况。</p>
+<hr>
+<h3 id="3-使用Flowable解决上下游流速不均问题"><a href="#3-使用Flowable解决上下游流速不均问题" class="headerlink" title="3. 使用Flowable解决上下游流速不均问题"></a>3. 使用Flowable解决上下游流速不均问题</h3><ul>
+<li><strong>首先了解一下Observable和Flowable使用时的区别</strong><blockquote>
+<p>Observable  对应  Observer ，  Flowable  对应  Subscriber</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Flowable&lt;Integer&gt; upstream = Flowable.create(<span class="keyword">new</span> FlowableOnSubscribe&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(FlowableEmitter&lt;Integer&gt; emitter)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"emit 1"</span>);</span><br><span class="line">                emitter.onNext(<span class="number">1</span>);</span><br><span class="line">                Log.d(TAG, <span class="string">"emit 2"</span>);</span><br><span class="line">                emitter.onNext(<span class="number">2</span>);</span><br><span class="line">                Log.d(TAG, <span class="string">"emit 3"</span>);</span><br><span class="line">                emitter.onNext(<span class="number">3</span>);</span><br><span class="line">                Log.d(TAG, <span class="string">"emit complete"</span>);</span><br><span class="line">                emitter.onComplete();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, BackpressureStrategy.ERROR); <span class="comment">//增加了一个参数</span></span><br><span class="line"></span><br><span class="line">        Subscriber&lt;Integer&gt; downstream = <span class="keyword">new</span> Subscriber&lt;Integer&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Subscription s)</span> </span>&#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"onSubscribe"</span>);</span><br><span class="line">                s.request(Long.MAX_VALUE);  <span class="comment">//注意这句代码</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(Integer integer)</span> </span>&#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"onNext: "</span> + integer);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable t)</span> </span>&#123;</span><br><span class="line">                 Log.w(TAG, <span class="string">"onError: "</span>, t);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"onComplete"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        upstream.subscribe(downstream);</span><br></pre></td></tr></table></figure>
+<p>上面的代码创建了一个上游Flowable和一个下游Subscriber，与Observable的不同之处在于Flowable多了一个参数：<strong>BackpressureStrategy.ERROR</strong>，这个参数指的是：<strong>FLowable选择的背压策略，这里使用ERROR策略，即当上下游流速不均时，直接抛出MissingBackpressureException异常</strong>，其他策略后面继续讲解。</p>
+<p>另一个区别是：下游的<strong>onSubscribe</strong>方法中，传递的不再是<code>Disposable</code>，而是<code>Subscription</code>，而两者的区别在于：</p>
+<blockquote>
+<ol>
+<li>Disposbale.dispose()方法切断水管，Subscription.cancel()切断水管；</li>
+<li>Subscription新增一个方法 void request(long n)，该方法表示的是：<code>下游每次能处理多少个事件</code></li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>void request(long n)的简单说明和重要性</strong><br>request(long n)方法表示的是下游每次能处理多少个事件，不设置是表示没有处理能力，不管是同步订阅还是异步订阅，request(long n)的效力都一样，下面分几种情况看下request(long n)对事件的影响。<blockquote>
+<p><code>Flowable采用的是响应式拉取来处理事件，下游通过调用request()方法来设置从上游拉取事件的数量，没有处理能力时就不去拉取事件进行处理。</code></p>
+<p><strong>1. 不调用request(long n)方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">new</span> Subscriber&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Subscription s)</span> </span>&#123;&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p><code>1. 同步订阅：下游没有处理能力，不能处理上游发送的任何事件，此时会直接抛出MissingBackpressureException异常；</code><br>原因：上游发送了事件，下游又没有能力处理，那总不能一直等待，如果是在主线程那就会卡主页面，所以就直接抛出异常，提醒我们要进行request的调用。</p>
+<p><code>2. 异步订阅：下游没有处理能力，不能处理上游发送的任何事件，但是上游会正常发送完不超过128个事件，也不会抛出异常，如果超过128个，则直接抛出MissingBackpressureException异常。</code><br>原因：上游能发送不超过128个事件却不抛出异常是因为Flowable中默认设置水缸大小为128，当上下游不在同一个线程中时，上游发送的事件会先保存到水缸中，下游虽然没有调用request方法，但是并不影响默认水缸存储事件，但是下游不处理事件式，超过了128个事件，水缸已经满了就会抛出异常。</p>
+</blockquote>
+<h3 id="4-背压策略"><a href="#4-背压策略" class="headerlink" title="4. 背压策略"></a>4. 背压策略</h3><p>上面说的只是在Flowable使用<code>BackpressureStrategy.ERROR</code>策略时出现的情况，其实BackpressureStrategy还有其他几种情况可供选择，具体请查看：RxJava-Observables之间的区别：4. 背压(BackpressureStrategy)策略之间的区别</p>
 
       
     </div>
@@ -508,12 +526,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/10/30/Retrofit2.0系列 - 玩转注解(1)/">Retrofit2.0系列 - 玩转注解(1)</a></p>
+  <p><span>本文标题:</span><a href="/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/">RxJava系列 - (5)Backpressure & Flowable</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Xiao 的个人博客">Xiao</a></p>
-  <p><span>发布时间:</span>2019年10月30日 - 15:10</p>
-  <p><span>最后更新:</span>2019年10月30日 - 16:10</p>
-  <p><span>原始链接:</span><a href="/2019/10/30/Retrofit2.0系列 - 玩转注解(1)/" title="Retrofit2.0系列 - 玩转注解(1)">https://www.syncxiao.com/2019/10/30/Retrofit2.0系列 - 玩转注解(1)/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.syncxiao.com/2019/10/30/Retrofit2.0系列 - 玩转注解(1)/" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2019年10月30日 - 16:10</p>
+  <p><span>最后更新:</span>2019年10月30日 - 17:10</p>
+  <p><span>原始链接:</span><a href="/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/" title="RxJava系列 - (5)Backpressure & Flowable">https://www.syncxiao.com/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.syncxiao.com/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -580,12 +598,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/注解/" rel="tag"><i class="fa fa-tag"></i> 注解</a>
-          
-        </div>
-      
 
       
       
@@ -595,8 +607,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/08/RxJava系列 - Observables之间的区别/" rel="next" title="RxJava系列 - Obervables之间的区别">
-                <i class="fa fa-chevron-left"></i> RxJava系列 - Obervables之间的区别
+              <a href="/2019/10/30/Retrofit2-0系列-(3)简单封装请求/" rel="next" title="Retrofit2.0系列 - (3)简单封装请求">
+                <i class="fa fa-chevron-left"></i> Retrofit2.0系列 - (3)简单封装请求
               </a>
             
           </div>
@@ -605,8 +617,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/10/30/Retrofit2-0系列 - 全面解析拦截器(2)/" rel="prev" title="Retrofit2.0系列 - 全面解析拦截器(2)">
-                Retrofit2.0系列 - 全面解析拦截器(2) <i class="fa fa-chevron-right"></i>
+              <a href="/2019/10/30/RxJava系列 - (3)变换符操作/" rel="prev" title="RxJava系列 - (3)变换符操作">
+                RxJava系列 - (3)变换符操作 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -766,7 +778,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-方法注解："><span class="nav-number">1.</span> <span class="nav-text">1. 方法注解：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-标记注解："><span class="nav-number">2.</span> <span class="nav-text">2. 标记注解：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-参数注解："><span class="nav-number">3.</span> <span class="nav-text">3. 参数注解：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Backpressure"><span class="nav-number">1.</span> <span class="nav-text">1. Backpressure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-使用Observable解决上下游流速不均问题"><span class="nav-number">2.</span> <span class="nav-text">2. 使用Observable解决上下游流速不均问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-使用Flowable解决上下游流速不均问题"><span class="nav-number">3.</span> <span class="nav-text">3. 使用Flowable解决上下游流速不均问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-背压策略"><span class="nav-number">4.</span> <span class="nav-text">4. 背压策略</span></a></li></ol></div>
             
 
           </div>
