@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="拦截器,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Retrofit 2.0系列 - 玩转注解(1) Retrofit 2.0系列 - 全面解析拦截器(2) Retrofit2.0系列 - 简单封装请求(3)   1. 拦截器(Interceptors)定义 拦截器是一种可以用来转换、重试、重写请求的机制 拦截器被定义为一个接口，其中就包含一个intercept(Chain chain)方法和一个接口interface Chain，使用时重点在于">
+<meta name="keywords" content="拦截器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Retrofit2.0系列 - 全面解析拦截器(2)">
+<meta property="og:url" content="https://www.syncxiao.com/2019/10/30/Retrofit2-0系列 - 全面解析拦截器(2)/index.html">
+<meta property="og:site_name" content="SyncXiao">
+<meta property="og:description" content="Retrofit 2.0系列 - 玩转注解(1) Retrofit 2.0系列 - 全面解析拦截器(2) Retrofit2.0系列 - 简单封装请求(3)   1. 拦截器(Interceptors)定义 拦截器是一种可以用来转换、重试、重写请求的机制 拦截器被定义为一个接口，其中就包含一个intercept(Chain chain)方法和一个接口interface Chain，使用时重点在于">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-30T08:30:34.531Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Retrofit2.0系列 - 全面解析拦截器(2)">
+<meta name="twitter:description" content="Retrofit 2.0系列 - 玩转注解(1) Retrofit 2.0系列 - 全面解析拦截器(2) Retrofit2.0系列 - 简单封装请求(3)   1. 拦截器(Interceptors)定义 拦截器是一种可以用来转换、重试、重写请求的机制 拦截器被定义为一个接口，其中就包含一个intercept(Chain chain)方法和一个接口interface Chain，使用时重点在于">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.syncxiao.com/2019/10/30/Retrofit2-0系列 - 全面解析拦截器(2)/">
+
+
+
+
+
+  <title>Retrofit2.0系列 - 全面解析拦截器(2) | SyncXiao</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SyncXiao</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">花非花 雾非雾 萝卜爱上小白兔</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.syncxiao.com/2019/10/30/Retrofit2-0系列 - 全面解析拦截器(2)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xiao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SyncXiao">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Retrofit2.0系列 - 全面解析拦截器(2)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-30T16:22:11+08:00">
+                2019-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Retrofit2-0系列/" itemprop="url" rel="index">
+                    <span itemprop="name">Retrofit2.0系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/10/30/Retrofit2-0系列 - 全面解析拦截器(2)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/30/Retrofit2-0系列 - 全面解析拦截器(2)/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.5k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><strong>Retrofit 2.0系列 - 玩转注解(1)</strong></li>
+<li><strong>Retrofit 2.0系列 - 全面解析拦截器(2)</strong></li>
+<li><strong>Retrofit2.0系列 - 简单封装请求(3)</strong></li>
+</ul>
+<hr>
+<h3 id="1-拦截器-Interceptors-定义"><a href="#1-拦截器-Interceptors-定义" class="headerlink" title="1. 拦截器(Interceptors)定义"></a>1. 拦截器(Interceptors)定义</h3><ul>
+<li><strong>拦截器是一种可以用来转换、重试、重写请求的机制</strong></li>
+<li><strong>拦截器被定义为一个接口，其中就包含一个<code>intercept(Chain chain)</code>方法和一个接口<code>interface Chain</code>，使用时重点在于<code>request</code>和<code>proceed(Request request)</code>两个方法</strong>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Interceptor</span> </span>&#123;</span><br><span class="line">  <span class="function">Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">interface</span> <span class="title">Chain</span> </span>&#123;</span><br><span class="line">    <span class="function">Request <span class="title">request</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Response <span class="title">proceed</span><span class="params">(Request request)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the connection the request will be executed on. This is only available in the chains</span></span><br><span class="line"><span class="comment">     * of network interceptors; for application interceptors this is always null.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Nullable</span> <span class="function">Connection <span class="title">connection</span><span class="params">()</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h3 id="2-拦截器分类"><a href="#2-拦截器分类" class="headerlink" title="2. 拦截器分类"></a>2. 拦截器分类</h3><p><strong><code>应用拦截器(Application Interceptors)、网络拦截器(NetWork Interceptors)</code></strong></p>
+<h4 id="2-1-应用拦截器-Application-Interceptors"><a href="#2-1-应用拦截器-Application-Interceptors" class="headerlink" title="2.1 应用拦截器(Application Interceptors)"></a>2.1 应用拦截器(Application Interceptors)</h4><ul>
+<li><strong>主要用途：主要用于查看请求信息和返回信息</strong> </li>
+<li><strong>添加方式：</strong>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.在OkHttpClient.Builder中添加</span></span><br><span class="line"><span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">    .addInterceptor(<span class="keyword">new</span> HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.在OkHttpClient中添加</span></span><br><span class="line">client.interceptors().add(<span class="keyword">new</span> HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-2-网络拦截器-NetWork-Interceptors"><a href="#2-2-网络拦截器-NetWork-Interceptors" class="headerlink" title="2.2 网络拦截器(NetWork Interceptors)"></a>2.2 网络拦截器(NetWork Interceptors)</h4><ul>
+<li><strong>主要用途：不仅用于查看请求信息和返回信息，还可以添加、删除、替换请求头信息、改变请求携带的实体</strong> </li>
+<li><strong>添加方式：</strong>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.在OkHttpClient.Builder中添加</span></span><br><span class="line"><span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">    .addNetworkInterceptor(<span class="keyword">new</span> HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.在OkHttpClient中添加</span></span><br><span class="line">client.networkInterceptors().add(<span class="keyword">new</span> HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-3-区别与选择"><a href="#2-3-区别与选择" class="headerlink" title="2.3 区别与选择"></a>2.3 区别与选择</h4><p> <strong>从输出的日志来看，网络拦截器会包含信息更多，如<code>Accept-Encoding: gzip</code>、<code>Host</code>等</strong></p>
+<ul>
+<li><p><strong>应用拦截器</strong></p>
+<pre><code>1. 不必要担心响应和重定向之间的中间响应。
+2. 通常只调用一次，即使HTTP响应是通过缓存提供的。
+3.  遵从应用层的最初目的。与OkHttp的注入头部无关，如If-None-Match。
+4. 允许短路而且不调用Chain.proceed()。
+5. 允许重试和多次调用Chain.proceed()。
+</code></pre></li>
+<li><p><strong>网络拦截器</strong></p>
+<pre><code>1. 允许像重定向和重试一样操作中间响应。
+2. 网络发生短路时不调用缓存响应。
+3. 在数据被传递到网络时观察数据。
+4. 有权获得装载请求的连接。
+</code></pre></li>
+<li><strong><a href="https://github.com/square/okhttp/wiki/Interceptors" target="_blank" rel="noopener">Github关于拦截器的说明，并且包含拦截器示例、重写请求、重写响应示例</a></strong></li>
+</ul>
+<hr>
+<h3 id="3-不同类型的拦截器"><a href="#3-不同类型的拦截器" class="headerlink" title="3. 不同类型的拦截器"></a>3. 不同类型的拦截器</h3><h4 id="3-1-日志拦截器"><a href="#3-1-日志拦截器" class="headerlink" title="3.1 日志拦截器"></a>3.1 日志拦截器</h4><p><strong>HttpLoggingInterceptor中提供了四种类型的log日志以供使用，我们也可自己定义自己的log日志拦截器</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Level &#123;</span><br><span class="line">	<span class="comment">/** No logs. */</span></span><br><span class="line">    NONE,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Logs request and response lines.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;Example:</span></span><br><span class="line"><span class="comment">     * &lt;pre&gt;&#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment">     * --&gt; POST /greeting http/1.1 (3-byte body)</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;-- 200 OK (22ms, 6-byte body)</span></span><br><span class="line"><span class="comment">     * &#125;&lt;/pre&gt;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    BASIC,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Logs request and response lines and their respective headers.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;Example:</span></span><br><span class="line"><span class="comment">     * &lt;pre&gt;&#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment">     * --&gt; POST /greeting http/1.1</span></span><br><span class="line"><span class="comment">     * Host: example.com</span></span><br><span class="line"><span class="comment">     * Content-Type: plain/text</span></span><br><span class="line"><span class="comment">     * Content-Length: 3</span></span><br><span class="line"><span class="comment">     * --&gt; END POST</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;-- 200 OK (22ms)</span></span><br><span class="line"><span class="comment">     * Content-Type: plain/text</span></span><br><span class="line"><span class="comment">     * Content-Length: 6</span></span><br><span class="line"><span class="comment">     * &lt;-- END HTTP</span></span><br><span class="line"><span class="comment">     * &#125;&lt;/pre&gt;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    HEADERS,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Logs request and response lines and their respective headers and bodies (if present).</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;Example:</span></span><br><span class="line"><span class="comment">     * &lt;pre&gt;&#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment">     * --&gt; POST /greeting http/1.1</span></span><br><span class="line"><span class="comment">     * Host: example.com</span></span><br><span class="line"><span class="comment">     * Content-Type: plain/text</span></span><br><span class="line"><span class="comment">     * Content-Length: 3</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Hi?</span></span><br><span class="line"><span class="comment">     * --&gt; END POST</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;-- 200 OK (22ms)</span></span><br><span class="line"><span class="comment">     * Content-Type: plain/text</span></span><br><span class="line"><span class="comment">     * Content-Length: 6</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Hello!</span></span><br><span class="line"><span class="comment">     * &lt;-- END HTTP</span></span><br><span class="line"><span class="comment">     * &#125;&lt;/pre&gt;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    BODY</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="3-2-自定义日志拦截器"><a href="#3-2-自定义日志拦截器" class="headerlink" title="3.2 自定义日志拦截器"></a>3.2 自定义日志拦截器</h4><p><strong>这里主要是根据自己的需求重新组织<code>logForRequest</code>和<code>logForResponse</code>中日志信息的组成，可以输出想要的请求头信息、请求往返时间、返回参数信息等。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">     Request request = chain.request();</span><br><span class="line">     <span class="comment">//自定义请求是日志输出格式</span></span><br><span class="line">     logRequest(request);</span><br><span class="line">     <span class="comment">//关键点：让请求继续执行</span></span><br><span class="line">     Response response = chain.proceed(request);</span><br><span class="line">     <span class="comment">//自定义返回时日志输出格式</span></span><br><span class="line">     logResponse(response);</span><br><span class="line">     <span class="keyword">return</span> response;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>这里主要看一下自定义的返回时日志的输出<code>logResponse(response)</code>，里面有一个坑需要注意一下</strong></p>
+<ul>
+<li><strong>此方法只是简单的输出URl、头信息、返回body等；</strong></li>
+<li><strong>注意不要跳坑：okhttp中<code>response.body().string()</code>只能有效的调用一次，否则会出现<code>java.lang.IllegalStateException: closed</code>异常</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">logResponse</span><span class="params">(Response response)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            StringBuffer var0 = <span class="keyword">new</span> StringBuffer(<span class="string">"Response-Start : "</span>);</span><br><span class="line">            <span class="comment">//url</span></span><br><span class="line">            var0.append(<span class="string">"url : "</span> + response.request().url()).append(<span class="string">"\n"</span>);</span><br><span class="line">            <span class="comment">//Headers</span></span><br><span class="line">            Headers var1 = response.headers();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, count = var1.size(); i &lt; count; i++) &#123;</span><br><span class="line">                String name = var1.name(i);</span><br><span class="line">                <span class="comment">// Skip headers from the request body as they are explicitly logged above.</span></span><br><span class="line">                <span class="keyword">if</span> (!<span class="string">"Content-Type"</span>.equalsIgnoreCase(name) &amp;&amp; !<span class="string">"Content-Length"</span>.equalsIgnoreCase(name)) &#123;</span><br><span class="line">                    var0.append(name + <span class="string">": "</span> + var1.value(i)).append(<span class="string">"\n"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//response.body().string()</span></span><br><span class="line">            <span class="comment">//重点注意:这里有个坑，okhttp中response.body().string()只能有效调用一次，当调用之后，response中的流会被关闭，</span></span><br><span class="line">            <span class="comment">//从而出现异常：java.lang.IllegalStateException: closed</span></span><br><span class="line">            <span class="comment">//buffer.append("body : "+response.body().string()).append("\n");</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//response body</span></span><br><span class="line">            ResponseBody var2 = response.body();</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">null</span> != var2) &#123;</span><br><span class="line">                BufferedSource source = var2.source();</span><br><span class="line">                source.request(Long.MAX_VALUE);</span><br><span class="line">                Buffer var3 = source.buffer();</span><br><span class="line">                Charset var4 = Charset.forName(<span class="string">"UTF8"</span>);</span><br><span class="line">                MediaType contentType = var2.contentType();</span><br><span class="line">                <span class="keyword">if</span> (contentType != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    var4 = contentType.charset(Charset.forName(<span class="string">"UTF8"</span>));</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span>(isPlaintext(var3) &amp;&amp; var2.contentLength() != <span class="number">0L</span>)&#123;</span><br><span class="line">                    String var5 = var3.clone().readString(var4);</span><br><span class="line">                    var0.append(var5).append(<span class="string">"\n"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            var0.append(<span class="string">"Response-End"</span>);</span><br><span class="line">            Log.i(<span class="string">"Logging"</span>, var0.toString());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isPlaintext</span><span class="params">(Buffer buffer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Buffer e = <span class="keyword">new</span> Buffer();</span><br><span class="line">            <span class="keyword">long</span> byteCount = buffer.size() &lt; <span class="number">64L</span>?buffer.size():<span class="number">64L</span>;</span><br><span class="line">            buffer.copyTo(e, <span class="number">0L</span>, byteCount);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">16</span> &amp;&amp; !e.exhausted(); ++i) &#123;</span><br><span class="line">                <span class="keyword">int</span> codePoint = e.readUtf8CodePoint();</span><br><span class="line">                <span class="keyword">if</span>(Character.isISOControl(codePoint) &amp;&amp; !Character.isWhitespace(codePoint)) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (EOFException var6) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>最终输出日志如下，这个都是按照我们自己所设定的输出的日志</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Response-Start : url : https://api.sdk.mobilega.com/v1/wdgame/auth/</span><br><span class="line">Server: nginx</span><br><span class="line">Date: Wed, 02 Aug 2017 03:17:02 GMT</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Set-Cookie: NSC_KJFMBO-TEL-XFC-TTM=ffffffff091c2fdc45525d5f4f58455e445a4a423660;expires=Wed, 02-Aug-2017 03:18:54 GMT;path=/;secure;httponly</span><br><span class="line">&#123;&quot;token&quot;:&quot;490054868|***|1501643822|24|1|fff88b5e7a10d6845fc593e9266fb3b8&quot;.......&#125;</span><br><span class="line">Response-End</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="3-3-缓存拦截器"><a href="#3-3-缓存拦截器" class="headerlink" title="3.3 缓存拦截器"></a>3.3 缓存拦截器</h4><p> <strong>1. 简要说明<code>Cache-control</code></strong><br><code>Cache-control</code> 是由服务器返回的 Response 中添加的头信息，它的目的是告诉客户端是要从本地读取缓存还是直接从服务器摘取消息，它有不同的值，每一个值有不同的作用。</p>
+<ul>
+<li><p><strong>public (仅为响应标头)</strong>    </p>
+<blockquote>
+<p>响应：告知任何途径的缓存者,可以无条件的缓存该响应。</p>
+</blockquote>
+</li>
+<li><p><strong>private (仅为响应标头)</strong>    </p>
+<blockquote>
+<p>响应：告知缓存者(一般是指用户代理、常见浏览器的本地缓存；用户也是指系统用户。但也许不应排除某些网关可以识别每个终端用户的情况)，只针对单个用户缓存响应， 且可以具体指定某个字段，如<code>private—&quot;username&quot;</code>，则响应头中名为username的标头内容，不会被共享缓存。</p>
+</blockquote>
+</li>
+<li><p><strong>no-cache</strong></p>
+<blockquote>
+<p>请求：告知缓存者必须原原本本的转发原始请求，并告知任何缓存者别直接拿你缓存的副本糊弄人，你需要去转发我的请求，并验证你的缓存(如果有的话)。<br>对应名词：端对端重载</p>
+<p>响应：允许缓存者缓存副本，那么其实际价值是：总是强制缓存者校验缓存的新鲜度，一旦确认新鲜，则可以使用缓存副本作为响应。 no-cache还可以指定某个包含字段，比如一个典型应用：<code>no-cache=Set-Cookie</code>。 这样做的结果：就是告知缓存者对于<code>Set-Cookie</code>字段，你不要使用缓存内容，而是使用新的，其他内容则可以使用缓存。</p>
+</blockquote>
+</li>
+<li><p><strong>no-store</strong></p>
+<blockquote>
+<p>请求：告知请求和响应都禁止被缓存。(也许是出于隐私考虑)    </p>
+<p>响应：同上</p>
+</blockquote>
+</li>
+<li><p><strong>max-age</strong></p>
+<blockquote>
+<p>请求：强制响应缓存者，根据该值校验新鲜性，即自身的Age值与请求时间做比较，如果超出<code>max-age</code>值则强制去服务器端验证，以确保返回一个新鲜的响应，其功能本质上与传统的Expires类似，但区别在于Expires是根据某个特定日期值做比较，一但缓存者自身的时间不准确，则结果可能就是错误的，而<code>max-age</code>显然无此问题，<code>max-age</code>的优先级也是高于Expires的。    </p>
+<p>响应：同上类似，只不过发出方不一样</p>
+</blockquote>
+</li>
+<li><p><strong>max-stale</strong></p>
+<blockquote>
+<p>请求：意思是允许缓存者发送一个过期不超过指定秒数的、陈旧的缓存。</p>
+<p>响应：同上</p>
+</blockquote>
+</li>
+<li><p><strong>must-revalidate (仅为响应标头)</strong>    </p>
+<blockquote>
+<p>响应：意思是如果缓存过了新鲜期，则必须重新验证，而不是试图返回一个不在新鲜期的缓存。<br>与<code>no-cache</code>的区别在于：no-cache完全无视新鲜期的概念，总是强制重新验证，理论上<code>must-revalidate</code>更节省流量，但相比no-cache可能并不总是那么精准，因为即使缓存者认为是新鲜的，也不能保证服务器端没有做过更新。如果缓存者是一个缓存代理服务器，如果其试图重新验证时，无法连接上原始服务器，则也不允许返回一个不新鲜的、缓存中的副本，而是必须返回一个504 Gateway timeout。</p>
+</blockquote>
+</li>
+<li><p><strong>proxy-revalidate (仅为响应标头)</strong>    </p>
+<blockquote>
+<p>响应：限制上与<code>must-revalidate</code>类似；<br>区别在于受体的范围：proxy-revalidate是要排除掉用户代理的缓存的，即其规则并不应用于用户代理的本地缓存上。</p>
+</blockquote>
+</li>
+<li><p><strong>min-fresh (仅为请求标头)</strong>    </p>
+<blockquote>
+<p>请求：告知缓存者如果当前时间加上min-fresh的值，超了该缓存的过期时间则要给一个新的。</p>
+</blockquote>
+</li>
+<li><p><strong>only-if-cached (仅为请求标头)</strong>    </p>
+<blockquote>
+<p>请求：告知缓存者希望内容来自缓存，且并不关心被缓存响,是否是新鲜的。</p>
+</blockquote>
+</li>
+<li><p><strong>s-maxage (仅为响应标头)</strong>    </p>
+<blockquote>
+<p>响应：与max-age的唯一区别是：s-maxage仅仅应用于共享缓存，而不应用于用户代理的本地缓存、针对单用户的缓存，另外s-maxage的优先级要高于max-age。</p>
+</blockquote>
+</li>
+<li><p><strong>cache-extension</strong> </p>
+<blockquote>
+<p>cache-extension是一个泛化的代称，它指所有自定义或者说扩展的指令，客户端和服务器端都可以自定义扩展Cache-Control相关的指令。<br>实际上我们可以这样设置： <code>Cache-Control:max-age=300, custom-directive = xxx, public</code>， 这样我们就定义了一个被统称为cache-extension的扩展指令，该指令如果对应的客户端或服务器端不认识就会忽略掉。</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p><strong>2. 实现缓存拦截器</strong></p>
+<ul>
+<li><p><strong>2.1 缓存拦截器的实现大致可以分为以下几步：</strong></p>
+<ul>
+<li><strong>设置缓存路径以及大小</strong></li>
+<li><strong>创建 OKhttpClient，并添加拦截器</strong></li>
+<li><strong>创建retrofit，并添加client</strong></li>
+</ul>
+</li>
+<li><p><strong>2.2 定义缓存拦截器</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1. request拦截：如果没有网络就从缓存中获取</span></span><br><span class="line"><span class="comment"> * 2. response拦截：如果有网络就从网络获取，并设置缓存超时时间；</span></span><br><span class="line"><span class="comment"> *                  如果没有网络就设置缓存时间</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheInterceptor</span>  <span class="keyword">implements</span> <span class="title">Interceptor</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//request - 没有网络</span></span><br><span class="line">        Request request  = chain.request();</span><br><span class="line">        <span class="keyword">if</span>(!NetUtils.hasNetwork())&#123;</span><br><span class="line">            request = request.newBuilder()</span><br><span class="line">                    .cacheControl(CacheControl.FORCE_CACHE)</span><br><span class="line">                    .build();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//response - 有网络</span></span><br><span class="line">        Response response = chain.proceed(request);</span><br><span class="line">        <span class="keyword">if</span>(NetUtils.hasNetwork())&#123;</span><br><span class="line">            <span class="comment">//设置缓存超时时间为1小时</span></span><br><span class="line">            <span class="keyword">int</span> maxAge = <span class="number">60</span> * <span class="number">60</span>;</span><br><span class="line">            <span class="comment">//从请求头获取缓存设置</span></span><br><span class="line">            <span class="comment">//String cacheControl = request.cacheControl().toString();</span></span><br><span class="line">            <span class="keyword">return</span>  response.newBuilder()</span><br><span class="line">                    .header(<span class="string">"Cache-Control"</span>,<span class="string">"public,max-age="</span>+maxAge)</span><br><span class="line">                    <span class="comment">//.header("Cache-control",cacheControl)</span></span><br><span class="line">                    .removeHeader(<span class="string">"Pragma"</span>)</span><br><span class="line">                    .build();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//设置超时时间为1天</span></span><br><span class="line">            <span class="keyword">int</span> maxStale = <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span>;</span><br><span class="line">            <span class="keyword">return</span> response.newBuilder()</span><br><span class="line">                    .header(<span class="string">"Cache-Control"</span>,<span class="string">"public,only-if-cached,max-stale="</span>+maxStale)</span><br><span class="line">                    .removeHeader(<span class="string">"Pragma"</span>)</span><br><span class="line">                    .build();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//没有代码逻辑，只作为演示</span></span><br><span class="line">    <span class="keyword">static</span>  <span class="class"><span class="keyword">class</span> <span class="title">NetUtils</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">hasNetwork</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>2.3 定义实现接口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以在接口中增加请求头，设置缓存相关</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApiService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Headers</span>(<span class="string">"Cache-Control:public,max-age=3600"</span>)</span><br><span class="line">    <span class="meta">@POST</span></span><br><span class="line">    <span class="function">Call&lt;ResponseBody&gt; <span class="title">queryData</span><span class="params">(@Field(<span class="string">"id"</span>)</span> String id)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>2.4 简单实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置缓存路径</span></span><br><span class="line">File cacheFile = <span class="keyword">new</span> File(<span class="keyword">this</span>.getCacheDir(),<span class="string">"cacheFile"</span>);</span><br><span class="line"><span class="comment">//设置缓存为10M</span></span><br><span class="line">Cache cache = <span class="keyword">new</span> Cache(cacheFile,<span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建OKHttpClient，添加拦截器</span></span><br><span class="line">OkHttpClient client = <span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">        .addNetworkInterceptor(<span class="keyword">new</span> CacheInterceptor())  </span><br><span class="line">        .cache(cache)</span><br><span class="line">        .build();</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建retrofit</span></span><br><span class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">        .baseUrl(<span class="string">""</span>)</span><br><span class="line">        .addConverterFactory(GsonConverterFactory.create(<span class="keyword">new</span> Gson()))</span><br><span class="line">        .client(client)</span><br><span class="line">        .build();</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求接口</span></span><br><span class="line">ApiService apiService = retrofit.create(ApiService.class);</span><br><span class="line">apiService.queryData(<span class="string">"1"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<p><strong>3. 参考文章</strong><br><a href="http://www.cnblogs.com/_franky/archive/2011/11/23/2260109.html" target="_blank" rel="noopener">1. Web缓存相关知识点</a><br><a href="http://blog.csdn.net/u010286855/article/details/52608485" target="_blank" rel="noopener">2. Retrofit2,okhttp3 通过拦截器（Interceptor）两种缓存（离线和在线）</a><br><a href="https://caster.io/episodes/retrofit-2-offline-cache/" target="_blank" rel="noopener">3. Retrofit 2: Enabling Offline Cache</a></p>
+<hr>
+<h4 id="3-4-拦截器中统一添加请求头"><a href="#3-4-拦截器中统一添加请求头" class="headerlink" title="3.4 拦截器中统一添加请求头"></a>3.4 拦截器中统一添加请求头</h4><p><strong>在请求接口时都会添加请求头信息，对于公共的请求头我们可以统一添加，不要重复造轮子，但是也要结合实际，因为并不是所有的请求头信息都会是相同的，这时候我们便可以在接口定义时增加特殊的请求头信息。</strong></p>
+<ul>
+<li><p><strong>统一添加公共请求头</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">       <span class="comment">//添加统一的请求头，注意不要盲目照搬，</span></span><br><span class="line">       <span class="comment">//这里添加的header与在接口中传入的header即使同名，也不会覆盖，而是并行存在。</span></span><br><span class="line">       Request request = chain.request().newBuilder()</span><br><span class="line">               .addHeader(<span class="string">"Client-Info"</span>,<span class="string">"Android/7.0"</span>)</span><br><span class="line">               .addHeader(<span class="string">"Game_ID"</span>,<span class="string">"5015"</span>)</span><br><span class="line">               .addHeader(<span class="string">"Accpet"</span>,<span class="string">"application/json"</span>)</span><br><span class="line">               .build();</span><br><span class="line">       <span class="keyword">return</span> chain.proceed(request);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>如果有个接口需要单独增加一个头信息，如：auth，可以在接口定义时传入或者在接口调用时传入</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">//需要特别增加的都可以依次加入，选择哪个方式都可以</span></span><br><span class="line">   <span class="meta">@FormUrlEncoded</span></span><br><span class="line">   <span class="meta">@Headers</span>(<span class="string">"auth:URGLDSUWPWEWP"</span>)</span><br><span class="line">   <span class="meta">@POST</span></span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">request18</span><span class="params">(@Field(<span class="string">"id"</span>)</span> String id)</span>;</span><br><span class="line">   </span><br><span class="line"><span class="meta">@FormUrlEncoded</span></span><br><span class="line">   <span class="meta">@POST</span></span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">request18</span><span class="params">(@Header(<span class="string">"auth"</span>)</span> String auth,@FieldMap Map&lt;String,String&gt; map)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@FormUrlEncoded</span></span><br><span class="line">   <span class="meta">@POST</span></span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">request18</span><span class="params">(@HeaderMap Map&lt;String,String&gt; headerMap,@FieldMap Map&lt;String,String&gt; map)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>不同的方式加入的请求头并不会覆盖，即使是同名的。不过需要注意的是：同名参数具体解析谁需要服务端决定</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">--&gt; POST https:<span class="comment">//api.sdk.game.com/v1/ztgame/login http/1.1</span></span><br><span class="line"><span class="comment">//统一添加的请求头</span></span><br><span class="line"><span class="number">08</span>-<span class="number">03</span> <span class="number">10</span>:<span class="number">56</span>:<span class="number">06.542</span> <span class="number">27587</span>-<span class="number">28341</span>/? D/OkHttp: Content-Type: application/x-www-form-urlencoded</span><br><span class="line"><span class="number">08</span>-<span class="number">03</span> <span class="number">10</span>:<span class="number">56</span>:<span class="number">06.543</span> <span class="number">27587</span>-<span class="number">28341</span>/? D/OkHttp: Content-Length: <span class="number">38</span></span><br><span class="line"><span class="number">08</span>-<span class="number">03</span> <span class="number">10</span>:<span class="number">56</span>:<span class="number">06.543</span> <span class="number">27587</span>-<span class="number">28341</span>/? D/OkHttp: GAME-ID: <span class="number">5012</span></span><br><span class="line"><span class="number">08</span>-<span class="number">03</span> <span class="number">10</span>:<span class="number">56</span>:<span class="number">06.543</span> <span class="number">27587</span>-<span class="number">28341</span>/? D/OkHttp: Accept: application/json</span><br><span class="line"><span class="number">08</span>-<span class="number">03</span> <span class="number">10</span>:<span class="number">56</span>:<span class="number">06.543</span> <span class="number">27587</span>-<span class="number">28341</span>/? D/OkHttp: Client-Info: ***</span><br><span class="line"><span class="number">08</span>-<span class="number">03</span> <span class="number">10</span>:<span class="number">56</span>:<span class="number">06.543</span> <span class="number">27587</span>-<span class="number">28341</span>/? D/OkHttp: Authentication: ****</span><br><span class="line"></span><br><span class="line"><span class="comment">//拦截器添加的请求头</span></span><br><span class="line"><span class="number">08</span>-<span class="number">03</span> <span class="number">10</span>:<span class="number">56</span>:<span class="number">06.543</span> <span class="number">27587</span>-<span class="number">28341</span>/? D/OkHttp: Client-Info: Android/<span class="number">7.0</span></span><br><span class="line"><span class="number">08</span>-<span class="number">03</span> <span class="number">10</span>:<span class="number">56</span>:<span class="number">06.543</span> <span class="number">27587</span>-<span class="number">28341</span>/? D/OkHttp: GAME-ID: <span class="number">5015</span></span><br><span class="line"><span class="number">08</span>-<span class="number">03</span> <span class="number">10</span>:<span class="number">56</span>:<span class="number">06.543</span> <span class="number">27587</span>-<span class="number">28341</span>/? D/OkHttp: Accpet: application/json</span><br><span class="line"></span><br><span class="line"><span class="comment">//接口定义单独传入的请求头</span></span><br><span class="line"><span class="number">08</span>-<span class="number">03</span> <span class="number">10</span>:<span class="number">56</span>:<span class="number">06.543</span> <span class="number">27587</span>-<span class="number">28341</span>/? D/OkHttp: auth: YUYUYU</span><br><span class="line"></span><br><span class="line"><span class="number">08</span>-<span class="number">03</span> <span class="number">10</span>:<span class="number">56</span>:<span class="number">06.544</span> <span class="number">27587</span>-<span class="number">28341</span>/? D/OkHttp: --&gt; <span class="function">END <span class="title">POST</span> <span class="params">(<span class="number">38</span>-<span class="keyword">byte</span> body)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="好文推荐"><a href="#好文推荐" class="headerlink" title="好文推荐"></a>好文推荐</h4><p><a href="https://futurestud.io/tutorials/android-basic-authentication-with-retrofit" target="_blank" rel="noopener">1. Retrofit — Basic Authentication on Android</a></p>
+
+      
+    </div>
+    
+    
+    
+	
+	<div>
+		
+			<div>
+
+    <div style="text-align:center;color: #ccc;font-size:14px;">^-^-------------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------------^-^</div>
+
+</div>
+
+		
+	</div>
+
+	<div>
+      
+        
+<div class="wd_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/10/30/Retrofit2-0系列 - 全面解析拦截器(2)/">Retrofit2.0系列 - 全面解析拦截器(2)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Xiao 的个人博客">Xiao</a></p>
+  <p><span>发布时间:</span>2019年10月30日 - 16:10</p>
+  <p><span>最后更新:</span>2019年10月30日 - 16:10</p>
+  <p><span>原始链接:</span><a href="/2019/10/30/Retrofit2-0系列 - 全面解析拦截器(2)/" title="Retrofit2.0系列 - 全面解析拦截器(2)">https://www.syncxiao.com/2019/10/30/Retrofit2-0系列 - 全面解析拦截器(2)/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.syncxiao.com/2019/10/30/Retrofit2-0系列 - 全面解析拦截器(2)/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+	</div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_wd_syncany.jpg" alt="Xiao wechat" style="width: 200px; max-width: 100%;">
+    <div>心若如止水，何必惹凡尘 (扫一扫关注公众号有惊喜哦！)</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>很少会有人来看我的！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wdwechatpay.jpg" alt="Xiao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/wdalipay.jpg" alt="Xiao 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/拦截器/" rel="tag"><i class="fa fa-tag"></i> 拦截器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/30/Retrofit2.0系列 - 玩转注解(1)/" rel="next" title="Retrofit2.0系列 - 玩转注解(1)">
+                <i class="fa fa-chevron-left"></i> Retrofit2.0系列 - 玩转注解(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/30/Retrofit2-0系列-简单封装请求(3)/" rel="prev" title="Retrofit2.0系列 - 简单封装请求(3)">
+                Retrofit2.0系列 - 简单封装请求(3) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="Xiao">
+            
+              <p class="site-author-name" itemprop="name">Xiao</p>
+              <p class="site-description motion-element" itemprop="description">遇，则安.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AmiGWF" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wudu1227@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/5fc52e9721dc" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-拦截器-Interceptors-定义"><span class="nav-number">1.</span> <span class="nav-text">1. 拦截器(Interceptors)定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-拦截器分类"><span class="nav-number">2.</span> <span class="nav-text">2. 拦截器分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-应用拦截器-Application-Interceptors"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 应用拦截器(Application Interceptors)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-网络拦截器-NetWork-Interceptors"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 网络拦截器(NetWork Interceptors)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-区别与选择"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 区别与选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-不同类型的拦截器"><span class="nav-number">3.</span> <span class="nav-text">3. 不同类型的拦截器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-日志拦截器"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 日志拦截器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-自定义日志拦截器"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 自定义日志拦截器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-缓存拦截器"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 缓存拦截器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-拦截器中统一添加请求头"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 拦截器中统一添加请求头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#好文推荐"><span class="nav-number">3.5.</span> <span class="nav-text">好文推荐</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xiao</span>
+
+  <!--
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>  本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </div></footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gtcx0bO25hpWaJnMiy94pird-gzGzoHsz',
+        appKey: '3t6HjjXxEXQE6AOis4skK3Hh',
+        placeholder: '或许你说的，就是我想的。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

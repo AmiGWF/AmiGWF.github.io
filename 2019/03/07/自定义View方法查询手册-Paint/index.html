@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="paint,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="系列文章 1. 自定义View方法查询手册-Paint 2. 自定义View方法查询手册-Canvas">
+<meta name="keywords" content="paint">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义View方法查询手册-Paint">
+<meta property="og:url" content="https://www.syncxiao.com/2019/03/07/自定义View方法查询手册-Paint/index.html">
+<meta property="og:site_name" content="SyncXiao">
+<meta property="og:description" content="系列文章 1. 自定义View方法查询手册-Paint 2. 自定义View方法查询手册-Canvas">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c7766301b3e5.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c777fb0cd291.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c77661fe06f9.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c777d2d37b20.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c777d4913ff6.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c77b316335a0.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c77b417aa487.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c777ebf4f156.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c777ecd5512c.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c777ed91d6c8.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c77ac7a9d45f.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c77ac9154f10.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c77aca9c896e.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c77acb6c64dc.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c77acc154206.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/02/28/5c77accb20f0b.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8105ae5c2ac.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8105f4482bd.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8105f445367.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8105f4613db.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8105f466f1c.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8105f46a81a.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8105f468c76.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8106852ddf5.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8106855ab95.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c81068544d16.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f4a2e2cf4d.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f4c33b9c14.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f4c40c7ab5.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f4c4a7676f.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f4c542880f.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f4c5e9064f.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f6c54e89e8.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f6df57a398.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f6e03718e2.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f6e0fc7cbb.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f6e1a7db04.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f7a0dc0ff3.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f7a199aab3.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f7a238c078.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f7a2d04f68.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8107971a84f.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c81079724974.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8107972b89c.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8106d2ab5c8.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8106d2c16ae.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8106d2cb9f7.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8106d2de6eb.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8106d2e7a47.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8106d2f159b.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8106d339f7e.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8106d363c99.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c81076c6a814.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c8106d341911.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/03/07/5c81143ee73b2.jpg">
+<meta property="og:updated_time" content="2019-10-30T07:06:31.603Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义View方法查询手册-Paint">
+<meta name="twitter:description" content="系列文章 1. 自定义View方法查询手册-Paint 2. 自定义View方法查询手册-Canvas">
+<meta name="twitter:image" content="https://i.loli.net/2019/02/28/5c7766301b3e5.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.syncxiao.com/2019/03/07/自定义View方法查询手册-Paint/">
+
+
+
+
+
+  <title>自定义View方法查询手册-Paint | SyncXiao</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SyncXiao</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">花非花 雾非雾 萝卜爱上小白兔</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.syncxiao.com/2019/03/07/自定义View方法查询手册-Paint/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xiao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SyncXiao">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自定义View方法查询手册-Paint</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-07T18:28:18+08:00">
+                2019-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/07/自定义View方法查询手册-Paint/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/07/自定义View方法查询手册-Paint/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>系列文章</strong></p>
+<p><a href="https://www.syncxiao.com/2019/03/07/%E8%87%AA%E5%AE%9A%E4%B9%89View%E6%96%B9%E6%B3%95%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C-Paint">1. 自定义View方法查询手册-Paint</a></p>
+<p><a href="https://www.syncxiao.com/2019/04/14/%E8%87%AA%E5%AE%9A%E4%B9%89View%E6%96%B9%E6%B3%95%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C-Canvas">2. 自定义View方法查询手册-Canvas</a></p>
+<hr>
+<a id="more"></a>
+<hr>
+<h2 id="1-基本设置"><a href="#1-基本设置" class="headerlink" title="1. 基本设置"></a>1. 基本设置</h2><ul>
+<li><strong>为了方便展示，后续操作均基于以下代码进行修改。</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HenView6</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String mZHText = <span class="string">"自定义View方法查询手册"</span>;</span><br><span class="line"></span><br><span class="line">    Paint paint = <span class="keyword">new</span> Paint();</span><br><span class="line">    Path patn = <span class="keyword">new</span> Path();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HenView6</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">        <span class="comment">//设置文字大小</span></span><br><span class="line">        paint.setTextSize(<span class="number">60</span>);</span><br><span class="line">        <span class="comment">//设置线条宽度</span></span><br><span class="line">        paint.setStrokeWidth(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HenView6</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">        <span class="comment">//绘制文字</span></span><br><span class="line">        canvas.drawText(mZHText,<span class="number">200</span>,<span class="number">200</span>,paint);</span><br><span class="line">        <span class="comment">//绘制一个圆</span></span><br><span class="line">        canvas.drawCircle(<span class="number">500</span>,<span class="number">600</span>,<span class="number">200</span>,paint);</span><br><span class="line">        <span class="comment">//绘制一条线段</span></span><br><span class="line">        canvas.drawLine(<span class="number">100</span>,<span class="number">300</span>,<span class="number">1000</span>,<span class="number">300</span>,paint);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>原始效果展示</strong></li>
+</ul>
+<p><img src="https://i.loli.net/2019/02/28/5c7766301b3e5.jpg" alt="image|center|500x0"></p>
+<hr>
+<h2 id="2-画笔Paint"><a href="#2-画笔Paint" class="headerlink" title="2. 画笔Paint"></a>2. 画笔Paint</h2><table>
+<thead>
+<tr>
+<th>方法原型</th>
+<th>方法调用</th>
+<th style="text-align:center">效果展示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>设置透明度和颜色a表示透明度，取值从0-255，从完全透明-不透明.<br><strong>setARGB(int a, int r, int g, int b)</strong></td>
+<td>设置透明度为100，颜色为浅水红 <br>paint.setARGB(100,200,0,0)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c777fb0cd291.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>单独设置颜色<br><strong>setColor(int color)</strong></td>
+<td><code>//方式一</code><br>paint.setColor(Color.parseColor(“#889988”))<br><code>//方式二</code><br>paint.setColor(Color.GREEN)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c77661fe06f9.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>单独设置透明度<br><strong>setAlpha(int a)</strong></td>
+<td>设置透明度为100<br>paint.setAlpha(100)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c777d2d37b20.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置文本之间的间距默认值是0，大于0宽松，小于0收紧<br><strong>setLetterSpacing(float letterSpacing)</strong></td>
+<td>设置文本之间的间距为0.05<br>paint.setLetterSpacing(0.5f)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c777d4913ff6.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置文本对齐方式即文本在原点的左侧、中间、右侧<br><strong>setTextAlign(Paint.Align align)</strong></td>
+<td><code>//左对齐</code><br>paint.setTextAlign(Paint.Align.LEFT)<br><code>//居中对齐</code><br>paint.setTextAlign(Paint.Align.CENTER)<br><code>//右对齐</code><br>paint.setTextAlign(Paint.Align.RIGHT)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c77b316335a0.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置文本区域列表其实就是根据设置的区域显示文本<br><strong>setTextLocale(Locale locale)</strong></td>
+<td>mZHText = “雨水”<br><code>//区域默认是中国</code><br>canvas.drawText(mZHText,200,200,paint)<br><code>//区域设置为中国台湾</code><br>paint.setTextLocale(Locale.TAIWAN)<br>canvas.drawText(mZHText,600,200,paint)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c77b417aa487.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置文本横向缩放默认值是1，大于1放宽，小于1锁紧<br><strong>setTextScaleX(float scaleX)</strong></td>
+<td>缩放0.5<br>paint.setTextScaleX(0.5f)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c777ebf4f156.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置字体类型<br><strong>setTypeface(Typeface typeface)</strong></td>
+<td>设置为黑体<br>paint.setTypeface(Typeface.DEFAULT_BOLD)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c777ecd5512c.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置字体类型<br><strong>setTypeface(Typeface typeface)</strong></td>
+<td>设置为Serif斜体<br>Typeface typeface = Typeface.create<br>(Typeface.SERIF,Typeface.BOLD_ITALIC)<br>paint.setTypeface(typeface)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c777ed91d6c8.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置抗锯齿，默认是关闭的<br><strong>setAntiAlias (boolean aa)</strong></td>
+<td>开启抗锯齿，注意放大图片观察边缘效果<br>paint.setAntiAlias(true)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c77ac7a9d45f.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置绘制模式默认是FILL填充模式，另外还有STROKE画线模式、FILL_AND_STROKE填充画线<br><strong>setStyle(Paint.Style style)</strong></td>
+<td>设置为画线模式<br>paint.setStyle(Paint.Style.STROKE)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c77ac9154f10.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置线条宽度<br><strong>setStrokeWidth(float width)</strong></td>
+<td>设置线条宽度为30<br>paint.setStrokeWidth(30)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c77aca9c896e.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置线头形状有三种：默认BUTT 平头、ROUND 圆头、SQUARE 方头<br><strong>setStrokeCap(Paint.Cap cap)</strong></td>
+<td>默认平头<br>paint.setStrokeCap(Paint.Cap.BUTT)<br>圆头<br>paint.setStrokeCap(Paint.Cap.ROUND)<br>方头<br>paint.setStrokeCap(Paint.Cap.SQUARE)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c77acb6c64dc.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置拐角形状有三种：默认MITER 尖角、BEVEL 平角、ROUND 圆角<br><strong>setStrokeJoin(Paint.Join join)</strong></td>
+<td>尖角<br>paint.setStrokeJoin(Paint.Join.MITER)<br>平角paint.setStrokeJoin(Paint.Join.BEVEL)<br>圆角<br>paint.setStrokeJoin(Paint.Join.ROUND)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c77acc154206.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>设置MITER型拐角的延长线的最大值其实就是尖的拐角在超过最大值时，会变成BEVEL型平角，默认值是4,拐角大约是29°的锐角<br><strong>setStrokeMiter(float miter)</strong></td>
+<td>设置默认值4<br>paint.setStrokeMiter(4)<br>修改最大值为2<br>paint.setStrokeMiter(2)<br>修改最大值为5<br>paint.setStrokeMiter(5)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/02/28/5c77accb20f0b.jpg" alt="image"></td>
+</tr>
+<tr>
+<td><strong>着色器 Shader</strong></td>
+<td><strong>paint.setShader(shader))</strong></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td><strong>线性渐变LinearGradient</strong> <br>x0 y0 x1 y1：渐变的两个端点的位置 <br>color0 color1：是端点的颜色</td>
+<td><strong>CLAMP模式</strong><br>Shader shader = <br>new LinearGradient(300, 200, 700, 600, <br>Color.parseColor(“#E91E63”), <br>Color.parseColor(“#2196F3”), <br>Shader.TileMode.CLAMP)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8105ae5c2ac.jpg" alt="16.jpg"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>REPEAT重复模式</strong><br>Shader shader = <br>new LinearGradient(300, 200, 700, 600, <br>Color.parseColor(“#E91E63”), <br>Color.parseColor(“#2196F3”), <br>Shader.TileMode.REPEAT)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8105f4482bd.jpg" alt="17.jpg"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>MIRROR镜像模式</strong><br>Shader shader = <br>new LinearGradient(300, 200, 700, 600, <br>Color.parseColor(“#E91E63”), <br>Color.parseColor(“#2196F3”), <br>Shader.TileMode.MIRROR)</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8105f445367.jpg" alt="18.jpg"></td>
+</tr>
+<tr>
+<td><strong>辐射渐变RadialGradient</strong><br>centerX centerY：辐射中心的坐标 <br>radius：辐射半径 <br>centerColor：辐射中心的颜色 <br>edgeColor：辐射边缘的颜色</td>
+<td><strong>CLAMP模式</strong><br>Shader shader = <br>new RadialGradient(500, 420, 100, <br>Color.parseColor(“#E91E63”), <br>Color.parseColor(“#2196F3”), <br>Shader.TileMode.CLAMP);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8105f4613db.jpg" alt="19.jpg"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>REPEAT重复模式</strong><br>Shader shader = <br>new RadialGradient(500, 420, 100, <br>Color.parseColor(“#E91E63”), <br>Color.parseColor(“#2196F3”), <br>Shader.TileMode.REPEAT);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8105f466f1c.jpg" alt="20.jpg"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>MIRROR镜像模式</strong><br>Shader shader = <br>new RadialGradient(500, 420, 100, <br>Color.parseColor(“#E91E63”), <br>Color.parseColor(“#2196F3”), <br>Shader.TileMode.MIRROR);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8105f46a81a.jpg" alt="21.jpg"></td>
+</tr>
+<tr>
+<td><strong>扫描渐变SweepGradient</strong><br>cx cy ：扫描的中心 <br>color0：扫描的起始颜色 <br>color1：扫描的终止颜色</td>
+<td>Shader shader = <br>new SweepGradient(500,420,<br>Color.parseColor(“#E91E63”),<br>Color.parseColor(“#2196F3”));</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8105f468c76.jpg" alt="22.jpg"></td>
+</tr>
+<tr>
+<td><strong>BitmapShader 使用bitmap的像素来作为图片或文字的填充</strong><br>bitmap：用来做模板的Bitmap对象 <br>tileX：横向的 TileMode <br>tileY：纵向的 TileMode</td>
+<td><strong>CLAMP模式</strong><br>Shader shader = new BitmapShader(bitmap,<br>Shader.TileMode.REPEAT,Shader.TileMode.CLAMP);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8106852ddf5.jpg" alt="23.jpg"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>REPEAT重复模式</strong><br>Shader shader = new BitmapShader(bitmap,<br>Shader.TileMode.REPEAT,Shader.TileMode.REPEAT);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8106855ab95.jpg" alt="25.jpg"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>MIRROR镜像模式</strong><br>Shader shader = new BitmapShader(bitmap,<br>Shader.TileMode.REPEAT,Shader.TileMode.MIRROR);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c81068544d16.jpg" alt="24.jpg"></td>
+</tr>
+<tr>
+<td><strong>混合着色器ComposeShader</strong><br><strong><code>具体请关注下面关于PorterDuff.Mode的介绍</code></strong></td>
+<td><code>//ShaderA</code><br>Shader shaderA = new BitmapShader<br>(bitmapA,Shader.TileMode.REPEAT,<br>Shader.TileMode.CLAMP);<br><code>//ShaderB</code><br>Shader shaderB = new BitmapShader<br>(bitmapB,Shader.TileMode.REPEAT,<br>Shader.TileMode.CLAMP);<br><code>//混合</code><br>Shader shader = new ComposeShader<br>(shaderA,shaderB,PorterDuff.Mode.SRC_OVER);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f4a2e2cf4d.jpg" alt="image"></td>
+</tr>
+<tr>
+<td><strong>颜色过滤ColorFilter</strong></td>
+<td><strong>paint.setColorFilter(colorFilter)</strong></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td><strong>模拟光照效果<br>LightingColorFilter</strong></td>
+<td><strong>原样绘制</strong><br>LightingColorFilter colorFilter = <br>new LightingColorFilter<br>(Color.parseColor(“#FFFFFF”),<br>Color.parseColor(“#000000”));</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f4c33b9c14.jpg" alt="image"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>加深红色</strong><br>LightingColorFilter colorFilter = <br>new LightingColorFilter<br>(Color.parseColor(“#FFFFFF”),<br>Color.parseColor(“#FF2222”));</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f4c40c7ab5.jpg" alt="image"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>加深绿色</strong><br>LightingColorFilter colorFilter = <br>new LightingColorFilter<br>(Color.parseColor(“#FFFFFF”),<br>Color.parseColor(“#22FF22”));</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f4c4a7676f.jpg" alt="image"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>加深蓝色</strong><br>LightingColorFilter colorFilter = <br>new LightingColorFilter<br>(Color.parseColor(“#FFFFFF”),<br>Color.parseColor(“#2222FF”));</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f4c542880f.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>使用指定颜色和Mode与绘制对象进行合成<br><strong>PorterDuffColorFilter</strong><br><strong><code>具体请关注下面关于PorterDuff.Mode的介绍</code></strong></td>
+<td><strong>合成效果：灰色+圆形空缺</strong><br>PorterDuffColorFilter colorFilter = <br>new PorterDuffColorFilter<br>(Color.parseColor(“#666666”),<br>PorterDuff.Mode.SRC_OUT);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f4c5e9064f.jpg" alt="image"></td>
+</tr>
+<tr>
+<td>使用ColorMatrix对颜色进行处理<br><strong>ColorMatrixColorFilter</strong></td>
+<td><strong>ColorMatrix是一个4x5的矩阵，<br>通过计算把需要绘制的像素进行转换.<br>其中矩阵中的a、b、c、d四列用于改变颜色配色，<br>e所在列用于改变颜色深浅.</strong></td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f6c54e89e8.jpg" alt="5c7f6c54e89e8"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>滑动SeekBar，获取数值，改变红色</strong> <br><code>//定义数组</code><br>float colorArrays[] = new float[]<br>{red, 0, 0, 0, 0,<br>0, green, 0, 0, 0,<br>0, 0, blue, 0, 0,<br>0, 0, 0, alpha, 0}; <br><code>//创建颜色矩阵</code><br>ColorMatrix colorMatrix = new ColorMatrix(colorArrays);<br><code>//创建颜色过滤器</code><br>ColorMatrixColorFilter colorFilter = <br>new ColorMatrixColorFilter(colorMatrix);<br><code>//设置颜色过滤器</code><br>paint.setColorFilter(colorFilter);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f6df57a398.jpg" alt="image"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>滑动SeekBar，获取数值，改变绿色，代码同上</strong></td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f6e03718e2.jpg" alt="image"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>滑动SeekBar，获取数值，改变蓝色，代码同上</strong></td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f6e0fc7cbb.jpg" alt="image"></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>滑动SeekBar，获取数值，改变透明度，代码同上</strong></td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f6e1a7db04.jpg" alt="image"></td>
+</tr>
+<tr>
+<td><strong>修改色调 <br>colorMatrix.setRotate(int axis, float degrees)</strong> <br>第一个参数axis可以使用0、1、2分别表示修改红、绿、蓝色</td>
+<td><strong>修改绿色色调</strong><br>colorMatrix.setRotate(1,100);<br>ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);<br>paint.setColorFilter(colorFilter);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f7a0dc0ff3.jpg" alt="image"></td>
+</tr>
+<tr>
+<td><strong>修改亮度 <br>colorMatrix.setScale(float rScale, float gScale, float bScale, float aScale)</strong><br>当亮度按照相同比例修改，图像会变白，如果亮度为0，图像会变黑</td>
+<td><strong>修改亮度</strong><br>colorMatrix.setScale(5,9,8,1);<br>ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);<br>paint.setColorFilter(colorFilter);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f7a199aab3.jpg" alt="image"></td>
+</tr>
+<tr>
+<td><strong>修改饱和度，默认值1<br>colorMatrix.setSaturation(float sat)</strong><br>当饱和度为0，图片变成灰色</td>
+<td><strong>饱和度修改为5<br></strong>colorMatrix.setSaturation(5);<br>ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);<br>paint.setColorFilter(colorFilter);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f7a238c078.jpg" alt="image"></td>
+</tr>
+<tr>
+<td><strong>多个矩阵作用在一起，形成叠加效果</strong></td>
+<td><strong>叠加效果</strong><br>ColorMatrix mMatrix=new ColorMatrix();<br><code>//合并已有的颜色矩阵</code><br>mMatrix.postConcat(colorMatrix);<br>mMatrix.postConcat(colorMatrix2);<br>mMatrix.postConcat(colorMatrix3);<br><code>//添加至颜色过滤器</code><br>ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(mMatrix);<br><code>//设置颜色过滤器</code><br>paint.setColorFilter(colorFilter);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/06/5c7f7a2d04f68.jpg" alt="image"></td>
+</tr>
+<tr>
+<td><strong>Transfer mode 图像传输模式</strong><br>1.以绘制内容作为源图像;<br>2.以View中已有内容作为目标图像;<br>3.以PorterDuff.Mode作为绘制内容的颜色处理方案.</td>
+<td><strong>paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC))</strong></td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8107971a84f.jpg" alt="42.jpg"></td>
+</tr>
+<tr>
+<td><strong><code>未开启Off-screen Buffer，绘制出现黑色</code></strong></td>
+<td><strong>注意使用离屏缓冲(Off-screen Buffer),否则绘制会出现黑色</strong><br>canvas.drawBitmap(bitmap1, 0, 0, paint);<br>paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));<br>canvas.drawBitmap(bitmap2, 0, 0, paint);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c81079724974.jpg" alt="40.jpg"></td>
+</tr>
+<tr>
+<td><strong><code>开启Off-screen Buffer，绘制正常</code></strong></td>
+<td><code>//使用saveLayer开启Off-screen Buffer</code><br>int saved = canvas.saveLayer<br>(null,null,Canvas.CLIP_SAVE_FLAG);<br><code>//目标图像</code><br>canvas.drawBitmap(bitmap1, 0, 0, paint);<br><code>//设置Mode.SRC</code><br>paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));<br><code>//源图像</code><br>canvas.drawBitmap(bitmap2, 0, 0, paint);<br><code>//清除Mode</code><br>paint.setXfermode(null);<br><code>//恢复Off-screen Buffer</code><br>canvas.restoreToCount(saved);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8107972b89c.jpg" alt="41.jpg"></td>
+</tr>
+<tr>
+<td><strong>给图形轮廓设置效果 PathEffect </strong></td>
+<td><strong>paint.setPathEffect(PathEffect effect)</strong></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>把所有拐角变成圆角<br><strong>CornerPathEffect(float radius)</strong></td>
+<td><code>//参数表示圆角半径</code><br>PathEffect pathEffect= new CornerPathEffect(20);<br>paint.setPathEffect(pathEffect);<br>canvas.drawPath(path, paint);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8106d2ab5c8.jpg" alt="43.jpg"></td>
+</tr>
+<tr>
+<td>把线条进行随机偏离，使用短线段进行拼接<br><strong>DiscretePathEffect(float segmentLength, float deviation)</strong></td>
+<td><code>//参数分别表示拼接线段的长度、偏移量</code><br>PathEffect pathEffect = new DiscretePathEffect(20, 5);<br><br>paint.setPathEffect(pathEffect);<br>canvas.drawPath(path, paint);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8106d2c16ae.jpg" alt="44.jpg"></td>
+</tr>
+<tr>
+<td>使用虚线来绘制线条<br><strong>DashPathEffect(float[] intervals, float phase)</strong></td>
+<td><code>//第一个参数是个数组，表示参数格式，必须是偶数，按照[画线长度、空白长度、画线长度、空白长度]排列；第二个参数表示偏移量</code><br>PathEffect pathEffect = new DashPathEffect(new float[]{20, 10, 5, 10}, 0);<br>paint.setPathEffect(pathEffect);<br>canvas.drawPath(path, paint);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8106d2cb9f7.jpg" alt="45.jpg"></td>
+</tr>
+<tr>
+<td>使用path来绘制虚线<br><strong>PathDashPathEffect(Path shape, float advance, float phase, PathDashPathEffect.Style style)</strong></td>
+<td><code>//shape是用来绘制的path，advance是相邻shape之间的间隔，phase是偏移量，style有TRANSLATE(位移)、ROTATE(旋转)、MORPH(变体)三种</code><br>PathEffect pathEffect = new PathDashPathEffect(path, 50, 0, PathDashPathEffect.Style.MORPH);<br>paint.setPathEffect(pathEffect);<br>canvas.drawPath(path, paint);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8106d2de6eb.jpg" alt="46.jpg"></td>
+</tr>
+<tr>
+<td>组合效果，按照不同的PathEffect对目标进行绘制<br><strong>SumPathEffect(PathEffect first, PathEffect second)</strong></td>
+<td><code>//参数表示不同的效果，不分先后</code><br>PathEffect pathEffect = new SumPathEffect(effect1, effect2);<br>paint.setPathEffect(pathEffect);<br>canvas.drawPath(path, paint);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8106d2e7a47.jpg" alt="47.jpg"></td>
+</tr>
+<tr>
+<td>组合效果，先对目标A使用一个PathEffect，目标A变化成目标B，然后再对目标B使用另一个PathEffect<br><strong>ComposePathEffect(PathEffect outerpe, PathEffect innerpe)</strong></td>
+<td><code>//outerpe是后应用的，innerpe是先应用的</code><br>PathEffect pathEffect = new ComposePathEffect(effect1, effect2);<br>paint.setPathEffect(pathEffect);<br>canvas.drawPath(path, paint);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8106d2f159b.jpg" alt="48.jpg"></td>
+</tr>
+<tr>
+<td>在绘制内容下面增加阴影效果<br><strong>setShadowLayer(float radius, float dx, float dy, int shadowColor)</strong></td>
+<td><code>//参数分别表示阴影模糊范围，x、y方向的阴影偏移量，颜色</code><br>paint.setShadowLayer(10, 5, 5, Color.RED);<br>canvas.drawText(“Hello HenCoder”, 50, 200, paint);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8106d339f7e.jpg" alt="49.jpg"></td>
+</tr>
+<tr>
+<td><strong>在绘制内容上面增加附加效果<br>setMaskFilter(MaskFiltermaskfilter)</strong></td>
+<td><strong>paint.setMaskFilter(maskFilter)</strong></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td><strong>模糊效果 <br>BlurMaskFilter(float radius, Blur style)</strong><br>radius：表示阴影范围<br>style：表示类型</td>
+<td><code>/NORMAL 内外都模糊绘制/</code><br>MaskFilter maskFilter1 = new BlurMaskFilter(50, BlurMaskFilter.Blur.NORMAL);<br><code>/INNER 内部模糊，外部不绘制/</code><br>MaskFilter maskFilter2 = new BlurMaskFilter(50, BlurMaskFilter.Blur.INNER);<br><code>/OUTER 内部不绘制，外部模糊/</code><br>MaskFilter maskFilter3 = new BlurMaskFilter(50, BlurMaskFilter.Blur.OUTER);<br><code>/SOLID 内部正常绘制，外部模糊/</code><br>MaskFilter maskFilter4 = new BlurMaskFilter(50, BlurMaskFilter.Blur.SOLID);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8106d363c99.jpg" alt="50.jpg"></td>
+</tr>
+<tr>
+<td><strong>获取绘制的Path<br>getFillPath(Path src, Path dst)</strong><br>src：表示绘制图形的原Path<br>dst：表示绘制的实际的Path</td>
+<td>右图表示原Path和实际Path的区别，默认情况下原Path和实际Path是一样的，但是如果线条宽度不为0，或者设置了PathEffect，就会存在不同。</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c81076c6a814.jpg" alt="52.jpg"></td>
+</tr>
+<tr>
+<td><strong>获取绘制文本的Path<br>getTextPath(char[] text, int index, int count,float x, float y, Path path)</strong></td>
+<td></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td><strong>获取绘制文本的Path<br>getTextPath(String text, int start, int end, float x, float y, Path path)</strong><br>text：表示需要绘制的文字<br>start：表示从哪个位置开始获取Path<br>end：表示从哪个位置结束获取Path<br> x、y：分别表示绘制时文本原点的x坐标、y坐标<br>path：表示哪个path将获得get到的路径</td>
+<td><code>//获取文本的Path</code><br>paint.getTextPath(text, 0, text.length(), 50, 400, textPath);<br><code>//获取文本的Path，长度减少5</code><br>paint.getTextPath(text, 0, text.length()-5, 50, 600, textPath2);<br><code>//绘制Path，注意不是绘制文本</code><br>canvas.drawPath(textPath, pathPaint);</td>
+<td style="text-align:center"><img src="https://i.loli.net/2019/03/07/5c8106d341911.jpg" alt="51.jpg"></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>PDF文件获取地址 : </strong><br><a href="https://pan.baidu.com/s/1lz5FuN0ne94fk30qzgJF_Q" target="_blank" rel="noopener">1. 自定义View方法查询手册-Paint 百度云</a>  提取码：4uh7</p>
+<p><a href="https://i.loli.net/2019/03/07/5c81143ee73b2.jpg" target="_blank" rel="noopener">2. 自定义View方法查询手册-Paint 微信扫一扫</a><br><img src="https://i.loli.net/2019/03/07/5c81143ee73b2.jpg" alt="自定义View方法查询手册-Paint 微信扫一扫"></p>
+
+      
+    </div>
+    
+    
+    
+	
+	<div>
+		
+			<div>
+
+    <div style="text-align:center;color: #ccc;font-size:14px;">^-^-------------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------------^-^</div>
+
+</div>
+
+		
+	</div>
+
+	<div>
+      
+        
+<div class="wd_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/03/07/自定义View方法查询手册-Paint/">自定义View方法查询手册-Paint</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Xiao 的个人博客">Xiao</a></p>
+  <p><span>发布时间:</span>2019年03月07日 - 18:03</p>
+  <p><span>最后更新:</span>2019年10月30日 - 15:10</p>
+  <p><span>原始链接:</span><a href="/2019/03/07/自定义View方法查询手册-Paint/" title="自定义View方法查询手册-Paint">https://www.syncxiao.com/2019/03/07/自定义View方法查询手册-Paint/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.syncxiao.com/2019/03/07/自定义View方法查询手册-Paint/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+	</div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_wd_syncany.jpg" alt="Xiao wechat" style="width: 200px; max-width: 100%;">
+    <div>心若如止水，何必惹凡尘 (扫一扫关注公众号有惊喜哦！)</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>很少会有人来看我的！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wdwechatpay.jpg" alt="Xiao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/wdalipay.jpg" alt="Xiao 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/paint/" rel="tag"><i class="fa fa-tag"></i> paint</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/22/基础知识：SurfaceView/" rel="next" title="基础知识：SurfaceView">
+                <i class="fa fa-chevron-left"></i> 基础知识：SurfaceView
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/14/自定义View方法查询手册-Canvas/" rel="prev" title="自定义View方法查询手册-Canvas">
+                自定义View方法查询手册-Canvas <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="Xiao">
+            
+              <p class="site-author-name" itemprop="name">Xiao</p>
+              <p class="site-description motion-element" itemprop="description">遇，则安.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AmiGWF" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wudu1227@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/5fc52e9721dc" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本设置"><span class="nav-number">1.</span> <span class="nav-text">1. 基本设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-画笔Paint"><span class="nav-number">2.</span> <span class="nav-text">2. 画笔Paint</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xiao</span>
+
+  <!--
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>  本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </div></footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gtcx0bO25hpWaJnMiy94pird-gzGzoHsz',
+        appKey: '3t6HjjXxEXQE6AOis4skK3Hh',
+        placeholder: '或许你说的，就是我想的。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

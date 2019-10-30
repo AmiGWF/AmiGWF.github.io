@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Canvas,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="系列文章 1. 自定义View方法查询手册-Paint 2. 自定义View方法查询手册-Canvas">
+<meta name="keywords" content="Canvas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义View方法查询手册-Canvas">
+<meta property="og:url" content="https://www.syncxiao.com/2019/04/14/自定义View方法查询手册-Canvas/index.html">
+<meta property="og:site_name" content="SyncXiao">
+<meta property="og:description" content="系列文章 1. 自定义View方法查询手册-Paint 2. 自定义View方法查询手册-Canvas">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bc8fd362d.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bc8fe509d.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bc8fe6137.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bc90045d6.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2beca6dd8a.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bc9005bbb.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bc9005d85.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bc9006b96.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bc90069a3.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2cbd3dadc7.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bd92f27ed.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2c0c5422b8.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bd935bb05.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bd935d391.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2c122c72b4.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2beeb5f45f.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bd936f0d1.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bd937980e.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bf12554e2.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/14/5cb2bf125eeb5.jpg">
+<meta property="og:updated_time" content="2019-10-30T07:06:31.602Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义View方法查询手册-Canvas">
+<meta name="twitter:description" content="系列文章 1. 自定义View方法查询手册-Paint 2. 自定义View方法查询手册-Canvas">
+<meta name="twitter:image" content="https://i.loli.net/2019/04/14/5cb2bc8fd362d.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.syncxiao.com/2019/04/14/自定义View方法查询手册-Canvas/">
+
+
+
+
+
+  <title>自定义View方法查询手册-Canvas | SyncXiao</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SyncXiao</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">花非花 雾非雾 萝卜爱上小白兔</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.syncxiao.com/2019/04/14/自定义View方法查询手册-Canvas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xiao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SyncXiao">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自定义View方法查询手册-Canvas</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T11:00:46+08:00">
+                2019-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/14/自定义View方法查询手册-Canvas/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/14/自定义View方法查询手册-Canvas/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>系列文章</strong></p>
+<p><a href="https://www.syncxiao.com/2019/03/07/%E8%87%AA%E5%AE%9A%E4%B9%89View%E6%96%B9%E6%B3%95%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C-Paint">1. 自定义View方法查询手册-Paint</a></p>
+<p><a href="https://www.syncxiao.com/2019/04/14/%E8%87%AA%E5%AE%9A%E4%B9%89View%E6%96%B9%E6%B3%95%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C-Canvas">2. 自定义View方法查询手册-Canvas</a></p>
+<hr>
+<a id="more"></a>
+<p><strong>1. 实心圆</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bc8fd362d.jpg" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">paint.setStyle(Paint.Style.FILL);</span><br><span class="line"><span class="comment">//参数分别表示：圆心X，圆心Y，圆形半径，画笔</span></span><br><span class="line">canvas.drawCircle(<span class="number">300</span>,<span class="number">300</span>,<span class="number">200</span>,paint);</span><br></pre></td></tr></table></figure>
+<p><strong>2. 空心圆</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bc8fe509d.jpg" alt="Alt text"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">paint2.setStrokeWidth(<span class="number">30</span>);</span><br><span class="line">paint.setStyle(Paint.Style.STROKE);</span><br><span class="line"><span class="comment">//参数分别表示：圆心X，圆心Y，圆形半径，画笔</span></span><br><span class="line">canvas.drawCircle(<span class="number">300</span>,<span class="number">300</span>,<span class="number">200</span>,paint);</span><br></pre></td></tr></table></figure>
+<p><strong>3. 直角矩形</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bc8fe6137.jpg" alt="Alt text"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//参数分别表示：left、top、right、bottom，即左上角、右下角坐标的X、Y，画笔</span></span><br><span class="line">canvas.drawRect(<span class="number">100</span>,<span class="number">100</span>,<span class="number">600</span>,<span class="number">400</span>,paint);</span><br></pre></td></tr></table></figure>
+<p><strong>4. 直角矩形 - - Rect</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bc90045d6.jpg" alt="Alt text"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建Rect对象，分别设置左上角、右下角坐标</span></span><br><span class="line">Rect rect = <span class="keyword">new</span> Rect();</span><br><span class="line">rect.left = <span class="number">100</span>;</span><br><span class="line">rect.top = <span class="number">100</span>;</span><br><span class="line">rect.right = <span class="number">600</span>;</span><br><span class="line">rect.bottom = <span class="number">400</span>;</span><br><span class="line">canvas.drawRect(rect,paint);</span><br></pre></td></tr></table></figure>
+<p><strong>5. 圆角矩形</strong><br><img src="https://i.loli.net/2019/04/14/5cb2beca6dd8a.jpg" alt="Alt text"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">RectF rect = <span class="keyword">new</span> RectF();</span><br><span class="line">rect.left = <span class="number">100</span>;</span><br><span class="line">rect.top = <span class="number">100</span>;</span><br><span class="line">rect.right = <span class="number">600</span>;</span><br><span class="line">rect.bottom = <span class="number">400</span>;</span><br><span class="line"><span class="comment">//参数分别表示：矩形、X轴、Y轴方向的圆角半径、画笔</span></span><br><span class="line">canvas.drawRoundRect(rect,<span class="number">20</span>,<span class="number">20</span>,paint);</span><br></pre></td></tr></table></figure>
+<p><strong>6. 小圆点、小方块</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bc9005bbb.jpg" alt="Alt text"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置小圆点的大小</span></span><br><span class="line">paint.setStrokeWidth(<span class="number">50</span>);</span><br><span class="line"><span class="comment">//平头小方块</span></span><br><span class="line">paint.setStrokeCap(Paint.Cap.BUTT);</span><br><span class="line"><span class="comment">//参数分别是X、Y点坐标</span></span><br><span class="line">canvas.drawPoint(<span class="number">200</span>,<span class="number">400</span>,paint);</span><br><span class="line"><span class="comment">//小圆点</span></span><br><span class="line">paint.setStrokeCap(Paint.Cap.ROUND);</span><br><span class="line">canvas.drawPoint(<span class="number">300</span>,<span class="number">400</span>,paint);</span><br><span class="line"><span class="comment">//方头小方块</span></span><br><span class="line">paint.setStrokeCap(Paint.Cap.SQUARE);</span><br><span class="line">canvas.drawPoint(<span class="number">400</span>,<span class="number">400</span>,paint);</span><br></pre></td></tr></table></figure>
+<p><strong>7. 连续小圆点、小方块</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bc9005d85.jpg" alt="Alt text"></p>
+<blockquote>
+<p><strong>pts：</strong>坐标数组<br><strong>offset：</strong>跳过数组中前面几个数，才开始计算圆点坐标<br><strong>count：</strong>一起要多少个数组中的数来进行坐标圆点绘制，两个数算作一个点，越界会出现异常，单个数不算作一个点<br><strong>drawPoints(float[] pts, int offset, int count, Paint paint)</strong></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">drawPoints(<span class="keyword">float</span>[] pts, <span class="keyword">int</span> offset, <span class="keyword">int</span> count, <span class="meta">@RecentlyNonNull</span> Paint paint)</span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span>[] points = <span class="keyword">new</span> <span class="keyword">float</span>[]&#123;<span class="number">100</span>,<span class="number">100</span>,<span class="number">200</span>,<span class="number">100</span>,<span class="number">300</span>,<span class="number">100</span>,<span class="number">400</span>,<span class="number">100</span>&#125;;</span><br><span class="line">canvas.drawPoints(points,paint);</span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span>[] points2 = <span class="keyword">new</span> <span class="keyword">float</span>[]&#123;<span class="number">100</span>,<span class="number">300</span>,<span class="number">200</span>,<span class="number">300</span>,<span class="number">300</span>,<span class="number">300</span>,<span class="number">400</span>,<span class="number">300</span>&#125;;</span><br><span class="line">canvas.drawPoints(points2,<span class="number">1</span>,<span class="number">6</span>,paint);</span><br></pre></td></tr></table></figure>
+<p><strong>8. 椭圆</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bc9006b96.jpg" alt="Alt text"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//left、top、right、bottom位置的坐标</span></span><br><span class="line">canvas.drawOval(<span class="number">100</span>,<span class="number">100</span>,<span class="number">600</span>,<span class="number">400</span>,paint);</span><br><span class="line"></span><br><span class="line">RectF rect = <span class="keyword">new</span> RectF();</span><br><span class="line">rect.left = <span class="number">100</span>;</span><br><span class="line">rect.top = <span class="number">100</span>;</span><br><span class="line">rect.right = <span class="number">600</span>;</span><br><span class="line">rect.bottom = <span class="number">400</span>;</span><br><span class="line">canvas.drawOval(rect,paint);</span><br></pre></td></tr></table></figure>
+<p><strong>9. 画线条</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bc90069a3.jpg" alt="Alt text"></p>
+<blockquote>
+<p><strong>pts：</strong>坐标数组<br><strong>offset：</strong>跳过数组中前面几个数，才开始计算直线的坐标<br><strong>count：</strong>一起要多少个数组中的数来进行直线坐标的绘制，两个数算作一个点，直线需要两个点，也就是四个数构成一条直线，越界会出现异常，少于四个数不算作一条直线<br><strong>drawLines(float[] pts, int offset, int count, Paint paint)</strong></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> canvas.drawLine(<span class="number">100</span>,<span class="number">100</span>,<span class="number">400</span>,<span class="number">100</span>,paint);</span><br><span class="line"></span><br><span class="line"><span class="comment">//画一个线条组成的正方形</span></span><br><span class="line"><span class="keyword">float</span>[] lines = <span class="keyword">new</span> <span class="keyword">float</span>[]&#123;<span class="number">100</span>,<span class="number">200</span>,<span class="number">500</span>,<span class="number">200</span>,<span class="number">500</span>,<span class="number">200</span>,<span class="number">500</span>,<span class="number">500</span>,<span class="number">500</span>,<span class="number">500</span>,<span class="number">100</span>,<span class="number">500</span>,<span class="number">100</span>,<span class="number">500</span>,<span class="number">100</span>,<span class="number">200</span>&#125;;</span><br><span class="line">canvas.drawLines(lines,paint);</span><br></pre></td></tr></table></figure>
+<p><strong>10. 扇形</strong><br><img src="https://i.loli.net/2019/04/14/5cb2cbd3dadc7.jpg" alt="Alt text"></p>
+<blockquote>
+<p><strong>oval：</strong>矩形<br><strong>startAngle：</strong>扇形从哪个角度开始(顺时针0-360)<br><strong>sweepAngle：</strong>扇形整个展开的角度<br><strong>useCenter：</strong>是否连接到圆形，连接就是扇形，不连接就是弧形</p>
+<p><strong>drawArc(RectF oval, float startAngle, float sweepAngle, boolean useCenter, Paint paint)</strong></p>
+<p><strong>left、top、right、bottom：</strong>矩形的左上角、右下角的坐标，因为弧形、扇形、圆形都可以是一个矩形内来规划。<br><strong>drawArc(float left, float top, float right, float bottom, float startAngle, float sweepAngle, boolean useCenter, Paint paint)</strong></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">RectF rect = <span class="keyword">new</span> RectF();</span><br><span class="line">rect.left = <span class="number">50</span>;</span><br><span class="line">rect.top = <span class="number">50</span>;</span><br><span class="line">rect.right = <span class="number">500</span>;</span><br><span class="line">rect.bottom = <span class="number">500</span>;</span><br><span class="line"><span class="comment">//扇形</span></span><br><span class="line">canvas.drawArc(rect,<span class="number">0</span>,<span class="number">90</span>,<span class="keyword">true</span>,paint);</span><br><span class="line"><span class="comment">//弧形</span></span><br><span class="line">canvas.drawArc(rect,<span class="number">120</span>,<span class="number">90</span>,<span class="keyword">false</span>,paint);</span><br><span class="line"><span class="comment">//弧线</span></span><br><span class="line">paint.setStyle(Paint.Style.STROKE);</span><br><span class="line">canvas.drawArc(rect,<span class="number">230</span>,<span class="number">90</span>,<span class="keyword">false</span>,paint);</span><br></pre></td></tr></table></figure>
+<p><strong>11. 根据path路径绘制图形，更多的是不规则图形</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Path常用方法</th>
+<th style="text-align:left">效果、作用描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">lineTo(x,y)</td>
+<td style="text-align:left">若起点为a(10,10),表示将线条从a绘制到终点坐标(x,y)</td>
+</tr>
+<tr>
+<td style="text-align:left">rLineTo(dx,dy)</td>
+<td style="text-align:left">若起点为a(10,10),表示将线条从a绘制到终点坐标(10+dx,10+dy)</td>
+</tr>
+<tr>
+<td style="text-align:left">moveTo(x,y)</td>
+<td style="text-align:left">将下一次path绘制的起点坐标移动至(x,y)，比如原本起点在a(10,10)，使用moveTo之后，下次的起点在(x,y)</td>
+</tr>
+<tr>
+<td style="text-align:left">rMoveTo(dx,dy)</td>
+<td style="text-align:left">将下一次path绘制的起点坐标增加dx、dy，比如原本起点在a(10,10)，使用rMoveTo之后，下次的起点在(10+dx,10+dy)</td>
+</tr>
+<tr>
+<td style="text-align:left">setLastPoint(dx,dy)</td>
+<td style="text-align:left">改变前一步path绘制的终点坐标,将终点从(x,y)改变为(dx，dy)</td>
+</tr>
+<tr>
+<td style="text-align:left">addRect</td>
+<td style="text-align:left">绘制矩形</td>
+</tr>
+<tr>
+<td style="text-align:left">addRoundRect</td>
+<td style="text-align:left">绘制圆角矩形</td>
+</tr>
+<tr>
+<td style="text-align:left">addCircle</td>
+<td style="text-align:left">　绘制圆形</td>
+</tr>
+<tr>
+<td style="text-align:left">addOval</td>
+<td style="text-align:left">绘制椭圆</td>
+</tr>
+<tr>
+<td style="text-align:left">addArc、arcTo</td>
+<td style="text-align:left">绘制圆弧</td>
+</tr>
+<tr>
+<td style="text-align:left">close</td>
+<td style="text-align:left">将path的起点和终点进行闭合</td>
+</tr>
+<tr>
+<td style="text-align:left">Path.Direction.CW</td>
+<td style="text-align:left">顺时针、clockwise</td>
+</tr>
+<tr>
+<td style="text-align:left">Path.Direction.CCW</td>
+<td style="text-align:left">逆时针、counter-clockwise</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>lineTo和rLineTo</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bd92f27ed.jpg" alt="Alt text"></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//lineTo和rLineTo</span></span><br><span class="line">Path path = <span class="keyword">new</span> Path();</span><br><span class="line">path.lineTo(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">path.lineTo(<span class="number">500</span>, <span class="number">500</span>);</span><br><span class="line">canvas.drawPath(path, paint);</span><br><span class="line"></span><br><span class="line">Path path2 = <span class="keyword">new</span> Path();</span><br><span class="line">path2.lineTo(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">path2.rLineTo(<span class="number">500</span>, <span class="number">500</span>);</span><br><span class="line">canvas.drawPath(path2, paint);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>rMoveTo和moveTo</strong><br><img src="https://i.loli.net/2019/04/14/5cb2c0c5422b8.jpg" alt="Alt text"></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//rMoveTo和moveTo</span></span><br><span class="line">Path path = <span class="keyword">new</span> Path();</span><br><span class="line">path.lineTo(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">path.rMoveTo(<span class="number">100</span>, <span class="number">200</span>);</span><br><span class="line">path.lineTo(<span class="number">500</span>, <span class="number">500</span>);</span><br><span class="line">canvas.drawPath(path, paint);</span><br><span class="line"></span><br><span class="line">Path path2 = <span class="keyword">new</span> Path();</span><br><span class="line">path2.lineTo(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">path2.moveTo(<span class="number">100</span>, <span class="number">200</span>);</span><br><span class="line">path2.lineTo(<span class="number">500</span>, <span class="number">500</span>);</span><br><span class="line">canvas.drawPath(path2, paint);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>addRect、addRoundRect、addCircle、addOval</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bd935bb05.jpg" alt="Alt text"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加圆形</span></span><br><span class="line">Path path = <span class="keyword">new</span> Path();</span><br><span class="line">path.setFillType(Path.FillType.WINDING);</span><br><span class="line">path.addCircle(<span class="number">300</span>,<span class="number">300</span>,<span class="number">200</span>,Path.Direction.CW);</span><br><span class="line">path.addCircle(<span class="number">500</span>,<span class="number">300</span>,<span class="number">200</span>,Path.Direction.CW);</span><br><span class="line">canvas.drawPath(path,paint);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>addArc、arcTo</strong><br>都是绘制圆弧的，addArc与arcTo的区别简单来说在于：参数forceMoveTo，是否强制将path的最后一个点移动到圆弧的起点，true表示强制移动，不连接两点，false表示连接两点。addArc相当于默认是true，不连接两点。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//绘制圆弧</span></span><br><span class="line">addArc(RectF oval, <span class="keyword">float</span> startAngle, <span class="keyword">float</span> sweepAngle)</span><br><span class="line">addArc(<span class="keyword">float</span> left, <span class="keyword">float</span> top, <span class="keyword">float</span> right, <span class="keyword">float</span> bottom, <span class="keyword">float</span> startAngle,<span class="keyword">float</span> sweepAngle)</span><br><span class="line"></span><br><span class="line"><span class="comment">//forceMoveTo：是否强制将path最后一个点移动到圆弧起点，</span></span><br><span class="line"><span class="comment">//true是强制移动，即为不连接两个点；false则连接两个点</span></span><br><span class="line">arcTo(RectF oval, <span class="keyword">float</span> startAngle, <span class="keyword">float</span> sweepAngle,<span class="keyword">boolean</span> forceMoveTo)</span><br><span class="line">arcTo(RectF oval, <span class="keyword">float</span> startAngle, <span class="keyword">float</span> sweepAngle)</span><br><span class="line">arcTo(<span class="keyword">float</span> left, <span class="keyword">float</span> top, <span class="keyword">float</span> right, <span class="keyword">float</span> bottom, <span class="keyword">float</span> startAngle,<span class="keyword">float</span> sweepAngle, <span class="keyword">boolean</span> forceMoveTo)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>arcTo绘制连接和不连接的两条路径</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bd935d391.jpg" alt="Alt text"></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//黄色线条，与圆弧不连接</span></span><br><span class="line">Path path = <span class="keyword">new</span> Path();</span><br><span class="line">path.lineTo(<span class="number">100</span>,<span class="number">200</span>);</span><br><span class="line">path.arcTo(<span class="number">300</span>,<span class="number">200</span>,<span class="number">600</span>,<span class="number">500</span>,-<span class="number">90</span>,<span class="number">180</span>,<span class="keyword">true</span>);</span><br><span class="line">canvas.drawPath(path,paint);</span><br><span class="line"></span><br><span class="line"><span class="comment">//红色线条，与圆弧连接</span></span><br><span class="line">paint.setColor(Color.RED);</span><br><span class="line">Path path2 = <span class="keyword">new</span> Path();</span><br><span class="line">path2.lineTo(<span class="number">200</span>,<span class="number">200</span>);</span><br><span class="line">path2.arcTo(<span class="number">200</span>,<span class="number">200</span>,<span class="number">550</span>,<span class="number">500</span>,-<span class="number">90</span>,<span class="number">180</span>,<span class="keyword">false</span>);</span><br><span class="line">canvas.drawPath(path2,paint);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>使用Path绘制爱心</strong><br><img src="https://i.loli.net/2019/04/14/5cb2c122c72b4.jpg" alt="Alt text"></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据path路径绘制一个爱心</span></span><br><span class="line">Path path = <span class="keyword">new</span> Path();</span><br><span class="line">path.addArc(<span class="number">200</span>, <span class="number">200</span>, <span class="number">400</span>, <span class="number">400</span>, -<span class="number">225</span>, <span class="number">225</span>);</span><br><span class="line">path.arcTo(<span class="number">400</span>, <span class="number">200</span>, <span class="number">600</span>, <span class="number">400</span>, -<span class="number">180</span>, <span class="number">225</span>, <span class="keyword">false</span>);</span><br><span class="line">path.lineTo(<span class="number">400</span>, <span class="number">542</span>);</span><br><span class="line">canvas.drawPath(path,paint);</span><br></pre></td></tr></table></figure>
+<p><strong>12. Path.setFillType(Path.FillType ft) 设置填充方式</strong></p>
+<ul>
+<li>EVEN_ODD(交叉填充)</li>
+<li>WINDING （默认值，全部填充）</li>
+<li>INVERSE_EVEN_ODD(反向交叉填充)</li>
+<li>INVERSE_WINDING(反向全部填充)<br><img src="https://i.loli.net/2019/04/14/5cb2beeb5f45f.jpg" alt="Alt text"></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//完全填充</span></span><br><span class="line">Path path = <span class="keyword">new</span> Path();</span><br><span class="line"><span class="comment">//绘制区域全部填充</span></span><br><span class="line">path.setFillType(Path.FillType.WINDING);</span><br><span class="line"><span class="comment">//绘制区域重合处不填充</span></span><br><span class="line">path.setFillType(Path.FillType.EVEN_ODD);</span><br><span class="line"><span class="comment">//绘制区域外全部填充</span></span><br><span class="line">path.setFillType(Path.FillType.INVERSE_WINDING);</span><br><span class="line"><span class="comment">//绘制区域重合出填充，绘制区域外全部填充</span></span><br><span class="line">path.setFillType(Path.FillType.INVERSE_EVEN_ODD);</span><br><span class="line">path.addCircle(<span class="number">300</span>,<span class="number">300</span>,<span class="number">200</span>,Path.Direction.CW);</span><br><span class="line">path.addCircle(<span class="number">500</span>,<span class="number">300</span>,<span class="number">200</span>,Path.Direction.CW);</span><br><span class="line">canvas.drawPath(path,paint);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>效果展示图</strong></li>
+</ul>
+<p><img src="https://i.loli.net/2019/04/14/5cb2bd936f0d1.jpg" alt="Alt text"><br><img src="https://i.loli.net/2019/04/14/5cb2bd937980e.jpg" alt="Alt text"></p>
+<ul>
+<li><strong>反向，不在绘制区域内的部分，也会被填充颜色</strong><br><img src="https://i.loli.net/2019/04/14/5cb2bf12554e2.jpg" alt="Alt text"><br><img src="https://i.loli.net/2019/04/14/5cb2bf125eeb5.jpg" alt="Alt text"></li>
+</ul>
+<hr>
+<p><strong>PDF文件获取地址 : </strong><br><a href="https://pan.baidu.com/s/1v2BNdBQfwp7dBrPHykduKQ" target="_blank" rel="noopener">2. 自定义View方法查询手册-Canvas 百度云</a>  提取码：tkhi</p>
+
+      
+    </div>
+    
+    
+    
+	
+	<div>
+		
+			<div>
+
+    <div style="text-align:center;color: #ccc;font-size:14px;">^-^-------------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------------^-^</div>
+
+</div>
+
+		
+	</div>
+
+	<div>
+      
+        
+<div class="wd_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/04/14/自定义View方法查询手册-Canvas/">自定义View方法查询手册-Canvas</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Xiao 的个人博客">Xiao</a></p>
+  <p><span>发布时间:</span>2019年04月14日 - 11:04</p>
+  <p><span>最后更新:</span>2019年10月30日 - 15:10</p>
+  <p><span>原始链接:</span><a href="/2019/04/14/自定义View方法查询手册-Canvas/" title="自定义View方法查询手册-Canvas">https://www.syncxiao.com/2019/04/14/自定义View方法查询手册-Canvas/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.syncxiao.com/2019/04/14/自定义View方法查询手册-Canvas/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+	</div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_wd_syncany.jpg" alt="Xiao wechat" style="width: 200px; max-width: 100%;">
+    <div>心若如止水，何必惹凡尘 (扫一扫关注公众号有惊喜哦！)</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>很少会有人来看我的！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wdwechatpay.jpg" alt="Xiao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/wdalipay.jpg" alt="Xiao 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Canvas/" rel="tag"><i class="fa fa-tag"></i> Canvas</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/07/自定义View方法查询手册-Paint/" rel="next" title="自定义View方法查询手册-Paint">
+                <i class="fa fa-chevron-left"></i> 自定义View方法查询手册-Paint
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/20/RxJava系列 - 操作符说明/" rel="prev" title="RxJava系列 - 操作符说明">
+                RxJava系列 - 操作符说明 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="Xiao">
+            
+              <p class="site-author-name" itemprop="name">Xiao</p>
+              <p class="site-description motion-element" itemprop="description">遇，则安.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AmiGWF" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wudu1227@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/5fc52e9721dc" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xiao</span>
+
+  <!--
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>  本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </div></footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gtcx0bO25hpWaJnMiy94pird-gzGzoHsz',
+        appKey: '3t6HjjXxEXQE6AOis4skK3Hh',
+        placeholder: '或许你说的，就是我想的。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

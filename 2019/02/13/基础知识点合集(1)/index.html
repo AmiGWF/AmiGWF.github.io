@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="合集,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="目录 1. Properties 2. 设计模式-代理模式 3. 反射(Reflection) 3.1 关键类：Class类 3.2 反射的使用   4. 锁机制 4.1 synchronized 4.2 ReentrantLock">
+<meta name="keywords" content="合集">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础知识点合集(1)">
+<meta property="og:url" content="https://www.syncxiao.com/2019/02/13/基础知识点合集(1)/index.html">
+<meta property="og:site_name" content="SyncXiao">
+<meta property="og:description" content="目录 1. Properties 2. 设计模式-代理模式 3. 反射(Reflection) 3.1 关键类：Class类 3.2 反射的使用   4. 锁机制 4.1 synchronized 4.2 ReentrantLock">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i.imgur.com/a2P3vnQ.png">
+<meta property="og:image" content="http://i.imgur.com/XC851p0.png">
+<meta property="og:updated_time" content="2019-10-30T07:06:31.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基础知识点合集(1)">
+<meta name="twitter:description" content="目录 1. Properties 2. 设计模式-代理模式 3. 反射(Reflection) 3.1 关键类：Class类 3.2 反射的使用   4. 锁机制 4.1 synchronized 4.2 ReentrantLock">
+<meta name="twitter:image" content="http://i.imgur.com/a2P3vnQ.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.syncxiao.com/2019/02/13/基础知识点合集(1)/">
+
+
+
+
+
+  <title>基础知识点合集(1) | SyncXiao</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SyncXiao</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">花非花 雾非雾 萝卜爱上小白兔</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.syncxiao.com/2019/02/13/基础知识点合集(1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xiao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SyncXiao">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基础知识点合集(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-13T18:39:29+08:00">
+                2019-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/13/基础知识点合集(1)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/13/基础知识点合集(1)/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  24 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#1">1. Properties</a></li>
+<li><a href="#2">2. 设计模式-代理模式</a></li>
+<li><a href="#3">3. 反射(Reflection)</a><ul>
+<li><a href="#3.1">3.1 关键类：Class类</a></li>
+<li><a href="#3.2">3.2 反射的使用</a></li>
+</ul>
+</li>
+<li><a href="#4">4. 锁机制</a><ul>
+<li><a href="#4.1">4.1 synchronized</a></li>
+<li><a href="#4.2">4.2 ReentrantLock</a>    </li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="1">一.Properties</h2>
+
+<p><strong>1.基础-使用方法</strong><br><strong>例1：假如assets文件夹下，存在一个名为：YourName.properties的文件，我们通过下面的方式读取文件中的参数.</strong></p>
+<ul>
+<li><p><strong>文件内容</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">YourKey1=1</span><br><span class="line">YourKey2=BDC</span><br><span class="line">YourKey3=true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>读取方式</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">  InputStream inputStream = <span class="keyword">this</span>.getAssets().open(<span class="string">"YourName.properties"</span>);</span><br><span class="line">  properties.load(inputStream);</span><br><span class="line">  Log.d(TAG, properties.get(<span class="string">"YourKey"</span>));</span><br><span class="line">   <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>key值获取方式</strong></p>
+<p>因为Properties继承自Hashtable,所以最终的获取方式还是和Hashtable中通过键值对的方式获取</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> hash = Collections.secondaryHash(key);</span><br><span class="line">      HashtableEntry&lt;K, V&gt;[] tab = table;</span><br><span class="line">      <span class="keyword">for</span> (HashtableEntry&lt;K, V&gt; e = tab[hash &amp; (tab.length - <span class="number">1</span>)];</span><br><span class="line">              e != <span class="keyword">null</span>; e = e.next) &#123;</span><br><span class="line">          K eKey = e.key;</span><br><span class="line">          <span class="keyword">if</span> (eKey == key || (e.hash == hash &amp;&amp; key.equals(eKey))) &#123;</span><br><span class="line">              <span class="keyword">return</span> e.value;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="2">二.设计模式-代理模式</h2>
+
+<p><strong>1.静态代理</strong><br><strong>自我理解：静态代理就是由基础类提供统一的接口，实现类实现接口并完成具体的逻辑，代理类实现接口但并不再去修改具体实现逻辑，只是利用拥有的实现类的对象，调用相应的接口.</strong></p>
+<ul>
+<li><p><strong>基础类：提供统一接口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MBaseInterface</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readProxyName</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeProxyName</span><span class="params">(String name)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findProxyName</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findProxyName</span><span class="params">(Object o)</span></span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>实现类：实现具体逻辑</strong> </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MBaseImpl</span> <span class="keyword">implements</span> <span class="title">MBaseInterface</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readProxyName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      Log.d(<span class="string">"MBaseImpl"</span>, <span class="string">""</span>+<span class="keyword">this</span>.getClass().getSimpleName()+<span class="string">".readProxyName"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeProxyName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">      Log.d(<span class="string">"MBaseImpl"</span>, <span class="string">""</span>+<span class="keyword">this</span>.getClass().getSimpleName()+<span class="string">".writeProxyName : "</span>+name);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findProxyName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      Log.d(<span class="string">"MBaseImpl"</span>, <span class="string">""</span>+<span class="keyword">this</span>.getClass().getSimpleName()+<span class="string">".findProxyName"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findProxyName</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">      Log.d(<span class="string">"MBaseImpl"</span>, <span class="string">""</span>+<span class="keyword">this</span>.getClass().getSimpleName()+<span class="string">".findProxyName : "</span>+o);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>静态代理类：利用实现类的实例调用接口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MBaseImplProxy</span> <span class="keyword">implements</span> <span class="title">MBaseInterface</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> MBaseInterface mBase;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">MBaseImplProxy</span><span class="params">(MBaseInterface mInterface)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.mBase = mInterface;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readProxyName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      mBase.readProxyName();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeProxyName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">      mBase.writeProxyName(name);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findProxyName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      mBase.findProxyName();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findProxyName</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">      mBase.findProxyName(o);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<p><strong>2.动态代理</strong><br><strong>自我理解 : 动态代理只能代理接口，不支持抽象类的代理，并且代理类要实现InvocationHandler接口，并通过反射机制，在运行时动态的决定代理对象.</strong></p>
+<ul>
+<li><p><strong>动态代理类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Object object;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">getProxyInstance</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.object = o;</span><br><span class="line">      <span class="keyword">return</span> Proxy.newProxyInstance(o.getClass().getClassLoader(), o</span><br><span class="line">              .getClass().getInterfaces(), <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span></span></span><br><span class="line"><span class="function">          <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">      Object obj = <span class="keyword">null</span>;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          Log.d(<span class="string">"ProxyHandler"</span>, <span class="string">"method : "</span> + method.toString());</span><br><span class="line">          obj = method.invoke(object, args);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> obj;</span><br><span class="line">  &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>接口分析: java.lang.reflect.InvocationHandler</strong></p>
+</li>
+</ul>
+<ol>
+<li>InvocationHandler接口中只有一个方法：invoke;</li>
+<li>proxy：表示代理;</li>
+<li>method：表示原对象中被调用的方法(即上面MBaseImpl中的方法);</li>
+<li><p>args：表示方法参数.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><p><strong>代理分析</strong></p>
+</li>
+<li><p>newProxyInstance为获取一个代理对象，上面的ProxyHandler$getProxyInstance方法最终返回的是一个代理对象;</p>
+</li>
+<li><p>loader：代理对象的类加载器，需要将其指定为和目标对象同一个加载器;</p>
+</li>
+<li><p>interfaces：代理对象的接口，即目标对象的所有接口;</p>
+</li>
+<li><p>h:上述方法被拦截时，需要执行哪一个InvocationHandler的invoke方法，根据传入的目标返回一个代理对象.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">newProxyInstance</span><span class="params">(ClassLoader loader,</span></span></span><br><span class="line"><span class="function"><span class="params">         Class&lt;?&gt;[] interfaces, InvocationHandler h)</span></span></span><br><span class="line"><span class="function">         <span class="keyword">throws</span> IllegalArgumentException </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (h == <span class="keyword">null</span>) &#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">"h == null"</span>);</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> getProxyClass(loader, interfaces).getConstructor(</span><br><span class="line">                 <span class="keyword">new</span> Class&lt;?&gt;[] &#123; InvocationHandler.class &#125;).newInstance(</span><br><span class="line">                 <span class="keyword">new</span> Object[] &#123; h &#125;);</span><br><span class="line">     &#125; <span class="keyword">catch</span> (NoSuchMethodException ex) &#123;</span><br><span class="line">         <span class="keyword">throw</span> (InternalError) (<span class="keyword">new</span> InternalError(ex.toString())</span><br><span class="line">                 .initCause(ex));</span><br><span class="line">     &#125; <span class="keyword">catch</span> (IllegalAccessException ex) &#123;</span><br><span class="line">         <span class="keyword">throw</span> (InternalError) (<span class="keyword">new</span> InternalError(ex.toString())</span><br><span class="line">                 .initCause(ex));</span><br><span class="line">     &#125; <span class="keyword">catch</span> (InstantiationException ex) &#123;</span><br><span class="line">         <span class="keyword">throw</span> (InternalError) (<span class="keyword">new</span> InternalError(ex.toString())</span><br><span class="line">                 .initCause(ex));</span><br><span class="line">     &#125; <span class="keyword">catch</span> (InvocationTargetException ex) &#123;</span><br><span class="line">         Throwable target = ex.getTargetException();</span><br><span class="line">         <span class="keyword">throw</span> (InternalError) (<span class="keyword">new</span> InternalError(target.toString())</span><br><span class="line">                 .initCause(target));</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>客户端实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="comment">//静态代理</span></span><br><span class="line"></span><br><span class="line">  MBaseInterface mInterface =  <span class="keyword">new</span> MBaseImplProxy(<span class="keyword">new</span> MBaseImpl());</span><br><span class="line"></span><br><span class="line">  mInterface.readProxyName();</span><br><span class="line"></span><br><span class="line">  mInterface.writeProxyName(<span class="string">"proxy"</span>);</span><br><span class="line"></span><br><span class="line">  mInterface.findProxyName();</span><br><span class="line"></span><br><span class="line">  mInterface.findProxyName(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//动态代理</span></span><br><span class="line">ProxyHandler pHandler = <span class="keyword">new</span> ProxyHandler();</span><br><span class="line">MBaseInterface mInterface2 = (MBaseInterface) pHandler.getProxyInstance(<span class="keyword">new</span> MBaseImpl());</span><br><span class="line">mInterface2.readProxyName();</span><br><span class="line">mInterface2.writeProxyName(<span class="string">"proxy"</span>);</span><br><span class="line">mInterface2.findProxyName();</span><br><span class="line">mInterface2.findProxyName(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>静态代理图示</strong><br><img src="http://i.imgur.com/a2P3vnQ.png" alt="静态代理图示"></p>
+</li>
+<li><p><strong>动态代理图示</strong><br><img src="http://i.imgur.com/XC851p0.png" alt="动态代理图示"></p>
+</li>
+</ul>
+<hr>
+<h2 id="3"> 三.反射(Reflection) </h2>
+
+<p><strong>自我理解 ：反射主要是指程序可以访问、检测和修改自身的状态或者行为的一种能力，通过对应的全路径类名、函数名、变量名来获取并执行、改变一些不能直接调用的函数，达到程序期望的效果.</strong></p>
+<h3 id="3.1"> 3.1 关键类：Class类 </h3>
+
+
+<p><strong>Class类的获取方式有很多，一般在反射中我们使用的==Class.forName==的方式来获取Class对象,Class类中包含很多我们在反射中需要用的方法，这些方法获取到的函数有修饰域的限制，注意使用时的选择.</strong></p>
+<p><strong>1. 构造方法的获取</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">根据构造函数的参数，返回一个具体的具有<span class="keyword">public</span>属性的构造函数</span><br><span class="line"><span class="function">Constructor <span class="title">getConstructor</span><span class="params">(Class[] params)</span>    </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">返回所有具有<span class="keyword">public</span>属性的构造函数数组</span></span><br><span class="line"><span class="function">Constructor <span class="title">getConstructors</span><span class="params">()</span>    </span></span><br><span class="line"><span class="function">　　　 　</span></span><br><span class="line"><span class="function">根据构造函数的参数，返回一个具体的构造函数（不分<span class="keyword">public</span>和非<span class="keyword">public</span>属性）</span></span><br><span class="line"><span class="function">Constructor <span class="title">getDeclaredConstructor</span><span class="params">(Class[] params)</span>   </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">返回该类中所有的构造函数数组（不分<span class="keyword">public</span>和非<span class="keyword">public</span>属性）</span></span><br><span class="line"><span class="function">Constructor <span class="title">getDeclaredConstructors</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>2. 成员方法的获取</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">根据方法名和参数，返回一个具体的具有<span class="keyword">public</span>属性的方法</span><br><span class="line"><span class="function">Method <span class="title">getMethod</span><span class="params">(String name, Class[] params)</span>   </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">返回所有具有<span class="keyword">public</span>属性的方法数组</span></span><br><span class="line"><span class="function">Method[] <span class="title">getMethods</span><span class="params">()</span>   </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">根据方法名和参数，返回一个具体的方法（不分<span class="keyword">public</span>和非<span class="keyword">public</span>属性）</span></span><br><span class="line"><span class="function">Method <span class="title">getDeclaredMethod</span><span class="params">(String name, Class[] params)</span>   </span></span><br><span class="line"><span class="function">　　　　</span></span><br><span class="line"><span class="function">返回该类中的所有的方法数组（不分<span class="keyword">public</span>和非<span class="keyword">public</span>属性）</span></span><br><span class="line"><span class="function">Method[] <span class="title">getDeclaredMethods</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>3. 成员变量(属性)的获取</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">根据变量名，返回一个具体的具有<span class="keyword">public</span>属性的成员变量</span><br><span class="line"><span class="function">Field <span class="title">getField</span><span class="params">(String name)</span>   </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">返回具有<span class="keyword">public</span>属性的成员变量的数组</span></span><br><span class="line"><span class="function">Field[] <span class="title">getFields</span><span class="params">()</span>   </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">根据变量名，返回一个成员变量（不分<span class="keyword">public</span>和非<span class="keyword">public</span>属性）</span></span><br><span class="line"><span class="function">Field <span class="title">getDeclaredField</span><span class="params">(String name)</span>   </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">返回所有成员变量组成的数组（不分<span class="keyword">public</span>和非<span class="keyword">public</span>属性）</span></span><br><span class="line"><span class="function">Field[] <span class="title">getDelcaredField</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>4. Object 对象和 invoke 方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Oject对象的获取方式可分为以下两种:</span><br><span class="line">    <span class="number">1</span>. 通过Class对象获取</span><br><span class="line">         Object o1 = <span class="class"><span class="keyword">class</span>.<span class="title">newInstance</span>()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="number">2</span>. 通过构造函数Constructor获取,其中是可变参数，根据构造函数的参数传递</span><br><span class="line">         Object o2 = cons.newInstance(Object... args);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> Object <span class="title">invoke</span><span class="params">(Object receiver, Object... args)</span>方法</span></span><br><span class="line"><span class="function">    receiver:作为接收对象，被底层方法调用</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    args：可变参数，根据方法的参数传递</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    <span class="title">invoke</span><span class="params">(obj,new Object[]&#123;你要执行的方法所对应的参数&#125;)</span></span></span><br><span class="line"><span class="function">    <span class="title">invoke</span><span class="params">(obj,new Object[]&#123;<span class="string">"Sync"</span>,<span class="number">99</span>&#125;)</span></span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="3.2"> 3.2 反射的使用 </h3>
+
+<p><strong>1. 基础类1</strong><br><strong>MReflectionBase中提供private构造方法、private参数和public函数.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MReflectionBase</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MReflectionBase"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> mCanReflec = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">public</span> String mReflecStr = <span class="string">"Java Reflection"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">MReflectionBase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getmReflecStr</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"getmReflecStr is run  "</span> + mReflecStr);</span><br><span class="line">        <span class="keyword">return</span> mReflecStr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setmReflecStr</span><span class="params">(String mReflecStr)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"setmReflecStr is run  "</span> + mReflecStr);</span><br><span class="line">        <span class="keyword">this</span>.mReflecStr = mReflecStr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">canReflec</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(mCanReflec)&#123;</span><br><span class="line">            Log.d(TAG, <span class="string">"mCanReflec  success : "</span> + mCanReflec);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            Log.d(TAG, <span class="string">"mCanReflec failuer :  "</span> + mCanReflec);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2. 实现类1</strong><br><strong>注意MReflectionBase中包含私有的函数及变量.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">run1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class c1 = Class.forName(<span class="string">"com.wd.javalib.reflec.MReflectionBase"</span>);</span><br><span class="line"></span><br><span class="line">            Constructor constructor = c1.getDeclaredConstructor(<span class="keyword">new</span> Class[<span class="number">0</span>]);</span><br><span class="line">            <span class="comment">//私有的构造函数，所以setAccessible(true)</span></span><br><span class="line">            constructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            Object o1 = constructor.newInstance(<span class="keyword">new</span> Object[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">            Method m1 = c1.getDeclaredMethod(<span class="string">"getmReflecStr"</span>);</span><br><span class="line">            m1.invoke(o1,<span class="keyword">new</span> Object[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">            Method m2  = c1.getDeclaredMethod(<span class="string">"setmReflecStr"</span>,String.class);</span><br><span class="line">            m2.invoke(o1,<span class="string">"change to mReflec success"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//before</span></span><br><span class="line">            Method m3 = c1.getMethod(<span class="string">"canReflec"</span>);</span><br><span class="line">            m3.invoke(o1,<span class="keyword">new</span> Object[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//after</span></span><br><span class="line">            Field f1 = c1.getDeclaredField(<span class="string">"mCanReflec"</span>);</span><br><span class="line">            <span class="comment">//java.lang.IllegalAccessException: Cannot access field: boolean com.wd.javalib.reflec.MReflectionBase.mCanReflec</span></span><br><span class="line">            f1.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            f1.set(o1,<span class="keyword">false</span>);</span><br><span class="line">            m3.invoke(o1,<span class="keyword">new</span> Object[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>输出结果</strong><br>从结果中可以看出，我们对方法的调用、变量的修改都起到了作用:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D/MReflectionBase: getmReflecStr is run  Java Reflection</span><br><span class="line">D/MReflectionBase: setmReflecStr is run  change to mReflec success</span><br><span class="line">D/MReflectionBase: mCanReflec  success : <span class="keyword">true</span></span><br><span class="line">D/MReflectionBase: mCanReflec failuer :  <span class="keyword">false</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>3. 基础类2</strong><br><strong>继承自MReflectionBase，剩下就是简单的实现.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MReflectionImpl</span> <span class="keyword">extends</span> <span class="title">MReflectionBase</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MReflectionImpl"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mReflecNum;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MReflectionImpl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"MReflectionImpl  contructor with empty "</span>);</span><br><span class="line">        mReflecNum = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MReflectionImpl</span><span class="params">(<span class="keyword">int</span> var0)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"MReflectionImpl  contructor with int  var0 : "</span> + var0);</span><br><span class="line">        mReflecNum = var0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MReflectionImpl</span><span class="params">(<span class="keyword">int</span> var1, String var2)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"MReflectionImpl  contructor with int and string  var1 : "</span> + var1 + <span class="string">",  var2 : "</span> + var2);</span><br><span class="line">        mReflecNum = var1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getReflecMess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"MReflectionImpl getReflecMess is run "</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getReflecMess</span><span class="params">(String var3)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"MReflectionImpl getReflecMess is run  with var3 : "</span> + var3);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getReflecMess</span><span class="params">(String var3, <span class="keyword">int</span> var4)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"MReflectionImpl getReflecMess is run  with var3 : "</span> + var3 + <span class="string">",   var4 : "</span> + var4);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getmReflecNum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"MReflectionImpl getmReflecNum is run "</span>);</span><br><span class="line">        <span class="keyword">return</span> mReflecNum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setmReflecNum</span><span class="params">(<span class="keyword">int</span> var4, <span class="keyword">int</span> var5)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"MReflectionImpl private  setmReflecNum  is run   var4 : "</span> + var4 + <span class="string">", var5 "</span> + var5);</span><br><span class="line">        <span class="keyword">this</span>.mReflecNum = var4;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setmReflecNum</span><span class="params">(<span class="keyword">int</span> var4)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"MReflectionImpl public  setmReflecNum  is run   var4 : "</span> + var4);</span><br><span class="line">        <span class="keyword">this</span>.mReflecNum = var4;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4. 实现类2</strong><br><strong>run2列举了通过不同的方式获取构造函数、成员函数的具体实例，可以比较清晰的了解反射使用的方式.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">run2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class var0;</span><br><span class="line">            Object var1 = (var0 = Class.forName(<span class="string">"com.wd.javalib.reflec.MReflectionImpl"</span>)).newInstance();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//不同参数的构造方法</span></span><br><span class="line">            Object var2 = var0.getDeclaredConstructor().newInstance();</span><br><span class="line">            Object var3 = var0.getDeclaredConstructor(<span class="keyword">new</span> Class[]&#123;<span class="keyword">int</span>.class&#125;).newInstance(<span class="keyword">new</span> Object[]&#123;<span class="number">100</span>&#125;);</span><br><span class="line">            Object var4 = var0.getDeclaredConstructor(<span class="keyword">new</span> Class[]&#123;<span class="keyword">int</span>.class,String.class&#125;).newInstance(<span class="keyword">new</span> Object[]&#123;<span class="number">200</span>,<span class="string">"this is newInstance"</span>&#125;);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//不同参数的函数</span></span><br><span class="line">            Method var5 = var0.getDeclaredMethod(<span class="string">"getReflecMess"</span>,<span class="keyword">new</span> Class[<span class="number">0</span>]);</span><br><span class="line">            var5.invoke(var1,<span class="keyword">new</span> Object[<span class="number">0</span>]);</span><br><span class="line">            Method var6 = var0.getDeclaredMethod(<span class="string">"getReflecMess"</span>,<span class="keyword">new</span> Class[]&#123;String.class&#125;);</span><br><span class="line">            <span class="comment">//var6.invoke(var1,"you can input words");</span></span><br><span class="line">            var6.invoke(var1,<span class="keyword">new</span> Object[]&#123;<span class="string">"you can input here"</span>&#125;);</span><br><span class="line">            Method var7 = var0.getDeclaredMethod(<span class="string">"getReflecMess"</span>,<span class="keyword">new</span> Class[]&#123;String.class,<span class="keyword">int</span>.class&#125;);</span><br><span class="line">            var7.invoke(var1,<span class="keyword">new</span> Object[]&#123;<span class="string">"you can input num for int type"</span>,<span class="number">2</span>&#125;);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//私有</span></span><br><span class="line">            Method var8 = var0.getDeclaredMethod(<span class="string">"setmReflecNum"</span>,<span class="keyword">new</span> Class[]&#123;<span class="keyword">int</span>.class,<span class="keyword">int</span>.class&#125;);</span><br><span class="line">            var8.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            var8.invoke(var1,<span class="keyword">new</span> Object[]&#123;<span class="number">300</span>,<span class="number">400</span>&#125;);</span><br><span class="line">            <span class="comment">//共有</span></span><br><span class="line">            Method var9 = var0.getDeclaredMethod(<span class="string">"setmReflecNum"</span>,<span class="keyword">new</span> Class[]&#123;<span class="keyword">int</span>.class&#125;);</span><br><span class="line">            var9.invoke(var1,<span class="keyword">new</span> Object[]&#123;<span class="number">500</span>&#125;);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获取该类中所有的方法(public &amp; private)</span></span><br><span class="line">            Method[] var10 = var0.getDeclaredMethods();</span><br><span class="line">            <span class="keyword">for</span>(Method m : var10)&#123;</span><br><span class="line">                Log.d(TAG,<span class="string">"-------Method Name : "</span> + m.getName() + <span class="string">",  mod : "</span>+ Modifier.toString(m.getModifiers()));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获取所有的public方法，不局限于该类</span></span><br><span class="line">            Method[] var11 = var0.getMethods();</span><br><span class="line">            <span class="keyword">for</span>(Method m : var11)&#123;</span><br><span class="line">                Log.d(TAG,<span class="string">"Method Name : "</span> + m.getName() + <span class="string">",  mod : "</span>+ Modifier.toString(m.getModifiers()));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="4"> 四.锁机制 </h2>
+
+<h4 id="4.1"> 4.1 synchronized(同步) </h4>
+
+<p><strong>synchronized是Java中的关键字，是一种同步锁，当他用来修饰一个方法或者一个代码块时，能够保证同一时刻最多只有一个线程执行该段代码.synchronized修饰的对象大致可以分为以下几种：</strong></p>
+<table>
+<thead>
+<tr>
+<th>修饰范围</th>
+<th>别称</th>
+<th>作用范围</th>
+<th>作用对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>修饰代码块</td>
+<td>同步语句块</td>
+<td>大括号{}里面的代码</td>
+<td>调用该段代码的对象</td>
+</tr>
+<tr>
+<td>修饰方法</td>
+<td>同步方法</td>
+<td>整个方法</td>
+<td>调用该方法的对象</td>
+</tr>
+<tr>
+<td>修饰静态方法</td>
+<td>***</td>
+<td>整个静态方法</td>
+<td>该静态方法所属类的所有对象</td>
+</tr>
+<tr>
+<td>修饰类</td>
+<td>***</td>
+<td>整个类</td>
+<td>该类的所有对象</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>测试方法1：修饰代码块</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MReentrantLockBase</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MReentrantLockBase"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> lockCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"thread : "</span> + Thread.currentThread().getName() + <span class="string">", lockCount : "</span> + (lockCount++));</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开始调用</span></span><br><span class="line">MReentrantLockBase lockBase =  <span class="keyword">new</span> MReentrantLockBase();</span><br><span class="line">Thread var0  = <span class="keyword">new</span> Thread(lockBase,<span class="string">"lockThread1"</span>);</span><br><span class="line">Thread var1  = <span class="keyword">new</span> Thread(lockBase,<span class="string">"lockThread2"</span>);</span><br><span class="line">var0.start();</span><br><span class="line">var1.start();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>执行结果1</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">07</span>-<span class="number">09</span> <span class="number">13</span>:<span class="number">08</span>:<span class="number">25.339</span> D/MReentrantLockBase: thread : lockThread1, lockCount : <span class="number">0</span></span><br><span class="line"><span class="number">07</span>-<span class="number">09</span> <span class="number">13</span>:<span class="number">08</span>:<span class="number">26.340</span> D/MReentrantLockBase: thread : lockThread1, lockCount : <span class="number">1</span></span><br><span class="line"><span class="number">07</span>-<span class="number">09</span> <span class="number">13</span>:<span class="number">08</span>:<span class="number">27.341</span> D/MReentrantLockBase: thread : lockThread1, lockCount : <span class="number">2</span></span><br><span class="line"><span class="number">07</span>-<span class="number">09</span> <span class="number">13</span>:<span class="number">08</span>:<span class="number">28.343</span> D/MReentrantLockBase: thread : lockThread2, lockCount : <span class="number">3</span></span><br><span class="line"><span class="number">07</span>-<span class="number">09</span> <span class="number">13</span>:<span class="number">08</span>:<span class="number">29.344</span> D/MReentrantLockBase: thread : lockThread2, lockCount : <span class="number">4</span></span><br><span class="line"><span class="number">07</span>-<span class="number">09</span> <span class="number">13</span>:<span class="number">08</span>:<span class="number">30.346</span> D/MReentrantLockBase: thread : lockThread2, lockCount : <span class="number">5</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>从执行结果来看，线程1调用代码块全部执行结束之后，线程2才开始执行，保持先后执行的顺序.</p>
+</blockquote>
+<hr>
+<ul>
+<li><p><strong>测试方法2：修饰整个方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MReentrantLockBase</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MReentrantLockBase"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> lockCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"thread : "</span> + Thread.currentThread().getName() + <span class="string">", lockCount : "</span> + (lockCount++));</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开始调用</span></span><br><span class="line">MReentrantLockBase lockBase =  <span class="keyword">new</span> MReentrantLockBase();</span><br><span class="line">Thread var0  = <span class="keyword">new</span> Thread(lockBase,<span class="string">"lockThread1"</span>);</span><br><span class="line">Thread var1  = <span class="keyword">new</span> Thread(lockBase,<span class="string">"lockThread2"</span>);</span><br><span class="line">var0.start();</span><br><span class="line">var1.start();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>执行结果2</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">07</span>-<span class="number">10</span> <span class="number">18</span>:<span class="number">44</span>:<span class="number">56.043</span>  D/MReentrantLockBase: thread : lockThread1, lockCount : <span class="number">0</span></span><br><span class="line"><span class="number">07</span>-<span class="number">10</span> <span class="number">18</span>:<span class="number">44</span>:<span class="number">57.043</span>  D/MReentrantLockBase: thread : lockThread1, lockCount : <span class="number">1</span></span><br><span class="line"><span class="number">07</span>-<span class="number">10</span> <span class="number">18</span>:<span class="number">44</span>:<span class="number">58.043</span>  D/MReentrantLockBase: thread : lockThread1, lockCount : <span class="number">2</span></span><br><span class="line"><span class="number">07</span>-<span class="number">10</span> <span class="number">18</span>:<span class="number">44</span>:<span class="number">59.044</span>  D/MReentrantLockBase: thread : lockThread2, lockCount : <span class="number">3</span></span><br><span class="line"><span class="number">07</span>-<span class="number">10</span> <span class="number">18</span>:<span class="number">45</span>:<span class="number">00.045</span>  D/MReentrantLockBase: thread : lockThread2, lockCount : <span class="number">4</span></span><br><span class="line"><span class="number">07</span>-<span class="number">10</span> <span class="number">18</span>:<span class="number">45</span>:<span class="number">01.045</span>  D/MReentrantLockBase: thread : lockThread2, lockCount : <span class="number">5</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>同样的执行代码，只是synchronized的位置不同，同步代码块和同步方法执行结果一致,锁住的是传入的对象.</p>
+</blockquote>
+<hr>
+<ul>
+<li><p><strong>测试方法3：修饰静态方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MSyncHronized</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">syncA</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">            Log.d(<span class="string">"msync"</span>, <span class="string">"syncA is run : "</span>+i);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开始调用</span></span><br><span class="line"><span class="keyword">final</span> MSyncHronized mHronized = <span class="keyword">new</span> MSyncHronized();</span><br><span class="line"><span class="keyword">final</span> MSyncHronized mHronized1 = <span class="keyword">new</span> MSyncHronized();</span><br><span class="line"></span><br><span class="line">Thread t1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mHronized.syncA();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">t1.start();</span><br><span class="line"></span><br><span class="line">Thread t2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mHronized1.syncA();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">t2.start();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>执行结果3</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">26.438</span> <span class="number">4027</span>-<span class="number">4068</span>/ D/msync: syncA is run : <span class="number">0</span></span><br><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">27.438</span> <span class="number">4027</span>-<span class="number">4068</span>/ D/msync: syncA is run : <span class="number">1</span></span><br><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">28.438</span> <span class="number">4027</span>-<span class="number">4068</span>/ D/msync: syncA is run : <span class="number">2</span></span><br><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">29.440</span> <span class="number">4027</span>-<span class="number">4069</span>/ D/msync: syncA is run : <span class="number">0</span></span><br><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">30.440</span> <span class="number">4027</span>-<span class="number">4069</span>/ D/msync: syncA is run : <span class="number">1</span></span><br><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">31.440</span> <span class="number">4027</span>-<span class="number">4069</span>/ D/msync: syncA is run : <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>使用static synchronized修饰方法，由于static的方法是属于类的，虽然mHronized、mHronized1是MSyncHronized的两个不同的对象，但是执行时t1、t2保持了线程同步，所以mHronized、mHronized1相当于持有的是同一把锁.</p>
+</blockquote>
+<hr>
+<ul>
+<li><p><strong>测试方法4：修饰类对象</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MSyncClazz</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">synchronized</span> (MSyncClazz.class) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">                Log.d(<span class="string">"msync"</span>, Thread.currentThread().getName()+<span class="string">"  MSyncClazz is run : "</span> + i);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开始调用</span></span><br><span class="line">MSyncClazz clazz = <span class="keyword">new</span> MSyncClazz();</span><br><span class="line">Thread var0 = <span class="keyword">new</span> Thread(clazz, <span class="string">"clazz1"</span>);</span><br><span class="line">Thread var1 = <span class="keyword">new</span> Thread(clazz, <span class="string">"clazz2"</span>);</span><br><span class="line"></span><br><span class="line">var0.start();</span><br><span class="line">var1.start();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>执行结果4</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">12</span>:<span class="number">18</span>:<span class="number">28.420</span> <span class="number">24057</span>-<span class="number">24091</span>/ D/msync: clazz1  MSyncClazz is run : <span class="number">0</span></span><br><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">12</span>:<span class="number">18</span>:<span class="number">29.421</span> <span class="number">24057</span>-<span class="number">24091</span>/ D/msync: clazz1  MSyncClazz is run : <span class="number">1</span></span><br><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">12</span>:<span class="number">18</span>:<span class="number">30.421</span> <span class="number">24057</span>-<span class="number">24091</span>/ D/msync: clazz1  MSyncClazz is run : <span class="number">2</span></span><br><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">12</span>:<span class="number">18</span>:<span class="number">31.422</span> <span class="number">24057</span>-<span class="number">24092</span>/ D/msync: clazz2  MSyncClazz is run : <span class="number">0</span></span><br><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">12</span>:<span class="number">18</span>:<span class="number">32.422</span> <span class="number">24057</span>-<span class="number">24092</span>/ D/msync: clazz2  MSyncClazz is run : <span class="number">1</span></span><br><span class="line"><span class="number">07</span>-<span class="number">11</span> <span class="number">12</span>:<span class="number">18</span>:<span class="number">33.422</span> <span class="number">24057</span>-<span class="number">24092</span>/ D/msync: clazz2  MSyncClazz is run : <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>使用synchronized修饰类用法是：synchronized (MSyncClazz.class){},并不是把synchronized放在类名上面，从打印日志可以看出，c1,c2同样是MSyncClazz的对象，然后var0、var1也保持了线程同步，这样也就相当于c1、c2也持有同一把锁，也就是synchronized作用于类，该类的所有对象都会同步</p>
+</blockquote>
+<p><strong>注意事项:</strong></p>
+<ol>
+<li>synchronized关键字不能继承如果服了的某个方法是synchronized修饰的，子类重写该方法并不是同步的，除非加上该关键字，或者显 &gt;     示的调用父类的方法，super.merhod();</li>
+<li>定义接口是不能使用synchronized的关键字;</li>
+<li>构造方法不能使用synchronized关键字，但可以使用synchronized代码块来进行同步.</li>
+</ol>
+<hr>
+<h4 id="4.2"> 4.2 ReentrantLock(可重入锁) </h4>
+
+<p><strong>1. 初步理解</strong></p>
+<ol>
+<li>ReentrantLock从源码来看，其实并没有做很多实际的东西，虽然实现了Lock接口，但是其内部有一个抽象的</li>
+<li>Sync类，调用ReentrantLock的lock()方法，最终内部实现也是sync.lock()，值得关注的是Sync也是继承自</li>
+<li>抽象类AbstractQueuedSynchronizer，再往上延伸至抽象类AbstractOwnableSynchronizer。</li>
+</ol>
+<p><strong>2. 关注点</strong></p>
+<ol>
+<li>接口调用 ： lock() 与 unLock() 一定要成对调用，否则容易造成死锁;</li>
+<li><p>Condition条件的获取 ： Condition c=lock.newCondition()，</p>
+<p>最终返回的AbstractQueuedSynchronizer$ConditionObject对象，Condition只是一个接口;</p>
+</li>
+<li>Condition接口signal()信号 和 await() 等待的配合使用;</li>
+</ol>
+<p><strong>3.1 源码浅析 : RentrantLock</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReentrantLock</span> <span class="keyword">implements</span> <span class="title">Lock</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">...</span><br><span class="line">    <span class="comment">//内部类</span></span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Sync</span> <span class="keyword">extends</span> <span class="title">AbstractQueuedSynchronizer</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//内部类-非公平的</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">NonfairSync</span> <span class="keyword">extends</span> <span class="title">Sync</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (compareAndSetState(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">                setExclusiveOwnerThread(Thread.currentThread());</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                acquire(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//内部类-公平的</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">FairSync</span> <span class="keyword">extends</span> <span class="title">Sync</span> </span>&#123;</span><br><span class="line">         <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            acquire(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//构造方法 </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ReentrantLock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        sync = <span class="keyword">new</span> NonfairSync();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        sync.lock();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        sync.release(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> Condition <span class="title">newCondition</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sync.newCondition();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3.2 源码浅析 : Condition</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractQueuedSynchronizer</span></span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AbstractOwnableSynchronizer</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConditionObject</span> <span class="keyword">implements</span> <span class="title">Condition</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="comment">//发送信号</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">signal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (!isHeldExclusively())</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalMonitorStateException();</span><br><span class="line">            Node first = firstWaiter;</span><br><span class="line">            <span class="keyword">if</span> (first != <span class="keyword">null</span>)</span><br><span class="line">                doSignal(first);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//等待</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">await</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (Thread.interrupted())</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> InterruptedException();</span><br><span class="line">            Node node = addConditionWaiter();</span><br><span class="line">            <span class="keyword">int</span> savedState = fullyRelease(node);</span><br><span class="line">            <span class="keyword">int</span> interruptMode = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (!isOnSyncQueue(node)) &#123;</span><br><span class="line">                LockSupport.park(<span class="keyword">this</span>);</span><br><span class="line">                <span class="keyword">if</span> ((interruptMode = checkInterruptWhileWaiting(node)) != <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (acquireQueued(node, savedState) &amp;&amp; interruptMode != THROW_IE)</span><br><span class="line">                interruptMode = REINTERRUPT;</span><br><span class="line">            <span class="keyword">if</span> (node.nextWaiter != <span class="keyword">null</span>) <span class="comment">// clean up if cancelled</span></span><br><span class="line">                unlinkCancelledWaiters();</span><br><span class="line">            <span class="keyword">if</span> (interruptMode != <span class="number">0</span>)</span><br><span class="line">                reportInterruptAfterWait(interruptMode);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4. 利弊的选择</strong></p>
+<ul>
+<li><p><strong>synchronized获得内部锁的局限性</strong></p>
+</li>
+<li><p>不能中断一个正在试图获得锁的线程;</p>
+</li>
+<li><p>试图获得锁的时不能像tryLock一样设置超时时间;</p>
+</li>
+<li><p>每个锁只有单一的条件，不能像condition一样设置多个.</p>
+</li>
+<li><p><strong>synchronized与reentrantLock的选择(简单建议)</strong></p>
+</li>
+<li><p>如果synchronized关键字适合程序，可以优先选择，这样会减少错误率和代码量;</p>
+</li>
+<li><p>如果特定的情形需要使用Lock&amp;Condition结合的情况则使用.</p>
+</li>
+</ul>
+<p><strong>5. ReentrantLock简单实例</strong></p>
+<ul>
+<li><p><strong>描述</strong></p>
+<blockquote>
+<p>两个线程，A先输出1-3，然后通知B输出4-6，然后通知A再输出7-9，最后结束.</p>
+</blockquote>
+</li>
+<li><p><strong>示例</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MReentrantLockBase</span> </span>&#123;</span><br><span class="line">  <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MReentrantLockBase"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 实现从1-9日志输出， 线程1从1-3输出， 然后通知线程2从4-6输出， 然后再通知线程1从7-9输出.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">int</span> out = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">reentLock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">final</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">      <span class="comment">// 条件1：输出1-3之后发出通知</span></span><br><span class="line">      <span class="keyword">final</span> Condition c1 = lock.newCondition();</span><br><span class="line">      <span class="comment">// 条件2：输出4-6之后发出通知</span></span><br><span class="line">      <span class="keyword">final</span> Condition c2 = lock.newCondition();</span><br><span class="line"></span><br><span class="line">      Thread t1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">              <span class="keyword">try</span> &#123;</span><br><span class="line">                  Log.d(TAG, <span class="string">"第一次    t1 进入准备输出-------"</span>);</span><br><span class="line">                  lock.lock();</span><br><span class="line">                  <span class="keyword">while</span> (out &lt; <span class="number">3</span>) &#123;</span><br><span class="line">                      out++;</span><br><span class="line">                      Log.d(TAG, <span class="string">"t1   输出数字   "</span> + out);</span><br><span class="line">                  &#125;</span><br><span class="line">                  <span class="comment">// 通知t2可以执行</span></span><br><span class="line">                  c1.signal();</span><br><span class="line">                  Log.d(TAG, <span class="string">"t1   c1.signal()"</span>);</span><br><span class="line">                  <span class="comment">// 等待t2执行结束的消息</span></span><br><span class="line">                  c2.await();</span><br><span class="line">                  Log.d(TAG, <span class="string">"t1   c2.await()"</span>);</span><br><span class="line">                  Log.d(TAG, <span class="string">"第二次   t1 准备输出-------"</span>);</span><br><span class="line">                  <span class="keyword">while</span> (out &lt; <span class="number">9</span>) &#123;</span><br><span class="line">                      out++;</span><br><span class="line">                      Log.d(TAG, <span class="string">"t1   输出数字   "</span> + out);</span><br><span class="line">                  &#125;</span><br><span class="line"></span><br><span class="line">                  Log.d(TAG, <span class="string">"t1输出结束-------"</span>);</span><br><span class="line">              &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                  e.printStackTrace();</span><br><span class="line">              &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                  lock.unlock();</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      Thread t2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line"></span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">              <span class="keyword">try</span> &#123;</span><br><span class="line">                  Log.d(TAG, <span class="string">"第一次    t2 进入准备输出-------"</span>);</span><br><span class="line">                  lock.lock();</span><br><span class="line">                  <span class="keyword">if</span> (out &lt; <span class="number">3</span>) &#123;</span><br><span class="line">                      <span class="comment">//等待t1结束的消息</span></span><br><span class="line">                      Log.d(TAG, <span class="string">"t2   c1.await()"</span>);</span><br><span class="line">                      c1.await();</span><br><span class="line">                  &#125;</span><br><span class="line"></span><br><span class="line">                  Log.d(TAG, <span class="string">"第一次    t2 等待结束-------"</span>);</span><br><span class="line">                  <span class="keyword">while</span> (out &lt; <span class="number">6</span>) &#123;</span><br><span class="line">                      out++;</span><br><span class="line">                      Log.d(TAG, <span class="string">"t2   输出数字   "</span> + out);</span><br><span class="line">                  &#125;</span><br><span class="line">                  c2.signal();</span><br><span class="line">              &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                  e.printStackTrace();</span><br><span class="line">              &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                  lock.unlock();</span><br><span class="line">              &#125;</span><br><span class="line"></span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      t1.start();</span><br><span class="line">      t2.start();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>结果</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.694</span> <span class="number">22567</span>-<span class="number">22582</span>/? D/MReentrantLockBase: 第一次    t1 进入准备输出-------</span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.694</span> <span class="number">22567</span>-<span class="number">22582</span>/? D/MReentrantLockBase: t1   输出数字   <span class="number">1</span></span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.694</span> <span class="number">22567</span>-<span class="number">22582</span>/? D/MReentrantLockBase: t1   输出数字   <span class="number">2</span></span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.694</span> <span class="number">22567</span>-<span class="number">22582</span>/? D/MReentrantLockBase: t1   输出数字   <span class="number">3</span></span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.694</span> <span class="number">22567</span>-<span class="number">22582</span>/? D/MReentrantLockBase: t1   c1.signal()</span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.695</span> <span class="number">22567</span>-<span class="number">22583</span>/? D/MReentrantLockBase: 第一次    t2 进入准备输出-------</span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.695</span> <span class="number">22567</span>-<span class="number">22583</span>/? D/MReentrantLockBase: 第一次    t2 等待结束-------</span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.695</span> <span class="number">22567</span>-<span class="number">22583</span>/? D/MReentrantLockBase: t2   输出数字   <span class="number">4</span></span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.695</span> <span class="number">22567</span>-<span class="number">22583</span>/? D/MReentrantLockBase: t2   输出数字   <span class="number">5</span></span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.695</span> <span class="number">22567</span>-<span class="number">22583</span>/? D/MReentrantLockBase: t2   输出数字   <span class="number">6</span></span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.695</span> <span class="number">22567</span>-<span class="number">22582</span>/? D/MReentrantLockBase: t1   c2.await()</span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.695</span> <span class="number">22567</span>-<span class="number">22582</span>/? D/MReentrantLockBase: 第二次   t1 准备输出-------</span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.695</span> <span class="number">22567</span>-<span class="number">22582</span>/? D/MReentrantLockBase: t1   输出数字   <span class="number">7</span></span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.696</span> <span class="number">22567</span>-<span class="number">22582</span>/? D/MReentrantLockBase: t1   输出数字   <span class="number">8</span></span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.696</span> <span class="number">22567</span>-<span class="number">22582</span>/? D/MReentrantLockBase: t1   输出数字   <span class="number">9</span></span><br><span class="line"><span class="number">07</span>-<span class="number">12</span> <span class="number">13</span>:<span class="number">22</span>:<span class="number">18.696</span> <span class="number">22567</span>-<span class="number">22582</span>/? D/MReentrantLockBase: t1输出结束-------</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>结果分析:</strong></p>
+</li>
+<li><p>两个线程t1、t2，当t1输出结束后，通过前面获取的condition.signal()来发送信号，告诉t2”我执行完了，该轮到你了”，这时候t2不再等待，开始进行输出，完成后像前面一样发送signal来通知t1”又到你输出了—“;</p>
+</li>
+</ul>
+<ol start="2">
+<li><p>在线程t2中有个条件判断使得t2一直是在等待状态，等待信号的到来，收到信号后便可执行任务，两个线程的信号发送和接收情况简单如下：</p>
+<p>(1) t1线程中 : t1执行任务结束后，c1.signal()发送信号告诉t2中的的c1.await()，你可以不用等待了，开始执行任务吧，然后t1中的c2.await()等待线程t2发送信号过来，t1第一阶段结束;</p>
+<p>(2) t2线程中 : t2中的c1.await()收到了信号，开始执行任务，执行完成后c2.signal()发送消息给t1</p>
+<p>线程，你也不用等待了，可以执行任务了,t2结束;</p>
+<p>(3) t1中的c2.await()收到了来自t2的消息，再次执行任务,完成后t1第二阶段结束.</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+	
+	<div>
+		
+			<div>
+
+    <div style="text-align:center;color: #ccc;font-size:14px;">^-^-------------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------------^-^</div>
+
+</div>
+
+		
+	</div>
+
+	<div>
+      
+        
+<div class="wd_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/02/13/基础知识点合集(1)/">基础知识点合集(1)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Xiao 的个人博客">Xiao</a></p>
+  <p><span>发布时间:</span>2019年02月13日 - 18:02</p>
+  <p><span>最后更新:</span>2019年10月30日 - 15:10</p>
+  <p><span>原始链接:</span><a href="/2019/02/13/基础知识点合集(1)/" title="基础知识点合集(1)">https://www.syncxiao.com/2019/02/13/基础知识点合集(1)/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.syncxiao.com/2019/02/13/基础知识点合集(1)/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+	</div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_wd_syncany.jpg" alt="Xiao wechat" style="width: 200px; max-width: 100%;">
+    <div>心若如止水，何必惹凡尘 (扫一扫关注公众号有惊喜哦！)</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>很少会有人来看我的！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wdwechatpay.jpg" alt="Xiao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/wdalipay.jpg" alt="Xiao 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/合集/" rel="tag"><i class="fa fa-tag"></i> 合集</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/14/又见花开/" rel="next" title="又见花开">
+                <i class="fa fa-chevron-left"></i> 又见花开
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/基础知识：volatile关键字/" rel="prev" title="基础知识：volatile关键字">
+                基础知识：volatile关键字 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="Xiao">
+            
+              <p class="site-author-name" itemprop="name">Xiao</p>
+              <p class="site-description motion-element" itemprop="description">遇，则安.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AmiGWF" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wudu1227@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/5fc52e9721dc" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-number">2.</span> <span class="nav-text">一.Properties</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2"><span class="nav-number">3.</span> <span class="nav-text">二.设计模式-代理模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3"><span class="nav-number">4.</span> <span class="nav-text"> 三.反射(Reflection) </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3.1"><span class="nav-number">4.1.</span> <span class="nav-text"> 3.1 关键类：Class类 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3.2"><span class="nav-number">4.2.</span> <span class="nav-text"> 3.2 反射的使用 </span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4"><span class="nav-number">5.</span> <span class="nav-text"> 四.锁机制 </span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4.1"><span class="nav-number">5.0.1.</span> <span class="nav-text"> 4.1 synchronized(同步) </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4.2"><span class="nav-number">5.0.2.</span> <span class="nav-text"> 4.2 ReentrantLock(可重入锁) </span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xiao</span>
+
+  <!--
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>  本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </div></footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gtcx0bO25hpWaJnMiy94pird-gzGzoHsz',
+        appKey: '3t6HjjXxEXQE6AOis4skK3Hh',
+        placeholder: '或许你说的，就是我想的。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

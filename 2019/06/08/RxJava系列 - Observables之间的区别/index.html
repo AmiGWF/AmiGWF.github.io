@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Observable,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 被观察者之间之间的区别   类型 描述     Observable&amp;lt;泛型&amp;gt; 能发送0个或n个onNext事件，最终以onComplete或onError终止事件。   Flowable&amp;lt;泛型&amp;gt; 能发送0个或n个onNext事件，最终以onComplete或onError事件终止，并且支持背压，可以控制数据源发送的速度。   Single&amp;lt;泛型&amp;gt; 只能发送">
+<meta name="keywords" content="Observable">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxJava系列 - Obervables之间的区别">
+<meta property="og:url" content="https://www.syncxiao.com/2019/06/08/RxJava系列 - Observables之间的区别/index.html">
+<meta property="og:site_name" content="SyncXiao">
+<meta property="og:description" content="1. 被观察者之间之间的区别   类型 描述     Observable&amp;lt;泛型&amp;gt; 能发送0个或n个onNext事件，最终以onComplete或onError终止事件。   Flowable&amp;lt;泛型&amp;gt; 能发送0个或n个onNext事件，最终以onComplete或onError事件终止，并且支持背压，可以控制数据源发送的速度。   Single&amp;lt;泛型&amp;gt; 只能发送">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2019/06/08/5cfbcd1fc505d32980.png">
+<meta property="og:image" content="https://i.loli.net/2019/06/08/5cfbcd68364ef96978.png">
+<meta property="og:image" content="https://i.loli.net/2019/06/08/5cfbcd1e4e42472009.png">
+<meta property="og:image" content="https://i.loli.net/2019/06/08/5cfbcd1eb85e074384.png">
+<meta property="og:image" content="https://i.loli.net/2019/06/08/5cfbcd1f72b5748052.png">
+<meta property="og:updated_time" content="2019-10-30T08:13:07.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxJava系列 - Obervables之间的区别">
+<meta name="twitter:description" content="1. 被观察者之间之间的区别   类型 描述     Observable&amp;lt;泛型&amp;gt; 能发送0个或n个onNext事件，最终以onComplete或onError终止事件。   Flowable&amp;lt;泛型&amp;gt; 能发送0个或n个onNext事件，最终以onComplete或onError事件终止，并且支持背压，可以控制数据源发送的速度。   Single&amp;lt;泛型&amp;gt; 只能发送">
+<meta name="twitter:image" content="https://i.loli.net/2019/06/08/5cfbcd1fc505d32980.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.syncxiao.com/2019/06/08/RxJava系列 - Observables之间的区别/">
+
+
+
+
+
+  <title>RxJava系列 - Obervables之间的区别 | SyncXiao</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SyncXiao</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">花非花 雾非雾 萝卜爱上小白兔</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.syncxiao.com/2019/06/08/RxJava系列 - Observables之间的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xiao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SyncXiao">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RxJava系列 - Obervables之间的区别</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-08T22:45:10+08:00">
+                2019-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/RxJava系列/" itemprop="url" rel="index">
+                    <span itemprop="name">RxJava系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/06/08/RxJava系列 - Observables之间的区别/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/08/RxJava系列 - Observables之间的区别/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.4k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-被观察者之间之间的区别"><a href="#1-被观察者之间之间的区别" class="headerlink" title="1. 被观察者之间之间的区别"></a>1. 被观察者之间之间的区别</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Observable&lt;泛型&gt;</td>
+<td style="text-align:left">能发送0个或n个onNext事件，最终以onComplete或onError终止事件。</td>
+</tr>
+<tr>
+<td style="text-align:center">Flowable&lt;泛型&gt;</td>
+<td style="text-align:left">能发送0个或n个onNext事件，最终以onComplete或onError事件终止，并且支持背压，可以控制数据源发送的速度。</td>
+</tr>
+<tr>
+<td style="text-align:center">Single&lt;泛型&gt;</td>
+<td style="text-align:left">只能发送单个onSuccess或onError事件同时终止事件。</td>
+</tr>
+<tr>
+<td style="text-align:center">Maybe&lt;泛型&gt;</td>
+<td style="text-align:left">能发送0个或1个数据，要么是onSuccess，要么是onError，同时终止事件，不会同时执行onComplete。</td>
+</tr>
+<tr>
+<td style="text-align:center">Completable</td>
+<td style="text-align:left">从来不发送数据，只处理onError或onComplete事件同时终止事件，不会同时执行onError和onComplete。</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<p><strong>1. Observable&lt;泛型&gt;</strong></p>
+<blockquote>
+<ol>
+<li>可以发送0或n个数据，只要发送了onComplete或onError事件，就会停止发送数据。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Observable.create(<span class="keyword">new</span> ObservableOnSubscribe&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ObservableEmitter&lt;String&gt; emitter)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        emitter.onNext(<span class="string">"A"</span>);</span><br><span class="line">        emitter.onNext(<span class="string">"B"</span>);</span><br><span class="line">        <span class="comment">//发送异常不会导致奔溃，下游会在onError中收到异常消息</span></span><br><span class="line">        emitter.onError(<span class="keyword">new</span> Throwable(<span class="string">"Error"</span>));</span><br><span class="line">        emitter.onComplete();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).subscribe(<span class="keyword">new</span> Observer&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Disposable d)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"rxObservable onNext ： "</span> + s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"rxObservable onError ： "</span> + e.toString());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"rxObservable onComplete ： "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<p><strong>2. Flowable&lt;泛型&gt;</strong></p>
+<blockquote>
+<ol>
+<li>可以发送0或n个数据，只要发送了onComplete或onError事件，就会停止发送数据。</li>
+<li>可以在观察者的onSubscribe方法中通过<code>Subscription.request(n)</code>来设置请求发送事件的数量。</li>
+<li>可以通过使用背压(BackpressureStrategy)来解决上游发送事件的速度和下游处理事件的速度不同导致的问题。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Flowable.create(<span class="keyword">new</span> FlowableOnSubscribe&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(FlowableEmitter&lt;String&gt; emitter)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        emitter.onNext(<span class="string">"A"</span>);</span><br><span class="line">        emitter.onNext(<span class="string">"B"</span>);</span><br><span class="line">        <span class="comment">//发送异常不会导致奔溃，下游会在onError中收到异常消息</span></span><br><span class="line">        emitter.onError(<span class="keyword">new</span> Throwable(<span class="string">"Error"</span>));</span><br><span class="line">        emitter.onComplete();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, BackpressureStrategy.BUFFER)</span><br><span class="line">        .subscribe(<span class="keyword">new</span> FlowableSubscriber&lt;String&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Subscription s)</span> </span>&#123;</span><br><span class="line">	            <span class="comment">//设置请求发送事件的数量</span></span><br><span class="line">                s.request(Long.MAX_VALUE);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"rxFlowable onNext ： "</span>+s);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable t)</span> </span>&#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"rxFlowable onError ： "</span>+t.toString());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"rxFlowable onComplete ： "</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<p><strong>3. Single&lt;泛型&gt;</strong></p>
+<blockquote>
+<ol>
+<li><p>只能发送通过onSuccess或onError发送单个事件，即使有多个事件，也只会发送第一个，并且发送之后订阅终止。</p>
+</li>
+<li><p>onSuccess和onError不能同时发送时，否则会出现如下异常，导致程序奔溃：<code>The exception could not be delivered to the consumer because it has already canceled/disposed the flow or the exception has nowhere to go to begin with.</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Single.create(<span class="keyword">new</span> SingleOnSubscribe&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(SingleEmitter&lt;String&gt; emitter)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	    <span class="comment">//下游之后收到第一个onSuccess发送的数据</span></span><br><span class="line">        emitter.onSuccess(<span class="string">"Success"</span>);</span><br><span class="line">        emitter.onSuccess(<span class="string">"Success2"</span>);</span><br><span class="line">        <span class="comment">//emitter.onError(new Throwable("Error"));</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).subscribe(<span class="keyword">new</span> SingleObserver&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Disposable d)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"rxSingle onSuccess ： "</span> + s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"rxSingle onError ： "</span> + e.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<p><strong>4. Maybe&lt;泛型&gt;</strong></p>
+<blockquote>
+<ol>
+<li><p>通过onSuccess发送多个事件时，下游只会收到第一个事件，后面的事件全部被抛弃，并且不会同时发送onComplete事件。</p>
+</li>
+<li><p>onSuccess和onError不能同时发送时，否则会出现如下异常，导致程序奔溃：<code>The exception could not be delivered to the consumer because it has already canceled/disposed the flow or the exception has nowhere to go to begin with.</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Maybe.create(<span class="keyword">new</span> MaybeOnSubscribe&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(MaybeEmitter&lt;String&gt; emitter)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        emitter.onSuccess(<span class="string">"Success"</span>);</span><br><span class="line">        emitter.onSuccess(<span class="string">"Success2"</span>);</span><br><span class="line">		<span class="comment">//emitter.onError(new Throwable("Error"));</span></span><br><span class="line">        emitter.onComplete();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).subscribe(<span class="keyword">new</span> MaybeObserver&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Disposable d)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"rxMaybe onSuccess ： "</span> + s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"rxMaybe onError ： "</span> + e.toString());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"rxMaybe onComplete ： "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<p><strong>5. Completable</strong></p>
+<blockquote>
+<ol>
+<li>只能处理onError或者onComplete发送的事件，并且不会同时发送，一个事件发送之后，订阅关系终止。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Completable.create(<span class="keyword">new</span> CompletableOnSubscribe() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(CompletableEmitter emitter)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        emitter.onError(<span class="keyword">new</span> Throwable(<span class="string">"Error"</span>));</span><br><span class="line">        emitter.onComplete();</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;).subscribe(<span class="keyword">new</span> CompletableObserver() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Disposable d)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"rxCompletable onComplete ： "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"rxCompletable onError ： "</span> + e.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="2-观察者之间的区别"><a href="#2-观察者之间的区别" class="headerlink" title="2. 观察者之间的区别"></a>2. 观察者之间的区别</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Observer&lt;泛型&gt;</td>
+<td style="text-align:left">onSubscribe(Disposable d)、onNext(T t)、onError(Throwable e)、onComplete()</td>
+</tr>
+<tr>
+<td style="text-align:center">FlowableSubscriber&lt;泛型&gt;</td>
+<td style="text-align:left">onSubscribe(Subscription s)、onNext(T t)、onError(Throwable e)、onComplete()，继承自Subscriber</td>
+</tr>
+<tr>
+<td style="text-align:center">SingleObserver&lt;泛型&gt;</td>
+<td style="text-align:left">onSubscribe(Disposable d)、onSuccess(T t)、onError(Throwable e)</td>
+</tr>
+<tr>
+<td style="text-align:center">MaybeObserver&lt;泛型&gt;</td>
+<td style="text-align:left">onSubscribe(Disposable d)、onSuccess(T t)、onError(Throwable e)、onComplete()</td>
+</tr>
+<tr>
+<td style="text-align:center">CompletableObserver</td>
+<td style="text-align:left">onSubscribe(Disposable d)、onError(Throwable e)、onComplete()</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-方法说明"><a href="#1-方法说明" class="headerlink" title="1. 方法说明"></a>1. 方法说明</h4><p><strong>1. onSubscribe(Disposable d)、 onSubscribe(Subscription s)</strong></p>
+<blockquote>
+<p>观察者和被观察者建立订阅关系时会最先调用该方法。</p>
+<p><strong>Disposable.dispose()：</strong>表示主动断开上下游的订阅关系。<br><strong>Disposable.isDisposed()：</strong>判断当前上下游之间的订阅关系是否已经断开。</p>
+<p><strong>Subscription .request(Long.MAX_VALUE)：</strong>设置观察者能处理事件的数量，如果设置为0，下游将收不到任何onNext事件，即使上游发送了很多。<br><strong>Subscription .cancel()：</strong>表示主动断开上下游的订阅关系。</p>
+</blockquote>
+<p><strong>2. onNext(T t)、onSuccess(T t)、onError(Throwable e)</strong></p>
+<blockquote>
+<p>处理上游对应onNext、onSuccess、onError事件发送的结果。</p>
+</blockquote>
+<hr>
+<h3 id="3-发射器Emitter之间的区别"><a href="#3-发射器Emitter之间的区别" class="headerlink" title="3. 发射器Emitter之间的区别"></a>3. 发射器Emitter之间的区别</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">继承</th>
+<th style="text-align:left">方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Emitter</td>
+<td style="text-align:center">父类</td>
+<td style="text-align:left">onNext(T t)、onError(Throwable e)、onComplete()</td>
+</tr>
+<tr>
+<td style="text-align:center">ObservableEmitter&lt;泛型&gt;</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">setDisposable(Disposable d)、setCancellable(Cancellable c)、isDisposed()、tryOnError(Throwable t)</td>
+</tr>
+<tr>
+<td style="text-align:center">FlowableEmitter&lt;泛型&gt;</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">setDisposable(Disposable d)、setCancellable(Cancellable c)、isCancelled()、tryOnError(Throwable t)、long requested()</td>
+</tr>
+<tr>
+<td style="text-align:center">SingleEmitter&lt;泛型&gt;</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">setDisposable(Disposable d)、setCancellable(Cancellable c)、isDisposed()、tryOnError(Throwable t)、 onSuccess(T t)、onError(Throwable t)</td>
+</tr>
+<tr>
+<td style="text-align:center">MaybeEmitter&lt;泛型&gt;</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">setDisposable(Disposable d)、setCancellable(Cancellable c)、isDisposed()、tryOnError(Throwable t)、 onSuccess(T t)、onError(Throwable t)、onComplete()</td>
+</tr>
+<tr>
+<td style="text-align:center">CompletableEmitter</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">setDisposable(Disposable d)、setCancellable(Cancellable c)、isDisposed()、tryOnError(Throwable t)、onError(Throwable t)、onComplete()</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-方法说明-1"><a href="#1-方法说明-1" class="headerlink" title="1. 方法说明"></a>1. 方法说明</h4><p><strong>1. Emitter的onNext(T t)、onError(Throwable e)、onComplete()</strong></p>
+<blockquote>
+<p>ObservableEmitter和FlowableEmitter都是继承自Emitter，通过以上方法进行数据的发送。</p>
+</blockquote>
+<p><strong>2. isDisposed()、isCancelled()</strong></p>
+<blockquote>
+<p>都是用于判断当前上下游之间是否已经取消订阅关系，isCancelle()是FlowableEmitter独有的。</p>
+</blockquote>
+<p><strong>3. FlowableEmitter 的 long requested()</strong></p>
+<blockquote>
+<p>用于获取下游设置的事件处理数量。</p>
+<p><strong>注意：</strong><br><strong>1. 如果异步订阅，即上下游不在同一个线程，上游emitter.requested()获取数量默认是128(RxJava内部设置的默认值就是128)，并不是下游Subscription.request(n)设置的数量。</strong></p>
+<p><strong>2. 如果是同步订阅，上游获取的emitter.requested()等于下游Subscription.request(n)设置的数量，并且上游每发送一个事件、下游接收到一个事件，emitter.requested()获取的数据都会同步更新。</strong></p>
+</blockquote>
+<hr>
+<h3 id="4-背压-BackpressureStrategy-策略之间的区别"><a href="#4-背压-BackpressureStrategy-策略之间的区别" class="headerlink" title="4. 背压(BackpressureStrategy)策略之间的区别"></a>4. 背压(BackpressureStrategy)策略之间的区别</h3><blockquote>
+<p><strong>背压是基于异步线程的。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">MISSING</td>
+<td style="text-align:left">相当于没有使用背压策略。当上游发送事件数量大于缓存区大小时(默认128)，将会提示异常并在下游onError事件中接收到异常提醒：io.reactivex.exceptions.MissingBackpressureException: Queue is full?!可以在后面继续使用类似于onBackpressureBuffer()、onBackpressureLatest()、onBackpressureDrop()的策略。</td>
+</tr>
+<tr>
+<td style="text-align:left">ERROR</td>
+<td style="text-align:left">当上游发送事件数量大于缓存区大小时(默认128)，将会抛出异常并在下游onError事件中接收到异常：io.reactivex.exceptions.MissingBackpressureException: create: could not emit value due to lack of requests</td>
+</tr>
+<tr>
+<td style="text-align:left">BUFFER</td>
+<td style="text-align:left">相当于将缓存区设置为无限大，不管上游发送多少数据都不会抛出异常，但是要注意可能会因为事件数量过多导致OOM</td>
+</tr>
+<tr>
+<td style="text-align:left">DROP</td>
+<td style="text-align:left">将超过默认缓存区(128)大小的事件直接抛弃，比如上游发送了160个事件，最终保存的只有1-128,129往后的都被抛弃了。</td>
+</tr>
+<tr>
+<td style="text-align:left">LATEST</td>
+<td style="text-align:left">将超过默认缓存区(128)大小的事件直接抛弃，但是会保存最后一个事件，比如上游发送了160个事件，最终保存的只有1-128 + 160,129-159都被抛弃了。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1. MISSING - - 相当于没有使用背压策略</strong></p>
+<blockquote>
+<p>比如：上游一起发送了160个事件，下游每次接收70个事件，当上游发送事件数量大于128时，直接抛出<code>io.reactivex.exceptions.MissingBackpressureException: Queue is full?!</code>异常，回调到下游的onError，下游将接收不到前面发送的其他数据。</p>
+<p><strong>输出结果：</strong><br>上游发送事件：0 – 159 共计160个事件，超出缓存区大小，抛出异常。<br><img src="https://i.loli.net/2019/06/08/5cfbcd1fc505d32980.png" alt="miss.png"></p>
+</blockquote>
+<p><strong>2. ERROR</strong></p>
+<blockquote>
+<p>比如：上游一起发送了160个事件，下游每次接收70个事件，当上游发送事件数量大于128时，直接抛出<code>io.reactivex.exceptions.MissingBackpressureException: create: could not emit value due to lack of requests</code>异常，回调到下游的onError，下游将接收不到前面发送的其他数据。</p>
+<p><strong>输出结果：</strong><br>上游发送事件：0 – 159 共计160个事件，超出缓存区大小，抛出异常。<br><img src="https://i.loli.net/2019/06/08/5cfbcd68364ef96978.png" alt="err.png"></p>
+</blockquote>
+<p><strong>3. BUFFER - -  onBackpressureBuffer()</strong></p>
+<blockquote>
+<p>比如：上游一起发送了160个事件，下游每次接收70个事件，到第三次接收时，160个事件全部都被下游接收完成。</p>
+<p><strong>输出结果：</strong><br>上游发送事件：0 – 159 共计160个事件，<br>第一次请求70个事件：输出0 – 69，<br>第二次请求70个事件：输出 70 – 139，<br>第二次请求70个事件：输出 140 – 159，onComplete结束订阅关系。<br><img src="https://i.loli.net/2019/06/08/5cfbcd1e4e42472009.png" alt="buffer.png"></p>
+</blockquote>
+<p><strong>4. DROP - - onBackpressureDrop()</strong></p>
+<blockquote>
+<p>比如：上游一起发送了160个事件，下游每次接收70个事件，会发现第二次接收之后总共只有128个事件，即使再次要求接收事件，也不会收到任何数据，这说明上游发送的160个事件中，超过了128的事件都被直接抛弃了。</p>
+<p><strong>输出结果：</strong><br>上游发送事件：0 – 159 共计160个事件，<br>第一次请求70个事件：输出0 – 69，<br>第二次请求70个事件：输出 70 – 127 ， onComplete结束订阅关系。<br><img src="https://i.loli.net/2019/06/08/5cfbcd1eb85e074384.png" alt="drop.png"></p>
+</blockquote>
+<p><strong>5. LATEST - - onBackpressureLatest()</strong></p>
+<blockquote>
+<p>比如：上游一起发送了160个事件，下游每次接收70个事件，会发现第二次接收之后总共只有129个事件，即使再次要求接收事件，也不会收到任何数据，这说明上游发送的160个事件中，第1-128和第160个事件被保留了，其余的129-159之间的事件都被抛弃了。</p>
+<p><strong>输出结果：</strong><br>上游发送事件：0 – 159 共计160个事件，<br>第一次请求70个事件：输出0 – 69，<br>第二次请求70个事件：输出 70 – 127、159共计129个事件， onComplete结束订阅关系。<br><img src="https://i.loli.net/2019/06/08/5cfbcd1f72b5748052.png" alt="latest.png"></p>
+</blockquote>
+<p><strong>6. 示例</strong></p>
+<blockquote>
+<p><strong>上游：</strong>一次性发送160个事件。 <strong>下游：</strong>每次请求70个事件。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Subscription subscription;</span><br><span class="line"><span class="comment">//点击事件，每次请求发送70个事件</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">requestRx</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    subscription.request(<span class="number">70</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">rxFlowable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Flowable.create(<span class="keyword">new</span> FlowableOnSubscribe&lt;Integer&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(FlowableEmitter&lt;Integer&gt; emitter)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	        <span class="comment">//上游一次性发送160个事件</span></span><br><span class="line">            <span class="keyword">while</span> (a &lt; <span class="number">160</span>) &#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"下游要求事件数量 : "</span> + emitter.requested());</span><br><span class="line">                Log.d(TAG, <span class="string">"上游发送数据 : "</span> + a);</span><br><span class="line">                emitter.onNext(a);</span><br><span class="line">                a++;</span><br><span class="line">            &#125;</span><br><span class="line">            emitter.onComplete();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//设置不同的背压处理方式</span></span><br><span class="line">    &#125;, BackpressureStrategy.DROP)</span><br><span class="line">            .subscribeOn(Schedulers.io())</span><br><span class="line">            .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">            .subscribe(<span class="keyword">new</span> FlowableSubscriber&lt;Integer&gt;() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Subscription s)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//外部定义Subscription，方便请求事件</span></span><br><span class="line">                    subscription = s;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(Integer s)</span> </span>&#123;</span><br><span class="line">                    Log.d(TAG, <span class="string">"下游rxFlowable onNext ： "</span> + s);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable t)</span> </span>&#123;</span><br><span class="line">                    a = <span class="number">0</span>;</span><br><span class="line">                    Log.d(TAG, <span class="string">"下游rxFlowable onError ： "</span> + t.toString());</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    a = <span class="number">0</span>;</span><br><span class="line">                    Log.d(TAG, <span class="string">"下游rxFlowable onComplete ： "</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+<h3 id="5-线程调度"><a href="#5-线程调度" class="headerlink" title="5. 线程调度"></a>5. 线程调度</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Schedulers.io()</td>
+<td style="text-align:left">用于IO密集型操作，比如网络请求、读取SD卡文件、查询数据库等，具有线程缓存机制，在此调度器接收到任务后，先检查线程池中是否有空闲的线程，如果有则复用，如果没有则创建新的线程，并加入到线程池，如果每次都没有空闲的线程，则会无上限的创建线程。</td>
+</tr>
+<tr>
+<td style="text-align:left">Schedulers.computation()</td>
+<td style="text-align:left">用于CPU密集型计算任务，即不会被IO等操作限制性能的耗时操作，比如xml、json文件解析、Bitmap图像压缩等，具有固定的线程池，大小为CPU的核数。不可用于IO操作，因为IO操作的等待时间会浪费CPU。</td>
+</tr>
+<tr>
+<td style="text-align:left">Schedulers.newThread()</td>
+<td style="text-align:left">在每执行一个任务时创建一个新的线程，不具有缓存机制。新创建一个线程比复用一个线程更耗时，虽然使用io()的地方都可以使用newThread()，但是newThread()的效率没有io()高。</td>
+</tr>
+<tr>
+<td style="text-align:left">Schedulers.single()</td>
+<td style="text-align:left">拥有一个线程单例，所有的任务都在这一个线程中执行，如果该线程中有任务在执行，其他任务将会按照FIFO的原则依次执行。</td>
+</tr>
+<tr>
+<td style="text-align:left">Schedulers.trampoline()</td>
+<td style="text-align:left">在当前线程立即执行任务，如果当前线程有正在执行的任务，则将其暂停，直到新插入的任务执行完毕，再继续执行之前未完成的任务。</td>
+</tr>
+<tr>
+<td style="text-align:left">AndroidSchedulers.mainThread()</td>
+<td style="text-align:left">在Android UI线程中执行任务，专为Android开发定制。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1. 线程切换</strong></p>
+<blockquote>
+<p><strong>subscribeOn(@NonNull Scheduler scheduler)</strong><br>事件产生：指定上游Observable发送数据、订阅时所处的线程，多次调用只有第一次生效。</p>
+<p><strong>observeOn(@NonNull Scheduler scheduler)</strong><br>事件消费：指定下游Observer接受数据时所处的线程，多次调用都会生效，最终以最后一次调用为主。</p>
+</blockquote>
+<p><strong>2. doOnSubscribe(Consumer&lt;? super Subscription&gt; onSubscribe)</strong></p>
+<blockquote>
+<p> doOnSubscribe()与onStart()类似，在subscribe()调用之后，事件发送之前被调用，但是doOnSubscribe()可以指定线程。</p>
+<p> 默认情况下，doOnSubscribe发生在subscribe()所在线程，而如果在 doOnSubscribe() 之后有 subscribeOn() 的话，它将执行在离它最近的 subscribeOn() 所指定的线程。</p>
+<p> 多个doOnSubscribe()&amp;subscribeOn()组合在一起同时调用时，越靠后的越先被调用，但是如果是doOnSubscribe()&amp;doOnSubscribe&amp;subscribeOn()的方式调用，则越靠近subscribeOn()的越先调用</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Observable.create(onSubscribe)</span><br><span class="line">    .subscribeOn(Schedulers.io())</span><br><span class="line">    .doOnSubscribe(<span class="keyword">new</span> Action0() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	        <span class="comment">//如果订阅开始时需要loading</span></span><br><span class="line">            progressBar.setVisibility(View.VISIBLE); <span class="comment">// 需要在主线程执行</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .subscribeOn(AndroidSchedulers.mainThread()) <span class="comment">// 指定主线程</span></span><br><span class="line">    .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">    .subscribe(subscriber);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+	
+	<div>
+		
+			<div>
+
+    <div style="text-align:center;color: #ccc;font-size:14px;">^-^-------------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------------^-^</div>
+
+</div>
+
+		
+	</div>
+
+	<div>
+      
+        
+<div class="wd_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/06/08/RxJava系列 - Observables之间的区别/">RxJava系列 - Obervables之间的区别</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Xiao 的个人博客">Xiao</a></p>
+  <p><span>发布时间:</span>2019年06月08日 - 22:06</p>
+  <p><span>最后更新:</span>2019年10月30日 - 16:10</p>
+  <p><span>原始链接:</span><a href="/2019/06/08/RxJava系列 - Observables之间的区别/" title="RxJava系列 - Obervables之间的区别">https://www.syncxiao.com/2019/06/08/RxJava系列 - Observables之间的区别/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.syncxiao.com/2019/06/08/RxJava系列 - Observables之间的区别/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+	</div>
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_wd_syncany.jpg" alt="Xiao wechat" style="width: 200px; max-width: 100%;">
+    <div>心若如止水，何必惹凡尘 (扫一扫关注公众号有惊喜哦！)</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>很少会有人来看我的！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wdwechatpay.jpg" alt="Xiao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/wdalipay.jpg" alt="Xiao 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Observable/" rel="tag"><i class="fa fa-tag"></i> Observable</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/20/RxJava系列 - 操作符说明/" rel="next" title="RxJava系列 - 操作符说明">
+                <i class="fa fa-chevron-left"></i> RxJava系列 - 操作符说明
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/30/Retrofit2.0系列 - 玩转注解(1)/" rel="prev" title="Retrofit2.0系列 - 玩转注解(1)">
+                Retrofit2.0系列 - 玩转注解(1) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="Xiao">
+            
+              <p class="site-author-name" itemprop="name">Xiao</p>
+              <p class="site-description motion-element" itemprop="description">遇，则安.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AmiGWF" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wudu1227@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/5fc52e9721dc" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-被观察者之间之间的区别"><span class="nav-number">1.</span> <span class="nav-text">1. 被观察者之间之间的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-观察者之间的区别"><span class="nav-number">2.</span> <span class="nav-text">2. 观察者之间的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-方法说明"><span class="nav-number">2.1.</span> <span class="nav-text">1. 方法说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-发射器Emitter之间的区别"><span class="nav-number">3.</span> <span class="nav-text">3. 发射器Emitter之间的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-方法说明-1"><span class="nav-number">3.1.</span> <span class="nav-text">1. 方法说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-背压-BackpressureStrategy-策略之间的区别"><span class="nav-number">4.</span> <span class="nav-text">4. 背压(BackpressureStrategy)策略之间的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-线程调度"><span class="nav-number">5.</span> <span class="nav-text">5. 线程调度</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xiao</span>
+
+  <!--
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>  本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </div></footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gtcx0bO25hpWaJnMiy94pird-gzGzoHsz',
+        appKey: '3t6HjjXxEXQE6AOis4skK3Hh',
+        placeholder: '或许你说的，就是我想的。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
