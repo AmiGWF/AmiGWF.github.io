@@ -1,5 +1,5 @@
 ---
-title: Retrofit2.0系列 - 简单封装请求(3)
+title: Retrofit2.0系列 - (3)简单封装请求
 copyright: true
 date: 2019-10-30 16:25:56
 tags:

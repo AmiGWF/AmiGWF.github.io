@@ -1,5 +1,5 @@
 ---
-title: RxJava系列 - 线程控制(2)
+title: RxJava系列 - (2)线程控制
 copyright: true
 date: 2019-10-30 16:32:00
 tags:

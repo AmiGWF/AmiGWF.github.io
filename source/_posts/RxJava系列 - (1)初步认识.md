@@ -1,5 +1,5 @@
 ---
-title: RxJava系列 - 初步认识(1)
+title: RxJava系列 - (1)初步认识
 copyright: true
 date: 2019-10-30 16:32:00
 tags:

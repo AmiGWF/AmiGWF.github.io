@@ -1,5 +1,5 @@
 ---
-title: RxJava系列 - zip操作符(4)
+title: RxJava系列 - (4)zip操作符
 copyright: true
 date: 2019-10-30 16:32:00
 tags:

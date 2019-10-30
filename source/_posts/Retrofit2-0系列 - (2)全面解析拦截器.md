@@ -1,5 +1,5 @@
 ---
-title: Retrofit2.0系列 - 全面解析拦截器(2)
+title: Retrofit2.0系列 - (2)全面解析拦截器
 copyright: true
 date: 2019-10-30 16:22:11
 tags:
