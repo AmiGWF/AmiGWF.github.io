@@ -1,11 +1,11 @@
 ---
-title: RxJava-Obervables之间的区别
+title: RxJava系列 - Obervables之间的区别
 copyright: true
 date: 2019-06-08 22:45:10
 tags:
 - Observable
 categories:
-- RxJava
+- RxJava系列
 ---
 
 ### 1. 被观察者之间之间的区别

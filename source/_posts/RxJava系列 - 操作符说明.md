@@ -1,11 +1,11 @@
 ---
-title: RxJava操作符说明
+title: RxJava系列 - 操作符说明
 copyright: true
 date: 2019-04-20 10:49:07
 tags:
 - 操作符
 categories:
-- RxJava
+- RxJava系列
 
 ---
 
