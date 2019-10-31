@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="Retrofit 2.0系列-玩转注解/)  Retrofit 2.0系列 - 全面解析拦截器(2)/) Retrofit2.0系列 - 简单封装请求(3)/)   1. 方法注解：Retrofit 2.0 支持以下方法注解：@GET、@POST、@PUT、@DELETE、@PATH、@HEAD、@OPTIONS、@HTTP，这和Http中涉及到的请求方法基本保持一致，但是多了一个：@HTTP的方">
+<meta name="description" content="Retrofit 2.0系列 - (1)玩转注解Retrofit 2.0系列 - (2)全面解析拦截器Retrofit2.0系列 - (3)简单封装请求  1. 方法注解：Retrofit 2.0 支持以下方法注解：@GET、@POST、@PUT、@DELETE、@PATH、@HEAD、@OPTIONS、@HTTP，这和Http中涉及到的请求方法基本保持一致，但是多了一个：@HTTP的方法注解。1">
 <meta name="keywords" content="注解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit2.0系列 - (1)玩转注解">
 <meta property="og:url" content="https://www.syncxiao.com/2019/10/30/Retrofit2.0系列 - (1)玩转注解/index.html">
 <meta property="og:site_name" content="SyncXiao">
-<meta property="og:description" content="Retrofit 2.0系列-玩转注解/)  Retrofit 2.0系列 - 全面解析拦截器(2)/) Retrofit2.0系列 - 简单封装请求(3)/)   1. 方法注解：Retrofit 2.0 支持以下方法注解：@GET、@POST、@PUT、@DELETE、@PATH、@HEAD、@OPTIONS、@HTTP，这和Http中涉及到的请求方法基本保持一致，但是多了一个：@HTTP的方">
+<meta property="og:description" content="Retrofit 2.0系列 - (1)玩转注解Retrofit 2.0系列 - (2)全面解析拦截器Retrofit2.0系列 - (3)简单封装请求  1. 方法注解：Retrofit 2.0 支持以下方法注解：@GET、@POST、@PUT、@DELETE、@PATH、@HEAD、@OPTIONS、@HTTP，这和Http中涉及到的请求方法基本保持一致，但是多了一个：@HTTP的方法注解。1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-30T09:47:16.474Z">
+<meta property="og:updated_time" content="2019-10-30T10:06:14.083Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit2.0系列 - (1)玩转注解">
-<meta name="twitter:description" content="Retrofit 2.0系列-玩转注解/)  Retrofit 2.0系列 - 全面解析拦截器(2)/) Retrofit2.0系列 - 简单封装请求(3)/)   1. 方法注解：Retrofit 2.0 支持以下方法注解：@GET、@POST、@PUT、@DELETE、@PATH、@HEAD、@OPTIONS、@HTTP，这和Http中涉及到的请求方法基本保持一致，但是多了一个：@HTTP的方">
+<meta name="twitter:description" content="Retrofit 2.0系列 - (1)玩转注解Retrofit 2.0系列 - (2)全面解析拦截器Retrofit2.0系列 - (3)简单封装请求  1. 方法注解：Retrofit 2.0 支持以下方法注解：@GET、@POST、@PUT、@DELETE、@PATH、@HEAD、@OPTIONS、@HTTP，这和Http中涉及到的请求方法基本保持一致，但是多了一个：@HTTP的方法注解。1">
 
 
 
@@ -437,11 +437,7 @@
       
 
       
-        <p><a href="https://www.syncxiao.com/2019/10/30/Retrofit2.0%E7%B3%BB%E5%88%97%20-%20%E7%8E%A9%E8%BD%AC%E6%B3%A8%E8%A7%A3(1">Retrofit 2.0系列-玩转注解</a>/)</p>
-<ul>
-<li><strong><a href="https://www.syncxiao.com/2019/10/30/Retrofit2-0%E7%B3%BB%E5%88%97%20-%20%E5%85%A8%E9%9D%A2%E8%A7%A3%E6%9E%90%E6%8B%A6%E6%88%AA%E5%99%A8(2">Retrofit 2.0系列 - 全面解析拦截器(2)</a>/)</strong></li>
-<li><strong><a href="https://www.syncxiao.com/2019/10/30/Retrofit2-0%E7%B3%BB%E5%88%97-%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85%E8%AF%B7%E6%B1%82(3">Retrofit2.0系列 - 简单封装请求(3)</a>/)</strong></li>
-</ul>
+        <p><a href="https://www.syncxiao.com/2019/10/30/Retrofit2.0%E7%B3%BB%E5%88%97%20-%20&#40;1&#41;%E7%8E%A9%E8%BD%AC%E6%B3%A8%E8%A7%A3/">Retrofit 2.0系列 - (1)玩转注解</a><br><a href="https://www.syncxiao.com/2019/10/30/Retrofit2-0%E7%B3%BB%E5%88%97%20-%20&#40;2&#41;%E5%85%A8%E9%9D%A2%E8%A7%A3%E6%9E%90%E6%8B%A6%E6%88%AA%E5%99%A8/">Retrofit 2.0系列 - (2)全面解析拦截器</a><br><a href="https://www.syncxiao.com/2019/10/30/Retrofit2-0%E7%B3%BB%E5%88%97-&#40;3&#41;%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85%E8%AF%B7%E6%B1%82/">Retrofit2.0系列 - (3)简单封装请求</a></p>
 <hr>
 <h4 id="1-方法注解："><a href="#1-方法注解：" class="headerlink" title="1. 方法注解："></a>1. 方法注解：</h4><p><strong>Retrofit 2.0 支持以下方法注解：<code>@GET、@POST、@PUT、@DELETE、@PATH、@HEAD、@OPTIONS、@HTTP</code>，这和Http中涉及到的请求方法基本保持一致，但是多了一个：<code>@HTTP</code>的方法注解。</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义HTTP请求方法</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@HTTP</span> ： 方法注解，可以替代HTTP中其他的方法</span></span><br><span class="line"><span class="comment">    * method ：指定请求的方法，如GET、POST</span></span><br><span class="line"><span class="comment">    * path ： 接口路径</span></span><br><span class="line"><span class="comment">    * hasBody ： 是否有请求体</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@HTTP</span>(method = <span class="string">"GET"</span>,path = <span class="string">"wdgame/auth/&#123;id&#125;"</span>,hasBody = <span class="keyword">false</span>)</span><br><span class="line">   <span class="function">Call&lt;ResponseBody&gt; <span class="title">requestIn17</span><span class="params">(@Path(<span class="string">"id"</span>)</span>String id)</span>;</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
@@ -511,7 +507,7 @@
   <p><span>本文标题:</span><a href="/2019/10/30/Retrofit2.0系列 - (1)玩转注解/">Retrofit2.0系列 - (1)玩转注解</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Xiao 的个人博客">Xiao</a></p>
   <p><span>发布时间:</span>2019年10月30日 - 15:10</p>
-  <p><span>最后更新:</span>2019年10月30日 - 17:10</p>
+  <p><span>最后更新:</span>2019年10月30日 - 18:10</p>
   <p><span>原始链接:</span><a href="/2019/10/30/Retrofit2.0系列 - (1)玩转注解/" title="Retrofit2.0系列 - (1)玩转注解">https://www.syncxiao.com/2019/10/30/Retrofit2.0系列 - (1)玩转注解/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.syncxiao.com/2019/10/30/Retrofit2.0系列 - (1)玩转注解/" aria-label="复制成功！"></i></span>
   </p>

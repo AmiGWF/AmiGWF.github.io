@@ -86,20 +86,20 @@
 
 
 
-<meta name="description" content="RxJava系列 - 初步认识(1) RxJava系列 - 线程控制(2) RxJava系列 - 变换符操作(3) RxJava系列 - zip操作符(4) RxJava系列 - Backpressure &amp;amp; Flowable(5)   前面我们获取到了当前的天气，然后这一次的请求就算结束了。但是当我们在实际操作中，往往有很多嵌套的操作，比如注册、登录逻辑，完成了上一次的请求紧接着根据返">
+<meta name="description" content="RxJava系列 - (1)初步认识RxJava系列 - (2)线程控制RxJava系列 - (3)变换符操作RxJava系列 - (4)zip操作符RxJava系列 - (5)Backpressure &amp;amp; FlowableRxJava系列 - (6)操作符说明RxJava系列 - (7)Observables之间的区别   前面我们获取到了当前的天气，然后这一次的请求就算结束了。但是当我">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RxJava系列 - (3)变换符操作">
 <meta property="og:url" content="https://www.syncxiao.com/2019/10/30/RxJava系列 - (3)变换符操作/index.html">
 <meta property="og:site_name" content="SyncXiao">
-<meta property="og:description" content="RxJava系列 - 初步认识(1) RxJava系列 - 线程控制(2) RxJava系列 - 变换符操作(3) RxJava系列 - zip操作符(4) RxJava系列 - Backpressure &amp;amp; Flowable(5)   前面我们获取到了当前的天气，然后这一次的请求就算结束了。但是当我们在实际操作中，往往有很多嵌套的操作，比如注册、登录逻辑，完成了上一次的请求紧接着根据返">
+<meta property="og:description" content="RxJava系列 - (1)初步认识RxJava系列 - (2)线程控制RxJava系列 - (3)变换符操作RxJava系列 - (4)zip操作符RxJava系列 - (5)Backpressure &amp;amp; FlowableRxJava系列 - (6)操作符说明RxJava系列 - (7)Observables之间的区别   前面我们获取到了当前的天气，然后这一次的请求就算结束了。但是当我">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/10/30/VkwHvUZsEX5mjJi.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/30/RZtuVk7rMwyi3GH.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/30/X71eYfZiJQSvwOE.png">
-<meta property="og:updated_time" content="2019-10-30T09:50:12.685Z">
+<meta property="og:updated_time" content="2019-10-31T00:41:38.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava系列 - (3)变换符操作">
-<meta name="twitter:description" content="RxJava系列 - 初步认识(1) RxJava系列 - 线程控制(2) RxJava系列 - 变换符操作(3) RxJava系列 - zip操作符(4) RxJava系列 - Backpressure &amp;amp; Flowable(5)   前面我们获取到了当前的天气，然后这一次的请求就算结束了。但是当我们在实际操作中，往往有很多嵌套的操作，比如注册、登录逻辑，完成了上一次的请求紧接着根据返">
+<meta name="twitter:description" content="RxJava系列 - (1)初步认识RxJava系列 - (2)线程控制RxJava系列 - (3)变换符操作RxJava系列 - (4)zip操作符RxJava系列 - (5)Backpressure &amp;amp; FlowableRxJava系列 - (6)操作符说明RxJava系列 - (7)Observables之间的区别   前面我们获取到了当前的天气，然后这一次的请求就算结束了。但是当我">
 <meta name="twitter:image" content="https://i.loli.net/2019/10/30/VkwHvUZsEX5mjJi.png">
 
 
@@ -440,13 +440,7 @@
       
 
       
-        <ul>
-<li><strong>RxJava系列 - 初步认识(1)</strong></li>
-<li><strong>RxJava系列 - 线程控制(2)</strong></li>
-<li><strong>RxJava系列 - 变换符操作(3)</strong></li>
-<li><strong>RxJava系列 - zip操作符(4)</strong></li>
-<li><strong>RxJava系列 - Backpressure &amp; Flowable(5)</strong></li>
-</ul>
+        <p><a href="https://www.syncxiao.com/2019/10/30/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;1&#41;%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86/">RxJava系列 - (1)初步认识</a><br><a href="https://www.syncxiao.com/2019/10/30/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;2&#41;%E7%BA%BF%E7%A8%8B%E6%8E%A7%E5%88%B6/">RxJava系列 - (2)线程控制</a><br><a href="https://www.syncxiao.com/2019/10/30/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;3&#41;%E5%8F%98%E6%8D%A2%E7%AC%A6%E6%93%8D%E4%BD%9C/">RxJava系列 - (3)变换符操作</a><br><a href="https://www.syncxiao.com/2019/10/30/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;4&#41;zip%E6%93%8D%E4%BD%9C%E7%AC%A6/">RxJava系列 - (4)zip操作符</a><br><a href="https://www.syncxiao.com/2019/10/30/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;5&#41;Backpressure%20&amp;%20Flowable/">RxJava系列 - (5)Backpressure &amp; Flowable</a><br><a href="https://www.syncxiao.com/2019/04/20/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;6&#41;%E6%93%8D%E4%BD%9C%E7%AC%A6%E8%AF%B4%E6%98%8E/">RxJava系列 - (6)操作符说明</a><br><a href="https://www.syncxiao.com/2019/06/08/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;7&#41;Observables%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/">RxJava系列 - (7)Observables之间的区别 </a></p>
 <hr>
 <p>前面我们获取到了当前的天气，然后这一次的请求就算结束了。<br>但是当我们在实际操作中，往往有很多嵌套的操作，比如注册、登录逻辑，完成了上一次的请求紧接着根据返回值做下一次请求。<br>这里我们还是以天气为例，请求获取第一个城市的天气之后，再去请求获取第二个城市的天气。</p>
 <h4 id="1-嵌套请求的一般写法"><a href="#1-嵌套请求的一般写法" class="headerlink" title="1.嵌套请求的一般写法"></a>1.嵌套请求的一般写法</h4><p>在一个请求成功的回调中调用另一个请求，从而达到嵌套请求的效果。<br>需求：在方法<strong><code>startRx8()</code></strong>中获取上海的天气，成功之后在<strong><code>onComplete()</code></strong>中调用<strong><code>startRx9()</code></strong>获取北京的天气。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法startRx8()与startRx9()写法完全一致，只是一个请求城市为上海，一个为北京</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startRx8</span><span class="params">(<span class="keyword">final</span> Context context)</span> </span>&#123;</span><br><span class="line">RetrofitManager</span><br><span class="line">    .getInstance()</span><br><span class="line">    .getApiServices(context).queryCityWeatherRX1(<span class="string">"上海"</span>)</span><br><span class="line">    .subscribeOn(Schedulers.newThread())<span class="comment">//io线程发起网络请求</span></span><br><span class="line">    .observeOn(AndroidSchedulers.mainThread())<span class="comment">//主线程处理结果</span></span><br><span class="line">    .subscribe(<span class="keyword">new</span> Observer&lt;WeatherBean&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Disposable d)</span> </span>&#123;&#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(WeatherBean weatherBean2)</span> </span>&#123;&#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;&#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            Log.i(TAG, <span class="string">"请求成功"</span>);</span><br><span class="line">            startRx9(context);</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -498,7 +492,7 @@
   <p><span>本文标题:</span><a href="/2019/10/30/RxJava系列 - (3)变换符操作/">RxJava系列 - (3)变换符操作</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Xiao 的个人博客">Xiao</a></p>
   <p><span>发布时间:</span>2019年10月30日 - 16:10</p>
-  <p><span>最后更新:</span>2019年10月30日 - 17:10</p>
+  <p><span>最后更新:</span>2019年10月31日 - 08:10</p>
   <p><span>原始链接:</span><a href="/2019/10/30/RxJava系列 - (3)变换符操作/" title="RxJava系列 - (3)变换符操作">https://www.syncxiao.com/2019/10/30/RxJava系列 - (3)变换符操作/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.syncxiao.com/2019/10/30/RxJava系列 - (3)变换符操作/" aria-label="复制成功！"></i></span>
   </p>
@@ -576,8 +570,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/" rel="next" title="RxJava系列 - (5)Backpressure & Flowable">
-                <i class="fa fa-chevron-left"></i> RxJava系列 - (5)Backpressure & Flowable
+              <a href="/2019/10/30/RxJava系列 - (4)zip操作符/" rel="next" title="RxJava系列 - (4)zip操作符">
+                <i class="fa fa-chevron-left"></i> RxJava系列 - (4)zip操作符
               </a>
             
           </div>
@@ -586,8 +580,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/10/30/RxJava系列 - (4)zip操作符/" rel="prev" title="RxJava系列 - (4)zip操作符">
-                RxJava系列 - (4)zip操作符 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/10/30/RxJava系列 - (2)线程控制/" rel="prev" title="RxJava系列 - (2)线程控制">
+                RxJava系列 - (2)线程控制 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

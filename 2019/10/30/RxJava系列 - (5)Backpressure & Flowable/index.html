@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="RxJava系列 - 初步认识(1) RxJava系列 - 线程控制(2) RxJava系列 - 变换符操作(3) RxJava系列 - zip操作符(4) RxJava系列 - Backpressure &amp;amp; Flowable(5)   1. BackpressureBackpressure叫做什么背压式，我还以为是按摩呢。先不说背压什么的，我们看下由zip操作符延伸来的问题  zip延">
+<meta name="description" content="RxJava系列 - (1)初步认识RxJava系列 - (2)线程控制RxJava系列 - (3)变换符操作RxJava系列 - (4)zip操作符RxJava系列 - (5)Backpressure &amp;amp; FlowableRxJava系列 - (6)操作符说明RxJava系列 - (7)Observables之间的区别   1. BackpressureBackpressure叫做什么背">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RxJava系列 - (5)Backpressure &amp; Flowable">
 <meta property="og:url" content="https://www.syncxiao.com/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/index.html">
 <meta property="og:site_name" content="SyncXiao">
-<meta property="og:description" content="RxJava系列 - 初步认识(1) RxJava系列 - 线程控制(2) RxJava系列 - 变换符操作(3) RxJava系列 - zip操作符(4) RxJava系列 - Backpressure &amp;amp; Flowable(5)   1. BackpressureBackpressure叫做什么背压式，我还以为是按摩呢。先不说背压什么的，我们看下由zip操作符延伸来的问题  zip延">
+<meta property="og:description" content="RxJava系列 - (1)初步认识RxJava系列 - (2)线程控制RxJava系列 - (3)变换符操作RxJava系列 - (4)zip操作符RxJava系列 - (5)Backpressure &amp;amp; FlowableRxJava系列 - (6)操作符说明RxJava系列 - (7)Observables之间的区别   1. BackpressureBackpressure叫做什么背">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/10/30/SuBF4zjgNWxq9HA.png">
-<meta property="og:updated_time" content="2019-10-30T09:50:47.554Z">
+<meta property="og:updated_time" content="2019-10-31T00:41:51.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava系列 - (5)Backpressure &amp; Flowable">
-<meta name="twitter:description" content="RxJava系列 - 初步认识(1) RxJava系列 - 线程控制(2) RxJava系列 - 变换符操作(3) RxJava系列 - zip操作符(4) RxJava系列 - Backpressure &amp;amp; Flowable(5)   1. BackpressureBackpressure叫做什么背压式，我还以为是按摩呢。先不说背压什么的，我们看下由zip操作符延伸来的问题  zip延">
+<meta name="twitter:description" content="RxJava系列 - (1)初步认识RxJava系列 - (2)线程控制RxJava系列 - (3)变换符操作RxJava系列 - (4)zip操作符RxJava系列 - (5)Backpressure &amp;amp; FlowableRxJava系列 - (6)操作符说明RxJava系列 - (7)Observables之间的区别   1. BackpressureBackpressure叫做什么背">
 <meta name="twitter:image" content="https://i.loli.net/2019/10/30/SuBF4zjgNWxq9HA.png">
 
 
@@ -438,13 +438,7 @@
       
 
       
-        <ul>
-<li><strong>RxJava系列 - 初步认识(1)</strong></li>
-<li><strong>RxJava系列 - 线程控制(2)</strong></li>
-<li><strong>RxJava系列 - 变换符操作(3)</strong></li>
-<li><strong>RxJava系列 - zip操作符(4)</strong></li>
-<li><strong>RxJava系列 - Backpressure &amp; Flowable(5)</strong></li>
-</ul>
+        <p><a href="https://www.syncxiao.com/2019/10/30/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;1&#41;%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86/">RxJava系列 - (1)初步认识</a><br><a href="https://www.syncxiao.com/2019/10/30/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;2&#41;%E7%BA%BF%E7%A8%8B%E6%8E%A7%E5%88%B6/">RxJava系列 - (2)线程控制</a><br><a href="https://www.syncxiao.com/2019/10/30/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;3&#41;%E5%8F%98%E6%8D%A2%E7%AC%A6%E6%93%8D%E4%BD%9C/">RxJava系列 - (3)变换符操作</a><br><a href="https://www.syncxiao.com/2019/10/30/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;4&#41;zip%E6%93%8D%E4%BD%9C%E7%AC%A6/">RxJava系列 - (4)zip操作符</a><br><a href="https://www.syncxiao.com/2019/10/30/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;5&#41;Backpressure%20&amp;%20Flowable/">RxJava系列 - (5)Backpressure &amp; Flowable</a><br><a href="https://www.syncxiao.com/2019/04/20/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;6&#41;%E6%93%8D%E4%BD%9C%E7%AC%A6%E8%AF%B4%E6%98%8E/">RxJava系列 - (6)操作符说明</a><br><a href="https://www.syncxiao.com/2019/06/08/RxJava%E7%B3%BB%E5%88%97%20-%20&#40;7&#41;Observables%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/">RxJava系列 - (7)Observables之间的区别 </a></p>
 <hr>
 <h3 id="1-Backpressure"><a href="#1-Backpressure" class="headerlink" title="1. Backpressure"></a>1. Backpressure</h3><p><strong>Backpressure</strong>叫做什么背压式，我还以为是按摩呢。<br>先不说背压什么的，我们看下由<strong>zip操作符</strong>延伸来的问题</p>
 <ul>
@@ -529,7 +523,7 @@
   <p><span>本文标题:</span><a href="/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/">RxJava系列 - (5)Backpressure & Flowable</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Xiao 的个人博客">Xiao</a></p>
   <p><span>发布时间:</span>2019年10月30日 - 16:10</p>
-  <p><span>最后更新:</span>2019年10月30日 - 17:10</p>
+  <p><span>最后更新:</span>2019年10月31日 - 08:10</p>
   <p><span>原始链接:</span><a href="/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/" title="RxJava系列 - (5)Backpressure & Flowable">https://www.syncxiao.com/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.syncxiao.com/2019/10/30/RxJava系列 - (5)Backpressure & Flowable/" aria-label="复制成功！"></i></span>
   </p>
@@ -617,8 +611,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/10/30/RxJava系列 - (3)变换符操作/" rel="prev" title="RxJava系列 - (3)变换符操作">
-                RxJava系列 - (3)变换符操作 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/10/30/RxJava系列 - (4)zip操作符/" rel="prev" title="RxJava系列 - (4)zip操作符">
+                RxJava系列 - (4)zip操作符 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
