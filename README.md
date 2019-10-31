@@ -7,6 +7,7 @@
 ***
 #### 1. hexo无效，按提示安装hexo
 ```
+//先安装nodejs，然后执行以下命令
 npm install hexo --save
 ```
 

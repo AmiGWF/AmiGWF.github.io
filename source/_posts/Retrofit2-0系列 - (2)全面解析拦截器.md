@@ -8,9 +8,10 @@ categories:
 	Retrofit2.0系列
 ---
 
-- **Retrofit 2.0系列 - 玩转注解(1)**
-- **Retrofit 2.0系列 - 全面解析拦截器(2)**
-- **Retrofit2.0系列 - 简单封装请求(3)**
+[Retrofit 2.0系列 - (1)玩转注解](https://www.syncxiao.com/2019/10/30/Retrofit2.0%E7%B3%BB%E5%88%97%20-%20&#40;1&#41;%E7%8E%A9%E8%BD%AC%E6%B3%A8%E8%A7%A3/)
+[Retrofit 2.0系列 - (2)全面解析拦截器](https://www.syncxiao.com/2019/10/30/Retrofit2-0%E7%B3%BB%E5%88%97%20-%20&#40;2&#41;%E5%85%A8%E9%9D%A2%E8%A7%A3%E6%9E%90%E6%8B%A6%E6%88%AA%E5%99%A8/)
+[Retrofit2.0系列 - (3)简单封装请求](https://www.syncxiao.com/2019/10/30/Retrofit2-0%E7%B3%BB%E5%88%97-&#40;3&#41;%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85%E8%AF%B7%E6%B1%82/)
+
 
 ---
 ### 1. 拦截器(Interceptors)定义
