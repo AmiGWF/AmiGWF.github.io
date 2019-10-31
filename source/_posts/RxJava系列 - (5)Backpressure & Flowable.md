@@ -40,6 +40,10 @@ categories:
 [给初学者的RxJava2.0教程(五)](http://www.jianshu.com/p/0f2d6c2387c9)
 
 ---
+
+<!-- more -->
+
+
 ### 2. 使用Observable解决上下游流速不均问题
 先看一个例子：无限循环发送事件，导致内存溢出。
 ```java
